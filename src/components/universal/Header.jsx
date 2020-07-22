@@ -13,8 +13,10 @@ import { Link } from 'react-router-dom';
 const Header = () => {
 	return (
 		<Navbar className='navbar'>
-			<i class='fas fa-truck'></i>
-			<h1 className='headerTitle'>Food Truck Trackr</h1>
+			<div className='navTitle'>
+				<i className='fas fa-truck'></i>
+				<h1 className='headerTitle'>Food Truck Trackr</h1>
+			</div>
 			<Link to='/' className='navItem'>
 				Home
 			</Link>

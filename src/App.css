@@ -2,7 +2,10 @@
 	text-align: center;
 	width: 50%;
 	margin: auto;
-	padding: 5%;
+	padding: 3%;
+	border: 1px rgba(0, 0, 0, 0.089) solid;
+	border-radius: 15px;
+	height: 95vh;
 }
 
 body {
@@ -12,6 +15,13 @@ body {
 .navbar {
 	top: 0;
 	position: fixed;
+	background-color: rgb(0, 106, 177);
+	color: rgb(223, 242, 255);
+}
+
+.navTitle {
+	display: flex;
+	width: 70%;
 }
 
 .App-logo {
@@ -49,6 +59,12 @@ body {
 	}
 }
 
+.home-header {
+	background-color: rgb(195, 231, 255);
+	padding: 5%;
+	border-radius: 15px;
+}
+
 .searchBarContainer {
 	justify-content: center;
 }
@@ -56,7 +72,7 @@ body {
 footer {
 	position: fixed;
 	bottom: 0;
-	width: 40%;
+	width: 45%;
 }
 
 .fas {
@@ -64,9 +80,27 @@ footer {
 }
 
 .headerTitle {
-	font-size: 5rem;
+	font-size: 4rem;
 }
 
 .navItem {
-	font-size: 3rem;
+	font-size: 2rem;
+	color: rgb(223, 242, 255);
+}
+.navItem:hover {
+	color: rgb(255, 255, 255);
+	text-shadow: 0.5px 0.5px cyan;
+	text-decoration: none;
+}
+
+.sign-up {
+	padding: 2%;
+}
+
+.sign-up-lines {
+	border: 2px black solid;
+}
+
+#btn:hover {
+	color: rgb(80, 185, 255);
 }

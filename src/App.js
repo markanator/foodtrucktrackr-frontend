@@ -5,7 +5,7 @@ import Home from './components/Home';
 import Footer from './components/universal/Footer';
 import Header from './components/universal/Header';
 
-function App() {
+const App = () => {
 	return (
 		<div>
 			<Header />
@@ -19,6 +19,6 @@ function App() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default App;
