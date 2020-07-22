@@ -5,6 +5,12 @@ import Home from './components/Home';
 import Footer from './components/universal/Footer';
 import Header from './components/universal/Header';
 
+import { createStore } from 'redux';
+import { reducer } from './reducers';
+
+//create store
+export const store = createStore(reducer);
+
 const App = () => {
 	return (
 		<div>
