@@ -4,7 +4,7 @@ import { foodReducer } from "./MenuItemReducer";
 
 const initialState = {
     user: {
-        id: 0,
+        id: 1,
     },
 };
 

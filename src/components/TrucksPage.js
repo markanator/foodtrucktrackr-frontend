@@ -1,24 +1,24 @@
 import React from "react";
 
 // redux hooks
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 // dummy data
 import { trucks } from "../DummyData";
 import { Card, CardBody, CardImg, CardSubtitle } from "reactstrap";
 
 const TrucksPage = () => {
-    const truckies = useSelector((state) => state.truckReducer);
-    console.log(truckies);
+    // const truckies = useSelector((state) => state.truckReducer);
+    // console.log(truckies);
 
     return (
         <div>
             {trucks.map((car) => {
                 return (
-                    <Card style={{ marginBottom: 20 }}>
+                    <Card style={{ marginBottom: 20 }} key={car.id}>
                         <CardImg
                             src={car.truckImage}
                             alt={car.truckImage}
-                            width='250'
+                            width="250"
                         />
                         <CardBody>
                             <b>{car.truckName}</b>

@@ -11,28 +11,28 @@ const Home = (props) => {
 
     return (
         <div>
-            <div className='home-header'>
+            <div className="home-header">
                 <h1>Find the Right Truck for You</h1>
-                <Form className='searchBarContainer' inline>
+                <Form className="searchBarContainer" inline>
                     <FormGroup>
                         <Input
-                            type='search'
-                            name='Search'
-                            id='Search'
-                            placeholder='City, State, USA'
+                            type="search"
+                            name="Search"
+                            id="Search"
+                            placeholder="City, State, USA"
                         />
                     </FormGroup>
                     <Button
-                        id='btn'
+                        id="btn"
                         style={{ backgroundColor: "rgb(0, 150, 250)" }}
-                        className='button'
+                        className="button"
                     >
                         Search
                     </Button>
                 </Form>
             </div>
 
-            <h2 className='sign-up'>
+            <h2 className="sign-up">
                 <hr />
                 Sign Up <hr />
             </h2>
@@ -40,7 +40,7 @@ const Home = (props) => {
             <Form onSubmit={handleSubmit}>
                 <FormGroup>
                     <Button
-                        id='btn'
+                        // id="btn"
                         style={{
                             borderRadius: "0px",
                             backgroundColor: "rgb(0, 120, 220)",
@@ -50,7 +50,7 @@ const Home = (props) => {
                         Diner
                     </Button>
                     <Button
-                        id='btn'
+                        // id="btn"
                         style={{
                             borderRadius: "0px",
                             backgroundColor: "rgb(0, 120, 220)",
@@ -61,29 +61,29 @@ const Home = (props) => {
                     </Button>
                 </FormGroup>
                 <FormGroup>
-                    <Label for='Email'>Email</Label>
-                    <Input type='email' name='Email' id='Email' />
+                    <Label for="Email">Email</Label>
+                    <Input type="email" name="Email" id="Email" />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='Username'>Username</Label>
+                    <Label for="Username">Username</Label>
                     <Input
-                        type='username'
-                        name='Username'
-                        id='Username'
-                        minLength='2'
+                        type="username"
+                        name="Username"
+                        id="Username"
+                        minLength="2"
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='Password'>Password</Label>
+                    <Label for="Password">Password</Label>
                     <Input
-                        type='password'
-                        name='Password'
-                        id='Password'
-                        minLength='5'
+                        type="password"
+                        name="Password"
+                        id="Password"
+                        minLength="5"
                     />
                 </FormGroup>
                 <Button
-                    id='btn'
+                    // id="btn"
                     style={{
                         backgroundColor: "rgb(0, 85, 200)",
                         width: "15%",

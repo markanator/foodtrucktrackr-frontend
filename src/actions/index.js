@@ -1,11 +1,33 @@
+import axios from "axios";
+// import {axiosWithAuth} from '../utils/AxiosWithAuth';
+
 // Trucks
 export const ADD_TRUCK = "ADD_TRUCK";
 export const UPDATE_TRUCK = "UPDATE_TRUCK";
 export const DELETE_TRUCK = "DELETE_TRUCK";
 
-export const add_truck = (truckInfo) => {
+const baseURL = "https://localhost:5000/api";
+
+export const add_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");
-    return { type: ADD_TRUCK, payload: truckInfo };
+    dispatch({ type: "POST_TRUCK_START" });
+    axios
+        .post(`${baseURL}/user/${truckInfo.userId}`, truckInfo)
+        .then((resp) => {
+            dispatch({
+                type: "TRUCK_SUCCESS",
+                payload: resp.data.results,
+            });
+            console.log("SUBMITTED!");
+        })
+        .catch((err) => {
+            dispatch({ type: "TRUCK_FAIL" });
+            console.error(err);
+        });
+};
+export const update_owner = (ownerID) => {
+    console.log("# userLogged in...");
+    return { type: "UPDATE_OWNER", payload: ownerID };
 };
 export const update_truck = (truckInfo) => {
     console.log("# Operator updating truck...");

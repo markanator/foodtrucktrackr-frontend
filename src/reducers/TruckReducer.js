@@ -1,7 +1,8 @@
-import { ADD_TRUCK, UPDATE_TRUCK, DELETE_TRUCK } from "../actions";
+// import { ADD_TRUCK, UPDATE_TRUCK, DELETE_TRUCK } from "../actions";
 
-export const initialTruckState = {
+const initialTruckState = {
     id: 0,
+    userId: 0,
     truckName: "Mexican Truckero",
     truckImage: "mextru.jpg",
     cuisineType: "mex",
@@ -14,12 +15,14 @@ export const initialTruckState = {
 export const truckReducer = (state = initialTruckState, action) => {
     // console.log(state, action);
     switch (action.type) {
-        case ADD_TRUCK:
+        case "POST_TRUCK_START":
             return state;
-        case UPDATE_TRUCK:
+        case "TRUCK_SUCCESS":
             return state;
-        case DELETE_TRUCK:
+        case "TRUCK_FAIL":
             return state;
+        case "UPDATE_OWNER":
+            return { ...state, userId: action.payload };
         default:
             return state;
     }
