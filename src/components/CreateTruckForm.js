@@ -11,7 +11,7 @@ export default function CreateTruckForm(props) {
     const ownerState = useSelector((state) => state.truckReducer);
 
     const [formData, setFormData] = useState({
-        userId: ownerState.id,
+        ownerID: ownerState.id,
         truckName: "",
         truckImage: "",
         cuisineType: "",
@@ -49,8 +49,8 @@ export default function CreateTruckForm(props) {
     };
 
     return (
-        <Container className="createTruckForm">
-            <Form onSubmit={submit}>
+        <Container className="form-container">
+            <Form className="createTruckForm" onSubmit={submit}>
                 <h1>Create a Truck</h1>
                 <FormGroup>
                     <Label for="truckName">Truck Name</Label>

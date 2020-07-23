@@ -6,11 +6,11 @@ export const ADD_TRUCK = "ADD_TRUCK";
 export const UPDATE_TRUCK = "UPDATE_TRUCK";
 export const DELETE_TRUCK = "DELETE_TRUCK";
 
-const baseURL = "https://localhost:5000/api";
+const baseURL = "https://lambdatracker.free.beeceptor.com";
 
 export const add_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");
-    dispatch({ type: "POST_TRUCK_START" });
+    dispatch({ type: "TRUCK_START" });
     axios
         .post(`${baseURL}/user/${truckInfo.userId}`, truckInfo)
         .then((resp) => {
@@ -19,6 +19,7 @@ export const add_truck = (truckInfo) => (dispatch) => {
                 payload: resp.data.results,
             });
             console.log("SUBMITTED!");
+            console.log(resp.data);
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -33,9 +34,22 @@ export const update_truck = (truckInfo) => {
     console.log("# Operator updating truck...");
     return { type: UPDATE_TRUCK, payload: truckInfo };
 };
-export const delete_truck = (truckId) => {
-    console.log("# Operator deleting truck...");
-    return { type: DELETE_TRUCK, payload: truckId };
+export const delete_truck = (truckId) => (dispatch) => {
+    console.log("# Operator deleting truck...", truckId);
+    dispatch({ type: "TRUCK_START" });
+    axios
+        .delete(`${baseURL}/truck/${truckId}`)
+        .then((resp) => {
+            dispatch({
+                type: "TRUCK_SUCCESS",
+            });
+            console.log("SUBMITTED!");
+            console.log(resp.data);
+        })
+        .catch((err) => {
+            dispatch({ type: "TRUCK_FAIL" });
+            console.error(err);
+        });
 };
 
 // Menu Items

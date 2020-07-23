@@ -10,17 +10,18 @@ const initialTruckState = {
     location: "mexico",
     truckDescription: "its mexican",
     menuItem: [],
+    isLoading: false,
 };
 
 export const truckReducer = (state = initialTruckState, action) => {
     // console.log(state, action);
     switch (action.type) {
-        case "POST_TRUCK_START":
-            return state;
+        case "TRUCK_START":
+            return { ...state, isLoading: true };
         case "TRUCK_SUCCESS":
-            return state;
+            return { ...state, isLoading: false };
         case "TRUCK_FAIL":
-            return state;
+            return { ...state, isLoading: false };
         case "UPDATE_OWNER":
             return { ...state, userId: action.payload };
         default:
