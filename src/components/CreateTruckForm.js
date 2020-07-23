@@ -10,7 +10,7 @@ export default function CreateTruckForm(props){
         location: "",
         description: "",
     });
-    const [cuisineTypes, setCuisineTypes] = useState([ 
+    const cuisineTypes = [ 
         "American",
         "Mexican",
         "Greek",
@@ -23,7 +23,7 @@ export default function CreateTruckForm(props){
         "Italian",
         "Filipino",
         "Kosher"
-    ]);
+    ];
 
     const onInputChange = e =>{
         setFormData({
