@@ -4,6 +4,12 @@ import { Route, Switch } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./components/Home";
 
+import { createStore } from 'redux';
+import { reducer } from './reducers';
+
+//create store
+export const store = createStore(reducer);
+
 const App = () => {
     return (
         <Layout>
