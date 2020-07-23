@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col, Card} from "reactstrap";
+import {Row, Col} from "reactstrap";
 
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
@@ -8,7 +8,7 @@ export default function TruckDeatails(props){
     return (
         <div className="text-left truck-details-page">
             <div className="position-relative">
-                <img className="img-fluid" src="https://www.tasteofhome.com/wp-content/uploads/2019/09/cousins-maine-lobster-food-truck_1378623194-2.jpg"/>
+                <img alt="food truck" className="img-fluid" src="https://www.tasteofhome.com/wp-content/uploads/2019/09/cousins-maine-lobster-food-truck_1378623194-2.jpg"/>
                 <i style={{"color": "hotpink", "fontSize": "2rem", "bottom": "5%", "right": "5%"}} className="far fa-heart position-absolute"></i>
             </div>
             <div className="pt-3 stars float-right">
