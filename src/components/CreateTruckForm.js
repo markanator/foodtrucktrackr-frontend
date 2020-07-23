@@ -79,7 +79,7 @@ export default function CreateTruckForm(props) {
                         </option>
                         {cuisineTypes.map((cuisineType) => {
                             return (
-                                <option value={cuisineType}>
+                                <option value={cuisineType} key={cuisineType}>
                                     {cuisineType}
                                 </option>
                             );

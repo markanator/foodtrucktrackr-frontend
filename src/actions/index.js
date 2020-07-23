@@ -25,11 +25,11 @@ export const add_menu_item = (menuItem) => {
     console.log("# Operator adding menuItem to Truck...");
     return { type: ADD_MENU_ITEM, payload: menuItem };
 };
-export const add_menu_item = (menuItem) => {
+export const update_menu_item = (menuItem) => {
     console.log("# Operator updating menuItem to Truck...");
     return { type: UPDATE_MENU_ITEM, payload: menuItem };
 };
-export const add_menu_item = (menuItemID) => {
+export const delete_menu_item = (menuItemID) => {
     console.log("# Operator deleting menuItem to Truck...");
     return { type: DELETE_MENU_ITEM, payload: menuItemID };
 };
