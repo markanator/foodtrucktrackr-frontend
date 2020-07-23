@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
@@ -6,17 +6,18 @@ import Footer from './components/universal/Footer';
 import Header from './components/universal/Header';
 
 const App = () => {
+	const [users, setUsers] = useState([]);
 	return (
 		<div>
 			<Header />
 			<div className='App'>
 				<Switch>
 					<Route exact path='/'>
-						<Home />
+						<Home users={users} setUsers={setUsers} />
 					</Route>
 				</Switch>
-				<Footer />
 			</div>
+			<Footer />
 		</div>
 	);
 };

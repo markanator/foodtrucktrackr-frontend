@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Button,
 	Form,
@@ -9,13 +9,40 @@ import {
 	CustomInput,
 	FormFeedback,
 } from 'reactstrap';
+import axios from 'axios';
 
-const Home = (props) => {
+const Home = ({ users, setUsers }) => {
+	const defaultState = { Email: '', Username: '', Password: '' };
+
+	const [formState, setFormState] = useState({ ...defaultState });
 	//form submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		e.persist();
-		console.log(e);
+		const user = {
+			Email: formState.Email,
+			Username: formState.Username,
+			Password: formState.Password,
+		};
+		newUser(user);
+		console.log(user);
+	};
+	//data storing
+	const handleChange = (e) => {
+		const value = e.target.value;
+		setFormState({
+			...formState,
+			[e.target.name]: value,
+		});
+	};
+	//user creation
+	const newUser = (user) => {
+		axios
+			.post('https://reqres.in/api/users', user)
+			.then((res) => {
+				setUsers([...users, res.data]);
+				console.log([...users, res.data]);
+			})
+			.catch((err) => console.log(`Error: `, err));
 	};
 
 	return (
@@ -31,11 +58,7 @@ const Home = (props) => {
 							placeholder='City, State, USA'
 						/>
 					</FormGroup>
-					<Button
-						id='btn'
-						style={{ backgroundColor: 'rgb(0, 150, 250)' }}
-						className='button'
-					>
+					<Button id='btn' style={{ backgroundColor: 'rgb(0, 150, 250)' }}>
 						Search
 					</Button>
 				</Form>
@@ -71,15 +94,27 @@ const Home = (props) => {
 				</FormGroup>
 				<FormGroup>
 					<Label for='Email'>Email</Label>
-					<Input type='email' name='Email' id='Email' />
+					<Input type='email' name='Email' id='Email' onChange={handleChange} />
 				</FormGroup>
 				<FormGroup>
 					<Label for='Username'>Username</Label>
-					<Input type='username' name='Username' id='Username' minLength='2' />
+					<Input
+						type='username'
+						name='Username'
+						id='Username'
+						minLength='2'
+						onChange={handleChange}
+					/>
 				</FormGroup>
 				<FormGroup>
 					<Label for='Password'>Password</Label>
-					<Input type='password' name='Password' id='Password' minLength='5' />
+					<Input
+						type='password'
+						name='Password'
+						id='Password'
+						minLength='5'
+						onChange={handleChange}
+					/>
 				</FormGroup>
 				<Button
 					id='btn'
