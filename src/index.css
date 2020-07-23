@@ -57,8 +57,9 @@ footer {
     color: rgb(80, 185, 255);
 }
 .navbar {
-    top: 0;
-    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
     background-color: rgb(0, 106, 177);
     color: rgb(223, 242, 255);
 }
