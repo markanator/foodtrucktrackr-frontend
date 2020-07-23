@@ -15,7 +15,7 @@ import App from "./App";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// helpful debugger
+// helpful redux async debugger
 const logger = () => (next) => (action) => {
     console.log("Dispatching: ", action);
     next(action);

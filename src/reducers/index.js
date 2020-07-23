@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { truckReducer } from "./TruckReducer";
-import { foodReducer } from "./MenuItemReducer";
+import { menuItemReducer } from "./MenuItemReducer";
 
 const initialState = {
     user: {
@@ -18,5 +18,5 @@ export const usersReducer = (state = initialState, action) => {
 export const rootReducer = combineReducers({
     usersReducer,
     truckReducer,
-    foodReducer,
+    menuItemReducer,
 });

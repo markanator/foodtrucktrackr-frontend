@@ -8,7 +8,7 @@ export const initialFoodState = {
     price: 1000,
 };
 
-export const foodReducer = (state = initialFoodState, action) => {
+export const menuItemReducer = (state = initialFoodState, action) => {
     // console.log(state, action);
     switch (action.type) {
         case ADD_MENU_ITEM:
