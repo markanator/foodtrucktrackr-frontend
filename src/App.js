@@ -1,9 +1,8 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import './App.css';
-import Home from './components/Home';
-import Footer from './components/universal/Footer';
-import Header from './components/universal/Header';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+
+import Layout from "./Layout";
+import Home from "./components/Home";
 
 import { createStore } from 'redux';
 import { reducer } from './reducers';
@@ -12,19 +11,17 @@ import { reducer } from './reducers';
 export const store = createStore(reducer);
 
 const App = () => {
-	return (
-		<div>
-			<Header />
-			<div className='App'>
-				<Switch>
-					<Route exact path='/'>
-						<Home />
-					</Route>
-				</Switch>
-				<Footer />
-			</div>
-		</div>
-	);
+    return (
+        <Layout>
+            <div className='App'>
+                <Switch>
+                    <Route exact path='/'>
+                        <Home />
+                    </Route>
+                </Switch>
+            </div>
+        </Layout>
+    );
 };
 
 export default App;
