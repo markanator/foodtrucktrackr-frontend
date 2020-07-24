@@ -1,12 +1,57 @@
-import React from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
+import axios from "axios";
 
-const Home = (props) => {
+const Home = ({ users, setUsers }) => {
+    const defaultState = {
+        cSelected: "",
+        Email: "",
+        Username: "",
+        Password: "",
+    };
+    const [formState, setFormState] = useState({ ...defaultState });
     //form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        // e.persist();
-        console.log(e);
+        const user = {
+            cSelected: formState.cSelected,
+            Email: formState.Email,
+            Username: formState.Username,
+            Password: formState.Password,
+        };
+        formState.Email === "" ||
+        formState.Username === "" ||
+        formState.Password === ""
+            ? alert("You cannot submit an empty form!")
+            : newUser(user);
+
+        console.log(user);
+    };
+
+    //data storing
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setFormState({
+            ...formState,
+            [e.target.name]: value,
+        });
+    };
+    //diner/operator button management
+    const handleButtonClick = (e) => {
+        e.preventDefault();
+        setFormState({ ...formState, cSelected: e.target.id });
+    };
+
+    //user creation
+    const newUser = (user) => {
+        axios
+            .post("https://reqres.in/api/users", user)
+            .then((res) => {
+                setUsers([...users, res.data]);
+                console.log([...users, res.data]);
+                setFormState(defaultState);
+            })
+            .catch((err) => console.log(`Error: `, err));
     };
 
     return (
@@ -25,7 +70,6 @@ const Home = (props) => {
                     <Button
                         id="btn"
                         style={{ backgroundColor: "rgb(0, 150, 250)" }}
-                        className="button"
                     >
                         Search
                     </Button>
@@ -37,64 +81,69 @@ const Home = (props) => {
                 Sign Up <hr />
             </h2>
 
-            <div className="form-container">
-                <Form onSubmit={handleSubmit} className="signup-form">
-                    <FormGroup>
-                        <Button
-                            // id="btn"
-                            style={{
-                                borderRadius: "0px",
-                                backgroundColor: "rgb(0, 120, 220)",
-                                border: "none",
-                            }}
-                        >
-                            Diner
-                        </Button>
-                        <Button
-                            // id="btn"
-                            style={{
-                                borderRadius: "0px",
-                                backgroundColor: "rgb(0, 120, 220)",
-                                border: "none",
-                            }}
-                        >
-                            Operator
-                        </Button>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Email">Email</Label>
-                        <Input type="email" name="Email" id="Email" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Username">Username</Label>
-                        <Input
-                            type="username"
-                            name="Username"
-                            id="Username"
-                            minLength="2"
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Password">Password</Label>
-                        <Input
-                            type="password"
-                            name="Password"
-                            id="Password"
-                            minLength="5"
-                        />
-                    </FormGroup>
+            <Form onSubmit={handleSubmit}>
+                <ButtonGroup style={{ marginBottom: "2%" }}>
                     <Button
-                        // id="btn"
-                        style={{
-                            backgroundColor: "rgb(0, 85, 200)",
-                            width: "15%",
-                            fontSize: "1.2rem",
-                        }}
+                        color="primary"
+                        id="Diner"
+                        onClick={handleButtonClick}
+                        active={formState.cSelected === "Diner"}
+                    >
+                        Diner
+                    </Button>
+                    <Button
+                        color="primary"
+                        id="Operator"
+                        onClick={handleButtonClick}
+                        active={formState.cSelected === "Operator"}
                     >
                         Submit
                     </Button>
-                </Form>
-            </div>
+                </ButtonGroup>
+                <FormGroup>
+                    <Label for="Email">Email</Label>
+                    <Input
+                        type="email"
+                        name="Email"
+                        id="Email"
+                        onChange={handleChange}
+                        value={formState.Email}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Username">Username</Label>
+                    <Input
+                        type="username"
+                        name="Username"
+                        id="Username"
+                        value={formState.Username}
+                        minLength="2"
+                        onChange={handleChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Password">Password</Label>
+                    <Input
+                        type="password"
+                        name="Password"
+                        id="Password"
+                        value={formState.Password}
+                        minLength="5"
+                        onChange={handleChange}
+                    />
+                </FormGroup>
+                <Button
+                    id="btn"
+                    type="submit"
+                    style={{
+                        backgroundColor: "rgb(0, 85, 200)",
+                        width: "15%",
+                        fontSize: "1.2rem",
+                    }}
+                >
+                    Submit
+                </Button>
+            </Form>
         </div>
     );
 };
