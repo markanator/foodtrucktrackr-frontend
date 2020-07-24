@@ -6,11 +6,12 @@ import Home from "./components/Home";
 import CreateTruckForm from "./components/CreateTruckForm";
 import TruckDetails from "./components/truck_details/TruckDetails";
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { reducer } from './reducers';
 
 //create store
-export const store = createStore(reducer);
+export const store = createStore(reducer, applyMiddleware(thunk));
 
 const App = () => {
     return (
