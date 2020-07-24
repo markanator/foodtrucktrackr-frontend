@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 // import {axiosWithAuth} from '../utils/AxiosWithAuth';
 
 // Trucks
@@ -6,13 +7,14 @@ export const ADD_TRUCK = "ADD_TRUCK";
 export const UPDATE_TRUCK = "UPDATE_TRUCK";
 export const DELETE_TRUCK = "DELETE_TRUCK";
 
-const baseURL = "https://lambdatracker.free.beeceptor.com";
+const baseURL = "https://lambdatracker.free.beeceptor.com/api";
 
 export const add_truck = (truckInfo) => (dispatch) => {
+    const { push } = useHistory();
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
-        .post(`${baseURL}/user/${truckInfo.userId}`, truckInfo)
+        .post(`${baseURL}/trucks`, truckInfo)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
@@ -20,6 +22,7 @@ export const add_truck = (truckInfo) => (dispatch) => {
             });
             console.log("SUBMITTED!");
             console.log(resp.data);
+            push("/");
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
