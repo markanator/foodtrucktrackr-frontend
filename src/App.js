@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./components/Home";
 import CreateTruckForm from "./components/CreateTruckForm";
+import TruckDetails from "./components/truck_details/TruckDetails";
 
 import { createStore } from 'redux';
 import { reducer } from './reducers';
@@ -21,6 +22,9 @@ const App = () => {
                     </Route>
                     <Route path="/add-truck">
                         <CreateTruckForm/>
+                    </Route>
+                    <Route path="/trucks/:id">
+                        <TruckDetails/>
                     </Route>
                 </Switch>
             </div>
