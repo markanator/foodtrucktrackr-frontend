@@ -1,34 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-
-import Layout from "./Layout";
+import "./App.css";
 import Home from "./components/Home";
-import CreateTruckForm from "./components/CreateTruckForm";
-import TruckDetails from "./components/truck_details/TruckDetails";
-
-import { createStore } from 'redux';
-import { reducer } from './reducers';
-
-//create store
-export const store = createStore(reducer);
+import Footer from "./components/universal/Footer";
+import Header from "./components/universal/Header";
 
 const App = () => {
+    const [users, setUsers] = useState([]);
     return (
-        <Layout>
-            <div className='App'>
+        <div>
+            <Header />
+            <div className="App">
                 <Switch>
-                    <Route exact path='/'>
-                        <Home />
+                    <Route exact path="/">
+                        <Home users={users} setUsers={setUsers} />
                     </Route>
-                    <Route path="/add-truck">
-                        <CreateTruckForm/>
-                    </Route>
-                    <Route path="/trucks/:id">
-                        <TruckDetails/>
-                    </Route>
+                    <Route path="/login"></Route>
                 </Switch>
             </div>
-        </Layout>
+            <Footer />
+        </div>
     );
 };
 
