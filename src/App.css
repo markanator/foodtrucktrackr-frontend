@@ -5,7 +5,6 @@
 	padding: 3%;
 	border: 1px rgba(0, 0, 0, 0.089) solid;
 	border-radius: 15px;
-	height: 90vh;
 }
 
 .navbar {
@@ -85,4 +84,19 @@ footer {
 
 #btn:hover {
 	color: rgb(80, 185, 255);
+}
+
+.truckPictures {
+	border-radius: 200px;
+	margin-bottom: 5%;
+}
+
+.truckListCardContainer {
+	margin-top: 10%;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.truckListCardContainer > * {
+	flex: 1;
 }
