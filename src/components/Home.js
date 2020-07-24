@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
-import {
-	Button,
-	Form,
-	FormGroup,
-	Label,
-	Input,
-	FormText,
-	CustomInput,
-	FormFeedback,
-} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, ButtonGroup } from 'reactstrap';
 import axios from 'axios';
 
 const Home = ({ users, setUsers }) => {
-	const defaultState = { Email: '', Username: '', Password: '' };
-
+	const defaultState = {
+		cSelected: '',
+		Email: '',
+		Username: '',
+		Password: '',
+	};
 	const [formState, setFormState] = useState({ ...defaultState });
 	//form submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const user = {
+			cSelected: formState.cSelected,
 			Email: formState.Email,
 			Username: formState.Username,
 			Password: formState.Password,
 		};
-		newUser(user);
+		formState.Email === '' ||
+		formState.Username === '' ||
+		formState.Password === ''
+			? alert('You cannot submit an empty form!')
+			: newUser(user);
+
 		console.log(user);
 	};
+
 	//data storing
 	const handleChange = (e) => {
 		const value = e.target.value;
@@ -34,6 +36,12 @@ const Home = ({ users, setUsers }) => {
 			[e.target.name]: value,
 		});
 	};
+	//diner/operator button management
+	const handleButtonClick = (e) => {
+		e.preventDefault();
+		setFormState({ ...formState, cSelected: e.target.id });
+	};
+
 	//user creation
 	const newUser = (user) => {
 		axios
@@ -41,6 +49,7 @@ const Home = ({ users, setUsers }) => {
 			.then((res) => {
 				setUsers([...users, res.data]);
 				console.log([...users, res.data]);
+				setFormState(defaultState);
 			})
 			.catch((err) => console.log(`Error: `, err));
 	};
@@ -70,31 +79,33 @@ const Home = ({ users, setUsers }) => {
 			</h2>
 
 			<Form onSubmit={handleSubmit}>
-				<FormGroup>
+				<ButtonGroup style={{ marginBottom: '2%' }}>
 					<Button
-						id='btn'
-						style={{
-							borderRadius: '0px',
-							backgroundColor: 'rgb(0, 120, 220)',
-							border: 'none',
-						}}
+						color='primary'
+						id='Diner'
+						onClick={handleButtonClick}
+						active={formState.cSelected === 'Diner'}
 					>
 						Diner
 					</Button>
 					<Button
-						id='btn'
-						style={{
-							borderRadius: '0px',
-							backgroundColor: 'rgb(0, 120, 220)',
-							border: 'none',
-						}}
+						color='primary'
+						id='Operator'
+						onClick={handleButtonClick}
+						active={formState.cSelected === 'Operator'}
 					>
 						Operator
 					</Button>
-				</FormGroup>
+				</ButtonGroup>
 				<FormGroup>
 					<Label for='Email'>Email</Label>
-					<Input type='email' name='Email' id='Email' onChange={handleChange} />
+					<Input
+						type='email'
+						name='Email'
+						id='Email'
+						onChange={handleChange}
+						value={formState.Email}
+					/>
 				</FormGroup>
 				<FormGroup>
 					<Label for='Username'>Username</Label>
@@ -102,6 +113,7 @@ const Home = ({ users, setUsers }) => {
 						type='username'
 						name='Username'
 						id='Username'
+						value={formState.Username}
 						minLength='2'
 						onChange={handleChange}
 					/>
@@ -112,12 +124,14 @@ const Home = ({ users, setUsers }) => {
 						type='password'
 						name='Password'
 						id='Password'
+						value={formState.Password}
 						minLength='5'
 						onChange={handleChange}
 					/>
 				</FormGroup>
 				<Button
 					id='btn'
+					type='submit'
 					style={{
 						backgroundColor: 'rgb(0, 85, 200)',
 						width: '15%',

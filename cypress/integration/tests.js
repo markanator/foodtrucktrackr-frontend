@@ -3,6 +3,7 @@ describe('', () => {
 		cy.visit('localhost:3000');
 		cy.viewport(2400, 1500);
 
+		cy.get('#Operator').click();
 		cy.get('#Email').type('brian@bagrov.com');
 		cy.get('#Username').type('Brian');
 		cy.get('#Password').type('password');
