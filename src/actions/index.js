@@ -1,6 +1,7 @@
 export const DELETE_FAV_TRUCK = "DELETE_FAV_TRUCK";
 export const ADD_FAV_TRUCK = "ADD_FAV_TRUCK";
 export const EDIT_TRUCK_RATING = "EDIT_TRUCK_RATING";
+export const RATE_TRUCK = "RATE_TRUCK";
 export const SEARCH_TRUCKS_START = "SEARCH_TRUCKS_START";
 
 export const deleteFavTruck = () => {

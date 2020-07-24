@@ -1,4 +1,4 @@
-import { ADD_FAV_TRUCK, EDIT_TRUCK_RATING, DELETE_FAV_TRUCK, SEARCH_TRUCKS_START } from '../actions';
+import { ADD_FAV_TRUCK, EDIT_TRUCK_RATING, DELETE_FAV_TRUCK, RATE_TRUCK, SEARCH_TRUCKS_START } from '../actions';
 
 const initialState = {
     diner: {
@@ -21,6 +21,8 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         case (EDIT_TRUCK_RATING):
             return state;
         case (DELETE_FAV_TRUCK):
+            return state;
+        case(RATE_TRUCK):
             return state;
         case (SEARCH_TRUCKS_START):
             return state;
