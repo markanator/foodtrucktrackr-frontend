@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-
-import Layout from "./Layout";
+import "./App.css";
 import Home from "./components/Home";
+import Footer from "./components/universal/Footer";
+import Header from "./components/universal/Header";
 import CreateTruckForm from "./components/CreateTruckForm";
 import TruckDetails from "./components/truck_details/TruckDetails";
 
@@ -14,13 +15,16 @@ import { reducer } from './reducers';
 export const store = createStore(reducer, applyMiddleware(thunk));
 
 const App = () => {
+    const [users, setUsers] = useState([]);
     return (
-        <Layout>
-            <div className='App'>
+        <div>
+            <Header />
+            <div className="App">
                 <Switch>
-                    <Route exact path='/'>
-                        <Home />
+                    <Route exact path="/">
+                        <Home users={users} setUsers={setUsers} />
                     </Route>
+                    <Route path="/login"></Route>
                     <Route path="/add-truck">
                         <CreateTruckForm/>
                     </Route>
@@ -29,7 +33,8 @@ const App = () => {
                     </Route>
                 </Switch>
             </div>
-        </Layout>
+            <Footer />
+        </div>
     );
 };
 
