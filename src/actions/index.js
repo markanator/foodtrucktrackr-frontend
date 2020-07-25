@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 // import {axiosWithAuth} from '../utils/AxiosWithAuth';
 
 // Trucks
@@ -10,7 +9,6 @@ export const DELETE_TRUCK = "DELETE_TRUCK";
 const baseURL = "https://lambdatracker.free.beeceptor.com/api";
 
 export const add_truck = (truckInfo) => (dispatch) => {
-    const { push } = useHistory();
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -22,7 +20,6 @@ export const add_truck = (truckInfo) => (dispatch) => {
             });
             console.log("SUBMITTED!");
             console.log(resp.data);
-            push("/");
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -34,7 +31,6 @@ export const update_owner = (ownerID) => {
     return { type: "UPDATE_OWNER", payload: ownerID };
 };
 export const update_truck = (truckInfo) => {
-    const { push } = useHistory();
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -46,7 +42,6 @@ export const update_truck = (truckInfo) => {
             });
             console.log("SUBMITTED!");
             console.log(resp.data);
-            push("/");
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -77,7 +72,6 @@ export const UPDATE_MENU_ITEM = "UPDATE_MENU_ITEM";
 export const DELETE_MENU_ITEM = "DELETE_MENU_ITEM";
 
 export const add_menu_item = (menuItem) => {
-    const { push } = useHistory();
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -89,7 +83,6 @@ export const add_menu_item = (menuItem) => {
             });
             console.log("SUBMITTED!");
             console.log(resp.data);
-            push("/trucks");
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -97,7 +90,6 @@ export const add_menu_item = (menuItem) => {
         });
 };
 export const update_menu_item = (menuItem) => {
-    const { push } = useHistory();
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -109,7 +101,6 @@ export const update_menu_item = (menuItem) => {
             });
             console.log("SUBMITTED!");
             console.log(resp.data);
-            push("/trucks");
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -117,7 +108,6 @@ export const update_menu_item = (menuItem) => {
         });
 };
 export const delete_menu_item = (menuItemID) => {
-    const { push } = useHistory();
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -129,7 +119,6 @@ export const delete_menu_item = (menuItemID) => {
             });
             console.log("SUBMITTED!");
             console.log(resp.data);
-            push("/trucks");
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });

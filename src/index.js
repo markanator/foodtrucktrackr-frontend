@@ -5,8 +5,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 // REDUX
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { rootReducer } from "./reducers";
 import Thunk from "redux-thunk";
+import { rootReducer } from "./reducers";
 
 // local components
 import App from "./App";
@@ -23,9 +23,6 @@ const logger = () => (next) => (action) => {
 
 // redux store w/ async funcs
 const store = createStore(rootReducer, applyMiddleware(logger, Thunk));
-
-
-
 
 // render to page
 ReactDOM.render(

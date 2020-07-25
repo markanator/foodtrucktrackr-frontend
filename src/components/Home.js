@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
 import axios from "axios";
+import SearchBar from "./SearchBar";
 
 const Home = ({ users, setUsers }) => {
     const defaultState = {
@@ -56,25 +57,7 @@ const Home = ({ users, setUsers }) => {
 
     return (
         <div>
-            <div className="home-header">
-                <h1>Find the Right Truck for You</h1>
-                <Form className="searchBarContainer" inline>
-                    <FormGroup>
-                        <Input
-                            type="search"
-                            name="Search"
-                            id="Search"
-                            placeholder="City, State, USA"
-                        />
-                    </FormGroup>
-                    <Button
-                        id="btn"
-                        style={{ backgroundColor: "rgb(0, 150, 250)" }}
-                    >
-                        Search
-                    </Button>
-                </Form>
-            </div>
+            <SearchBar />
 
             <h2 className="sign-up">
                 <hr />
@@ -97,7 +80,7 @@ const Home = ({ users, setUsers }) => {
                         onClick={handleButtonClick}
                         active={formState.cSelected === "Operator"}
                     >
-                        Submit
+                        Operator
                     </Button>
                 </ButtonGroup>
                 <FormGroup>

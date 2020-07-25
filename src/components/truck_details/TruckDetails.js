@@ -1,10 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import {Row, Col} from "reactstrap";
 
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
+import MenuItemModal from "./MenuItemModal";
 
-export default function TruckDeatails(props){
+export default function TruckDetails(props){
+    const [modal, setModal] = useState(false);
+
+    const toggleMenuModal = () =>{
+        setModal(!modal);
+    }
+    
     return (
         <div className="text-left truck-details-page">
             <div className="position-relative">
@@ -12,11 +19,11 @@ export default function TruckDeatails(props){
                 <i style={{"color": "hotpink", "fontSize": "2rem", "bottom": "5%", "right": "5%"}} className="far fa-heart position-absolute"></i>
             </div>
             <div className="pt-3 stars float-right">
+                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
+                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
+                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
+                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
                 <i style={{"color": "gold", "fontSize": "1.4rem"}} className="far fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
             </div>
             <h1 className="pt-2 pb-2 truck name">Cousins Maine Lobster</h1>
             <address className="location text-muted" >153 Place Plaza, New York NY</address>
@@ -30,10 +37,11 @@ export default function TruckDeatails(props){
                         </Col>
                     );
                 })}
-                <Col className="mb-3" md="6" lg="6">
-                    <AddMenuItem></AddMenuItem>
+                <Col className="mb-3" md="6" lg= "6">
+                    <AddMenuItem showMenuModal={toggleMenuModal}></AddMenuItem>
                 </Col> 
             </Row>
+            <MenuItemModal toggleMenuModal={toggleMenuModal} modal={modal}></MenuItemModal>
         </div>
     )
 }
