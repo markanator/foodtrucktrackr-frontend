@@ -34,8 +34,24 @@ export const update_owner = (ownerID) => {
     return { type: "UPDATE_OWNER", payload: ownerID };
 };
 export const update_truck = (truckInfo) => {
-    console.log("# Operator updating truck...");
-    return { type: UPDATE_TRUCK, payload: truckInfo };
+    const { push } = useHistory();
+    console.log("# Operator adding truck...");
+    dispatch({ type: "TRUCK_START" });
+    axios
+        .put(`${baseURL}/trucks`, truckInfo)
+        .then((resp) => {
+            dispatch({
+                type: "TRUCK_SUCCESS",
+                payload: resp.data.results,
+            });
+            console.log("SUBMITTED!");
+            console.log(resp.data);
+            push("/");
+        })
+        .catch((err) => {
+            dispatch({ type: "TRUCK_FAIL" });
+            console.error(err);
+        });
 };
 export const delete_truck = (truckId) => (dispatch) => {
     console.log("# Operator deleting truck...", truckId);
@@ -61,14 +77,62 @@ export const UPDATE_MENU_ITEM = "UPDATE_MENU_ITEM";
 export const DELETE_MENU_ITEM = "DELETE_MENU_ITEM";
 
 export const add_menu_item = (menuItem) => {
-    console.log("# Operator adding menuItem to Truck...");
-    return { type: ADD_MENU_ITEM, payload: menuItem };
+    const { push } = useHistory();
+    console.log("# Operator adding truck...");
+    dispatch({ type: "TRUCK_START" });
+    axios
+        .post(`${baseURL}/trucks/menu/${menuItem.truckId}`, menuItem)
+        .then((resp) => {
+            dispatch({
+                type: "TRUCK_SUCCESS",
+                payload: resp.data.results,
+            });
+            console.log("SUBMITTED!");
+            console.log(resp.data);
+            push("/trucks");
+        })
+        .catch((err) => {
+            dispatch({ type: "TRUCK_FAIL" });
+            console.error(err);
+        });
 };
 export const update_menu_item = (menuItem) => {
-    console.log("# Operator updating menuItem to Truck...");
-    return { type: UPDATE_MENU_ITEM, payload: menuItem };
+    const { push } = useHistory();
+    console.log("# Operator adding truck...");
+    dispatch({ type: "TRUCK_START" });
+    axios
+        .put(`${baseURL}/trucks/menu/${menuItem.truckId}`, menuItem)
+        .then((resp) => {
+            dispatch({
+                type: "TRUCK_SUCCESS",
+                payload: resp.data.results,
+            });
+            console.log("SUBMITTED!");
+            console.log(resp.data);
+            push("/trucks");
+        })
+        .catch((err) => {
+            dispatch({ type: "TRUCK_FAIL" });
+            console.error(err);
+        });
 };
 export const delete_menu_item = (menuItemID) => {
-    console.log("# Operator deleting menuItem to Truck...");
-    return { type: DELETE_MENU_ITEM, payload: menuItemID };
+    const { push } = useHistory();
+    console.log("# Operator adding truck...");
+    dispatch({ type: "TRUCK_START" });
+    axios
+        .delete(`${baseURL}/trucks/menu/${menuItem.truckId}`)
+        .then((resp) => {
+            dispatch({
+                type: "TRUCK_SUCCESS",
+                payload: resp.data.results,
+            });
+            console.log("SUBMITTED!");
+            console.log(resp.data);
+            push("/trucks");
+        })
+        .catch((err) => {
+            dispatch({ type: "TRUCK_FAIL" });
+            console.error(err);
+        });
 };

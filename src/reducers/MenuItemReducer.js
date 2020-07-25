@@ -2,6 +2,7 @@ import { ADD_MENU_ITEM, UPDATE_MENU_ITEM, DELETE_MENU_ITEM } from "../actions";
 
 export const initialFoodState = {
     id: 0,
+    truckId: 0,
     itemImage: "taco.jpg",
     name: "Tacos x3",
     itemDescription: "its three tacos",
