@@ -57,7 +57,7 @@ const Home = ({ users, setUsers }) => {
 
 	return (
 		<div>
-			<SearchBar/>
+			<SearchBar />
 
 			<h2 className='sign-up'>
 				<hr />

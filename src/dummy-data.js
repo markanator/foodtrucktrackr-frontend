@@ -72,115 +72,115 @@ export const trucks = [
 		],
 	},
 	{
-		id: 1,
-		truckName: 'SmartSystems',
-		truckImage: 'Lyle.jpg',
-		cuisineType: 'Haiti',
-		priceRange: '32',
-		location: 'Exeter ',
-		truckDescription:
-			'Nisl iaculis eget pretium augue, tincidunt imperdiet auctor lacinia mollis. Nisl dignissim dui lacinia. Condimentum faucibus adipiscing est orci sapien. A ornare pulvinar sollicitudin placerat.',
-		menuItem: [
-			{
-				id: 0,
-				itemImage: 'Pendergast.jpg',
-				name: 'Leath x3',
-				itemDescription:
-					'Lacus tortor tristique ut gravida ut, dignissim rhoncus metus sem. Aenean aliquet maximus vitae commodo blandit nibh in leo, posuere vitae etiam consectetur morbi etiam.',
-				price: 4,
-			},
-			{
-				id: 1,
-				itemImage: 'Kilmer.jpg',
-				name: 'Carter x3',
-				itemDescription:
-					'Pulvinar elementum dolor maecenas sodales, consequat lectus metus eu leo. Consectetur magna donec in, leo enim ac iaculis lectus sollicitudin vehicula, non donec eros etiam.',
-				price: 9,
-			},
-			{
-				id: 2,
-				itemImage: 'Friedrich.jpg',
-				name: 'Sager x3',
-				itemDescription:
-					'Nunc nisi ac iaculis pretium. Pharetra metus arcu pretium ante pulvinar. Id non eti auctor, id condimentum cras lobortis turpis. Sollicitudin vehicula adipiscing felis ligula.',
-				price: 12,
-			},
-		],
-	},
-	{
-		id: 1,
-		truckName: 'SmartSystems',
-		truckImage: 'Lyle.jpg',
-		cuisineType: 'Haiti',
-		priceRange: '32',
-		location: 'Exeter ',
-		truckDescription:
-			'Nisl iaculis eget pretium augue, tincidunt imperdiet auctor lacinia mollis. Nisl dignissim dui lacinia. Condimentum faucibus adipiscing est orci sapien. A ornare pulvinar sollicitudin placerat.',
-		menuItem: [
-			{
-				id: 0,
-				itemImage: 'Pendergast.jpg',
-				name: 'Leath x3',
-				itemDescription:
-					'Lacus tortor tristique ut gravida ut, dignissim rhoncus metus sem. Aenean aliquet maximus vitae commodo blandit nibh in leo, posuere vitae etiam consectetur morbi etiam.',
-				price: 4,
-			},
-			{
-				id: 1,
-				itemImage: 'Kilmer.jpg',
-				name: 'Carter x3',
-				itemDescription:
-					'Pulvinar elementum dolor maecenas sodales, consequat lectus metus eu leo. Consectetur magna donec in, leo enim ac iaculis lectus sollicitudin vehicula, non donec eros etiam.',
-				price: 9,
-			},
-			{
-				id: 2,
-				itemImage: 'Friedrich.jpg',
-				name: 'Sager x3',
-				itemDescription:
-					'Nunc nisi ac iaculis pretium. Pharetra metus arcu pretium ante pulvinar. Id non eti auctor, id condimentum cras lobortis turpis. Sollicitudin vehicula adipiscing felis ligula.',
-				price: 12,
-			},
-		],
-	},
-	{
-		id: 1,
-		truckName: 'SmartSystems',
-		truckImage: 'Lyle.jpg',
-		cuisineType: 'Haiti',
-		priceRange: '32',
-		location: 'Exeter ',
-		truckDescription:
-			'Nisl iaculis eget pretium augue, tincidunt imperdiet auctor lacinia mollis. Nisl dignissim dui lacinia. Condimentum faucibus adipiscing est orci sapien. A ornare pulvinar sollicitudin placerat.',
-		menuItem: [
-			{
-				id: 0,
-				itemImage: 'Pendergast.jpg',
-				name: 'Leath x3',
-				itemDescription:
-					'Lacus tortor tristique ut gravida ut, dignissim rhoncus metus sem. Aenean aliquet maximus vitae commodo blandit nibh in leo, posuere vitae etiam consectetur morbi etiam.',
-				price: 4,
-			},
-			{
-				id: 1,
-				itemImage: 'Kilmer.jpg',
-				name: 'Carter x3',
-				itemDescription:
-					'Pulvinar elementum dolor maecenas sodales, consequat lectus metus eu leo. Consectetur magna donec in, leo enim ac iaculis lectus sollicitudin vehicula, non donec eros etiam.',
-				price: 9,
-			},
-			{
-				id: 2,
-				itemImage: 'Friedrich.jpg',
-				name: 'Sager x3',
-				itemDescription:
-					'Nunc nisi ac iaculis pretium. Pharetra metus arcu pretium ante pulvinar. Id non eti auctor, id condimentum cras lobortis turpis. Sollicitudin vehicula adipiscing felis ligula.',
-				price: 12,
-			},
-		],
-	},
-	{
 		id: 2,
+		truckName: 'SmartSystems',
+		truckImage: 'Lyle.jpg',
+		cuisineType: 'Haiti',
+		priceRange: '32',
+		location: 'Exeter ',
+		truckDescription:
+			'Nisl iaculis eget pretium augue, tincidunt imperdiet auctor lacinia mollis. Nisl dignissim dui lacinia. Condimentum faucibus adipiscing est orci sapien. A ornare pulvinar sollicitudin placerat.',
+		menuItem: [
+			{
+				id: 0,
+				itemImage: 'Pendergast.jpg',
+				name: 'Leath x3',
+				itemDescription:
+					'Lacus tortor tristique ut gravida ut, dignissim rhoncus metus sem. Aenean aliquet maximus vitae commodo blandit nibh in leo, posuere vitae etiam consectetur morbi etiam.',
+				price: 4,
+			},
+			{
+				id: 1,
+				itemImage: 'Kilmer.jpg',
+				name: 'Carter x3',
+				itemDescription:
+					'Pulvinar elementum dolor maecenas sodales, consequat lectus metus eu leo. Consectetur magna donec in, leo enim ac iaculis lectus sollicitudin vehicula, non donec eros etiam.',
+				price: 9,
+			},
+			{
+				id: 2,
+				itemImage: 'Friedrich.jpg',
+				name: 'Sager x3',
+				itemDescription:
+					'Nunc nisi ac iaculis pretium. Pharetra metus arcu pretium ante pulvinar. Id non eti auctor, id condimentum cras lobortis turpis. Sollicitudin vehicula adipiscing felis ligula.',
+				price: 12,
+			},
+		],
+	},
+	{
+		id: 3,
+		truckName: 'SmartSystems',
+		truckImage: 'Lyle.jpg',
+		cuisineType: 'Haiti',
+		priceRange: '32',
+		location: 'Exeter ',
+		truckDescription:
+			'Nisl iaculis eget pretium augue, tincidunt imperdiet auctor lacinia mollis. Nisl dignissim dui lacinia. Condimentum faucibus adipiscing est orci sapien. A ornare pulvinar sollicitudin placerat.',
+		menuItem: [
+			{
+				id: 0,
+				itemImage: 'Pendergast.jpg',
+				name: 'Leath x3',
+				itemDescription:
+					'Lacus tortor tristique ut gravida ut, dignissim rhoncus metus sem. Aenean aliquet maximus vitae commodo blandit nibh in leo, posuere vitae etiam consectetur morbi etiam.',
+				price: 4,
+			},
+			{
+				id: 1,
+				itemImage: 'Kilmer.jpg',
+				name: 'Carter x3',
+				itemDescription:
+					'Pulvinar elementum dolor maecenas sodales, consequat lectus metus eu leo. Consectetur magna donec in, leo enim ac iaculis lectus sollicitudin vehicula, non donec eros etiam.',
+				price: 9,
+			},
+			{
+				id: 2,
+				itemImage: 'Friedrich.jpg',
+				name: 'Sager x3',
+				itemDescription:
+					'Nunc nisi ac iaculis pretium. Pharetra metus arcu pretium ante pulvinar. Id non eti auctor, id condimentum cras lobortis turpis. Sollicitudin vehicula adipiscing felis ligula.',
+				price: 12,
+			},
+		],
+	},
+	{
+		id: 4,
+		truckName: 'SmartSystems',
+		truckImage: 'Lyle.jpg',
+		cuisineType: 'Haiti',
+		priceRange: '32',
+		location: 'Exeter ',
+		truckDescription:
+			'Nisl iaculis eget pretium augue, tincidunt imperdiet auctor lacinia mollis. Nisl dignissim dui lacinia. Condimentum faucibus adipiscing est orci sapien. A ornare pulvinar sollicitudin placerat.',
+		menuItem: [
+			{
+				id: 0,
+				itemImage: 'Pendergast.jpg',
+				name: 'Leath x3',
+				itemDescription:
+					'Lacus tortor tristique ut gravida ut, dignissim rhoncus metus sem. Aenean aliquet maximus vitae commodo blandit nibh in leo, posuere vitae etiam consectetur morbi etiam.',
+				price: 4,
+			},
+			{
+				id: 1,
+				itemImage: 'Kilmer.jpg',
+				name: 'Carter x3',
+				itemDescription:
+					'Pulvinar elementum dolor maecenas sodales, consequat lectus metus eu leo. Consectetur magna donec in, leo enim ac iaculis lectus sollicitudin vehicula, non donec eros etiam.',
+				price: 9,
+			},
+			{
+				id: 2,
+				itemImage: 'Friedrich.jpg',
+				name: 'Sager x3',
+				itemDescription:
+					'Nunc nisi ac iaculis pretium. Pharetra metus arcu pretium ante pulvinar. Id non eti auctor, id condimentum cras lobortis turpis. Sollicitudin vehicula adipiscing felis ligula.',
+				price: 12,
+			},
+		],
+	},
+	{
+		id: 5,
 		truckName: 'LoopSys',
 		truckImage: 'Adam.jpg',
 		cuisineType: 'Luxembourg',

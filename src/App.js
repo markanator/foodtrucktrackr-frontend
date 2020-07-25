@@ -4,7 +4,8 @@ import './App.css';
 import Home from './components/Home';
 import Footer from './components/universal/Footer';
 import Header from './components/universal/Header';
-import TruckList from './components/TruckList';
+import DinerDashboard from './components/DinerDashboard';
+import OperatorDashboard from './components/OperatorDashboard';
 
 const App = () => {
 	const [users, setUsers] = useState([]);
@@ -17,8 +18,11 @@ const App = () => {
 						<Home users={users} setUsers={setUsers} />
 					</Route>
 					<Route path='/login'></Route>
-					<Route path='/trucklist'>
-						<TruckList />
+					<Route path='/operatordashboard'>
+						<OperatorDashboard />
+					</Route>
+					<Route path='/dinerdashboard'>
+						<DinerDashboard />
 					</Route>
 				</Switch>
 			</div>
