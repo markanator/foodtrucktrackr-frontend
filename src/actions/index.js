@@ -30,7 +30,7 @@ export const update_owner = (ownerID) => {
     console.log("# userLogged in...");
     return { type: "UPDATE_OWNER", payload: ownerID };
 };
-export const update_truck = (truckInfo) => {
+export const update_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -71,7 +71,7 @@ export const ADD_MENU_ITEM = "ADD_MENU_ITEM";
 export const UPDATE_MENU_ITEM = "UPDATE_MENU_ITEM";
 export const DELETE_MENU_ITEM = "DELETE_MENU_ITEM";
 
-export const add_menu_item = (menuItem) => {
+export const add_menu_item = (menuItem) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -89,7 +89,7 @@ export const add_menu_item = (menuItem) => {
             console.error(err);
         });
 };
-export const update_menu_item = (menuItem) => {
+export const update_menu_item = (menuItem) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
@@ -107,11 +107,11 @@ export const update_menu_item = (menuItem) => {
             console.error(err);
         });
 };
-export const delete_menu_item = (menuItemID) => {
+export const delete_menu_item = (menuItemID) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axios
-        .delete(`${baseURL}/trucks/menu/${menuItem.truckId}`)
+        .delete(`${baseURL}/trucks/menu/${menuItemID}`)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
