@@ -23,19 +23,26 @@ const Header = (props) => {
             <Login modal={modal} setModal={setModal} toggle={toggle} />
             <div className="navTitle">
                 <i className="fas fa-truck"></i>
-                <h1 className="headerTitle">Food Truck Trackr</h1>
+                <h1 className="headerTitle"> Food Truck Trackr</h1>
             </div>
             <Link to="/" className="navItem">
                 Home
             </Link>
+            {/* WILL BE WRAPPED IN LOGIC */}
+            {/*         DINER || OPERATOR       */}
             <Link to="/profile" className="navItem">
-                Profile
+                User Profile
             </Link>
+            <Link to="/operator" className="navItem">
+                Owner Dashboard
+            </Link>
+            {/*         END USER TYPE LOGIC         */}
             <Link to="/trucks" className="navItem">
                 Trucks
             </Link>
+            {/* END LOGIC */}
             <div tag={Link} className="navItem" onClick={toggle}>
-                Login/Sign Up
+                Login
             </div>
         </Navbar>
     );
