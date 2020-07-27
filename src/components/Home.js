@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input, ButtonGroup } from 'reactstrap';
-import axios from 'axios';
+//import axios from 'axios';
 import SearchBar from './SearchBar';
+
+//import login action creator
+import {login} from '../actions';
 
 const Home = ({ users, setUsers }) => {
 	const defaultState = {
@@ -20,13 +23,14 @@ const Home = ({ users, setUsers }) => {
 			Username: formState.Username,
 			Password: formState.Password,
 		};
-		formState.Email === '' ||
+		/* formState.Email === '' ||
 		formState.Username === '' ||
 		formState.Password === ''
 			? alert('You cannot submit an empty form!')
-			: newUser(user);
+			: newUser(user); */
 
 		console.log(user);
+		login(user);
 	};
 
 	//data storing
@@ -44,7 +48,7 @@ const Home = ({ users, setUsers }) => {
 	};
 
 	//user creation
-	const newUser = (user) => {
+	/* const newUser = (user) => {
 		axios
 			.post('https://reqres.in/api/users', user)
 			.then((res) => {
@@ -53,7 +57,7 @@ const Home = ({ users, setUsers }) => {
 				setFormState(defaultState);
 			})
 			.catch((err) => console.log(`Error: `, err));
-	};
+	}; */
 
 	return (
 		<div>

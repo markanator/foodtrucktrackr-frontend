@@ -21,6 +21,8 @@ export const RATE_TRUCK_FAILURE = "RATE_TRUCK_FAILURE";
 export const SEARCH_TRUCKS_START = "SEARCH_TRUCKS_START";
 export const SEARCH_TRUCK_SUCCESS = "SEARCH_TRUCK_SUCCESS";
 export const SEARCH_TRUCK_FAILURE = "SEARCH_TRUCK_FAILURE";
+// login
+export const LOGIN = "LOGIN";
 
 export const deleteFavTruck = truck => dispatch => {
     console.log("deleteFavTruck action creator");
@@ -97,3 +99,16 @@ export const searchTrucksStart = searchState => dispatch => {
             dispatch({type: SEARCH_TRUCK_FAILURE, payload: err})
         }); */
 };
+
+export const login = user => dispatch => {
+    console.log("login action creator");
+    dispatch({ type: LOGIN, payload: user });
+    axios
+        .post('/api/user', user)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
