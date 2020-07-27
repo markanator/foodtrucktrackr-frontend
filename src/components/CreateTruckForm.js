@@ -1,16 +1,26 @@
-import React, {useState} from "react";
-import {Container,Form, FormGroup, Label, Input, Button} from "reactstrap";
+import React, { useState } from "react";
+import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
-export default function CreateTruckForm(props){
+// redux hooks
+import { useDispatch, useSelector } from "react-redux";
+// actions
+import * as actions from "../actions";
+
+export default function CreateTruckForm(props) {
+    const dispatch = useDispatch();
+    const ownerState = useSelector((state) => state.truckReducer);
+
     const [formData, setFormData] = useState({
+        ownerID: ownerState.id,
         truckName: "",
-        image: "",
+        truckImage: "",
         cuisineType: "",
         priceRange: "",
         location: "",
-        description: "",
+        truckDescription: "",
+        menuItem: [],
     });
-    const cuisineTypes = [ 
+    const cuisineTypes = [
         "American",
         "Mexican",
         "Greek",
@@ -22,59 +32,86 @@ export default function CreateTruckForm(props){
         "Dessert",
         "Italian",
         "Filipino",
-        "Kosher"
+        "Kosher",
     ];
 
-    const onInputChange = e =>{
+    const onInputChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
-    }
+    };
 
-    const submit = e =>{
+    const submit = (e) => {
         e.preventDefault();
-        console.log(formData)
-    }
+        dispatch(actions.add_truck(formData));
+        console.log(formData);
+    };
 
     return (
-        <Container className="createTruckForm">
-            <Form onSubmit={submit}>
+        <Container className="form-container">
+            <Form className="createTruckForm" onSubmit={submit}>
                 <h1>Create a Truck</h1>
                 <FormGroup>
                     <Label for="truckName">Truck Name</Label>
-                    <Input 
+                    <Input
                         onChange={onInputChange}
                         type="text"
                         id="truckName"
                         name="truckName"
                         placeholder="Enter your truck's name"
                         value={formData.truckName}
-                        required/>
+                        required
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Label for="image">Image</Label>
-                    <Input 
-                        onChange={onInputChange} 
-                        type="text" id="image" 
-                        name="image" 
-                        placeholder="Url of an image of your truck" 
+                    <Input
+                        onChange={onInputChange}
+                        type="text"
+                        id="image"
+                        name="truckImage"
+                        placeholder="Url of an image of your truck"
                         value={formData.image}
-                        required/>
+                        required
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Label for="cuisineType">Cuisine Type</Label>
-                    <Input onChange={onInputChange} type="select" id="cuisineType" name="cuisineType" required>
-                        <option selected value="" disabled>-- Select your cuisine type --</option>
-                        {cuisineTypes.map(cuisineType=>{
-                            return (<option value={cuisineType}>{cuisineType}</option>)
+                    <Input
+                        onChange={onInputChange}
+                        type="select"
+                        id="cuisineType"
+                        name="cuisineType"
+                        required
+                        defaultValue="-- Select your cuisine type --"
+                    >
+                        {/* <option
+                            value="-- Select your cuisine type --"
+                            disabled
+                        ></option> */}
+                        {cuisineTypes.map((cuisineType) => {
+                            return (
+                                <option value={cuisineType} key={cuisineType}>
+                                    {cuisineType}
+                                </option>
+                            );
                         })}
                     </Input>
                 </FormGroup>
                 <FormGroup>
                     <Label for="priceRange">Price Range</Label>
-                    <Input onChange={onInputChange} type="select" id="priceRange" name="priceRange" required>
-                        <option selected value="" disabled>-- Select your price range --</option>
+                    <Input
+                        onChange={onInputChange}
+                        type="select"
+                        id="priceRange"
+                        name="priceRange"
+                        required
+                        defaultValue=""
+                    >
+                        <option value="" disabled>
+                            -- Select your price range --
+                        </option>
                         <option value="$">$</option>
                         <option value="$$">$$</option>
                         <option value="$$$">$$$</option>
@@ -82,23 +119,25 @@ export default function CreateTruckForm(props){
                 </FormGroup>
                 <FormGroup>
                     <Label for="location">Location</Label>
-                    <Input 
-                        onChange={onInputChange} 
-                        type="text" 
-                        id="location" 
-                        name="location" 
-                        placeholder="Where are you located?" 
-                        value={formData.location}/>
+                    <Input
+                        onChange={onInputChange}
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Where are you located?"
+                        value={formData.location}
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Label for="description">Description</Label>
-                    <Input 
-                        onChange={onInputChange} 
-                        type="textarea" 
-                        id="description" 
-                        name="description" 
-                        placeholder="Tell us what you're all about!" 
-                        value={formData.description}/>
+                    <Input
+                        onChange={onInputChange}
+                        type="textarea"
+                        id="description"
+                        name="truckDescription"
+                        placeholder="Tell us what you're all about!"
+                        value={formData.description}
+                    />
                 </FormGroup>
                 <Button color="primary">Submit</Button>
             </Form>
