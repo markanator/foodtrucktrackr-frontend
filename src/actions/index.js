@@ -100,17 +100,32 @@ export const searchTrucksStart = (searchState) => (dispatch) => {
         }); */
 };
 
-export const login = (user) => (dispatch) => {
+export const login = () => (dispatch) => {
     console.log("login action creator");
-    dispatch({ type: LOGIN, payload: user });
-    axios
-        .post("/api/user", user)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    const user = {
+        id: 0,
+        username: "",
+        password: "",
+        user_email: "",
+        user_first_name: "",
+        user_last_name: "",
+        user_role: "",
+    };
+    dispatch({ type: "LOGGED_IN", payload: { ...user } });
+    // axios
+    //     .post("/api/user", user)
+    //     .then((res) => {
+    //         console.log(res);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+};
+
+export const logout = (user) => {
+    console.log("user wants to log out");
+    localStorage.removeItem("token");
+    return { type: "LOGGED_OUT", payload: { ...user } };
 };
 
 // import {axiosWithAuth} from '../utils/AxiosWithAuth';

@@ -71,10 +71,7 @@ const SearchBar = () => {
                     <option value={15}>within 15 miles</option>
                     <option value={20}>within 20 miles</option>
                 </Input>
-                <Button
-                    id="btn"
-                    style={{ backgroundColor: "rgb(0, 150, 250)" }}
-                >
+                <Button style={{ backgroundColor: "rgb(0, 150, 250)" }}>
                     Search
                 </Button>
             </Form>
