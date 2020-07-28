@@ -3,48 +3,71 @@ import {
 	Button,
 	Form,
 	FormGroup,
-	Input,
-	Dropdown,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
+	Input
 } from 'reactstrap';
 
 const SearchBar = () => {
-	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [formState, setFormstate] = useState({
+		query: "",
+		cuisineType: "",
+		radius: 5,
+	})
 
-	const toggle = () => setDropdownOpen((prevState) => !prevState);
+	const cuisineTypes = [ 
+        "American",
+        "Mexican",
+        "Greek",
+        "SeaFood",
+        "Vegan Exclusive",
+        "Vegetarian",
+        "Chinese",
+        "Thai",
+        "Dessert",
+        "Italian",
+        "Filipino",
+        "Kosher"
+	];
+	
+	const onInputChange = e => {
+		setFormstate({
+			...formState,
+			[e.target.name]: e.target.value
+		});
+	}
+
+	const submit = e => {
+		e.preventDefault();
+	}
+
+	console.log(formState);
 
 	return (
 		<div className='home-header'>
 			<h1>Find the Right Truck for You</h1>
-			<Form className='searchBarContainer' inline>
+			<Form onSubmit={submit}className='searchBarContainer' inline>
 				<FormGroup>
 					<Input
+						onChange={onInputChange}
 						type='search'
-						name='Search'
-						id='Search'
+						name='query'
+						id='query'
 						placeholder='City, State, USA'
 					/>
 				</FormGroup>
-				<Dropdown isOpen={dropdownOpen} toggle={toggle}>
-					<DropdownToggle
-						caret
-						style={{
-							backgroundColor: 'white',
-							color: 'gray',
-							border: 'none',
-							borderRadius: '0px',
-						}}
-					>
-						Filter
-					</DropdownToggle>
-					<DropdownMenu>
-						<DropdownItem id='cuisine'>Cuisine Type</DropdownItem>
-						<DropdownItem id='distance'>Distance</DropdownItem>
-						<DropdownItem id='price'>Price</DropdownItem>
-					</DropdownMenu>
-				</Dropdown>
+				<Input onChange={onInputChange} type="select" name="cuisineType">
+					<option selected disabled value="">-- Select a cuisine type --</option>
+					{cuisineTypes.map(cuisineType =>{
+						return (
+							<option key={cuisineType} value={cuisineType}>{cuisineType}</option>
+						)
+					})}
+				</Input>
+				<Input onChange={onInputChange} type="select" name="radius">
+					<option value={5}>within 5 miles</option>
+					<option value={10}>within 10 miles</option>
+					<option value={15}>within 15 miles</option>
+					<option value={20}>within 20 miles</option>
+				</Input>
 				<Button id='btn' style={{ backgroundColor: 'rgb(0, 150, 250)' }}>
 					Search
 				</Button>
