@@ -13,10 +13,10 @@ import TruckDetails from "./components/truck_details/TruckDetails";
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { reducer } from './reducers';
+import { rootReducer } from './reducers';
 
 //create store
-export const store = createStore(reducer, applyMiddleware(thunk));
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const App = () => {
     const [users, setUsers] = useState([]);
