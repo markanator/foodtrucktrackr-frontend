@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 import {
     Navbar,
     Modal,
@@ -10,8 +12,6 @@ import {
     Input,
     Form,
 } from "reactstrap";
-import axios from "axios";
-import { Link } from "react-router-dom";
 
 const Header = (props) => {
     const [modal, setModal] = useState(false);
@@ -49,7 +49,11 @@ const Header = (props) => {
 };
 
 const Login = ({ modal, toggle }) => {
-    const [formState, setFormState] = useState({ Username: "", Password: "" });
+    const { push } = useHistory();
+    const [formState, setFormState] = useState({
+        user_email: "",
+        password: "",
+    });
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -58,19 +62,23 @@ const Login = ({ modal, toggle }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // reformating user obj for backend
         const user = {
-            Username: formState.Username,
-            Password: formState.Password,
+            user_email: formState.user_email,
+            password: formState.password,
         };
         userLogin(user);
     };
 
     const userLogin = (user) => {
         axios
-            .post("https://reqres.in/api/users", user)
+            .post("http://localhost:5000/user/auth/login", user)
             .then((res) => {
-                console.log(user);
-                setFormState({ Username: "", Password: "" });
+                // console.log(res);
+                // set local cookie for AUTH
+                localStorage.setItem("token", res.data.token);
+                // setFormState({ user_email: "", password: "" });
+                push();
             })
             .catch((err) => console.log(`Error: `, err));
     };
@@ -81,13 +89,13 @@ const Login = ({ modal, toggle }) => {
             <ModalBody>
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
-                        <Label for="Username">Username</Label>
+                        <Label for="Username">Email</Label>
                         <Input
                             onChange={handleChange}
-                            type="username"
-                            name="Username"
-                            id="Username"
-                            value={formState.Username}
+                            type="email"
+                            name="user_email"
+                            id="user_email"
+                            value={formState.user_email}
                         />
                     </FormGroup>
                     <FormGroup>
@@ -95,8 +103,8 @@ const Login = ({ modal, toggle }) => {
                         <Input
                             onChange={handleChange}
                             type="password"
-                            name="Password"
-                            id="Password"
+                            name="password"
+                            id="password"
                             value={formState.Password}
                         />
                     </FormGroup>

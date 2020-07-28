@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
+// import all reducers
 import { truckReducer } from "./TruckReducer";
 import { menuItemReducer } from "./MenuItemReducer";
-
-// Kirsten reducer
 import { dinerOperatorReducer } from "./dinerOperatorReducer.js";
 
 // const initialState = {

@@ -17,7 +17,7 @@ import SearchPage from "./components/SearchPage";
 // removed redux to index.js
 
 const App = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState({});
     return (
         <Layout>
             <div className="App">
@@ -25,32 +25,24 @@ const App = () => {
                     <Route exact path="/">
                         <Home users={users} setUsers={setUsers} />
                     </Route>
-
                     <Route path="/login"></Route>
-
+                    {/* PLEASE LOGIN TO VIEW PAGES */}
                     <PrivateRoute
                         path="/operator"
                         component={OperatorDashboard}
                     />
-
                     <PrivateRoute path="/profile" component={DinerDashboard} />
-
-                    {/* <Route exact path="/trucks">
-                        <TruckList />
-                    </Route> */}
-
-                    {/* <Route path="/add-truck">
-                        <CreateTruckForm />
-                    </Route> */}
-
-                    {/* <Route path="/search-results">
-                        <SearchPage></SearchPage>
-                    </Route> */}
-
-                    {/* <Route path="/trucks/:id">
-                        <TruckDetails />
-                    </Route> */}
-
+                    <PrivateRoute path="/trucks" component={TruckList} />
+                    <PrivateRoute path="/trucks/:id" component={TruckDetails} />
+                    <PrivateRoute
+                        path="/add-truck"
+                        component={CreateTruckForm}
+                    />
+                    <PrivateRoute
+                        path="/search-results"
+                        component={SearchPage}
+                    />
+                    {/* ^^^ User must be logged in to view these pages ^^^*/}
                     <Route path="/403" component={Page403} />
                     <Route component={Page404} />
                 </Switch>
@@ -62,14 +54,14 @@ const App = () => {
 const Page404 = () => (
     <>
         <h1>Error 404!</h1>
-        <h2>The page you requested could not be found!</h2>
+        <h3>The page you requested could not be found!</h3>
     </>
 );
 
 const Page403 = () => (
     <>
         <h1>Error 403!</h1>
-        <h2>Thou shalt not pass!</h2>
+        <h3>Thou shalt not pass!</h3>
     </>
 );
 
