@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import axios from 'axios';
 
 // user actions
@@ -113,8 +112,7 @@ export const login = user => dispatch => {
             console.log(err);
         })
 }
-=======
-import axios from "axios";
+
 // import {axiosWithAuth} from '../utils/AxiosWithAuth';
 
 // Trucks
@@ -241,4 +239,3 @@ export const delete_menu_item = (menuItemID) => (dispatch) => {
             console.error(err);
         });
 };
->>>>>>> master
