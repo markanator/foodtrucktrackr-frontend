@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
+
+// local imports
 import SearchBar from "./SearchBar";
 
 //import login action creator
 //import {login} from '../actions';
 
 const Home = ({ users, setUsers }) => {
+    const { push } = useHistory();
     const defaultState = {
         cSelected: "",
         Email: "",
         Username: "",
         Password: "",
     };
+
     const [formState, setFormState] = useState({ ...defaultState });
+
     //form submit
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // reformat the data for backend
         const user = {
-            cSelected: formState.cSelected,
-            Email: formState.Email,
-            Username: formState.Username,
-            Password: formState.Password,
+            user_role: formState.cSelected,
+            user_email: formState.Email,
+            username: formState.Username,
+            password: formState.Password,
         };
+
+        // simple form validation
         formState.Email === "" ||
         formState.Username === "" ||
         formState.Password === ""
@@ -46,16 +56,32 @@ const Home = ({ users, setUsers }) => {
         setFormState({ ...formState, cSelected: e.target.id });
     };
 
+    const baseURL = "http://localhost:5000";
+
     //user creation
     const newUser = (user) => {
         axios
-            .post("https://reqres.in/api/users", user)
+            .post(`${baseURL}/user`, user)
             .then((res) => {
-                setUsers([...users, res.data]);
-                console.log([...users, res.data]);
-                setFormState(defaultState);
+                console.log(res.data);
+                //
+                if (res.data.user_role === "Diner") {
+                    setUsers(res.data);
+                    setFormState(defaultState);
+
+                    console.log("user is a DINER!");
+                    // push("/operator");
+                } else if (res.data.user_role === "Operator") {
+                    setUsers(res.data);
+                    setFormState(defaultState);
+                    console.log("user is a OPERATOR!");
+                    // push("/profile");
+                }
             })
-            .catch((err) => console.log(`Error: `, err));
+            .catch((err) => {
+                console.error(err);
+                push("/403");
+            });
     };
 
     return (
@@ -113,13 +139,13 @@ const Home = ({ users, setUsers }) => {
                         type="password"
                         name="Password"
                         id="Password"
+                        autoComplete="false"
                         value={formState.Password}
                         minLength="5"
                         onChange={handleChange}
                     />
                 </FormGroup>
                 <Button
-                    id="btn"
                     type="submit"
                     style={{
                         backgroundColor: "rgb(0, 85, 200)",

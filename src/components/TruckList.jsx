@@ -32,11 +32,23 @@ const TruckList = (props) => {
                             <h5>Food Description: {truck.truckDescription}</h5>
                             <h5>
                                 Rating:{" "}
-                                <i class="fas fa-star 8x" style={starStyle}></i>
-                                <i class="fas fa-star" style={starStyle}></i>
-                                <i class="fas fa-star" style={starStyle}></i>
-                                <i class="fas fa-star" style={starStyle}></i>
-                                <i class="far fa-star"></i>
+                                <i
+                                    className="fas fa-star 8x"
+                                    style={starStyle}
+                                ></i>
+                                <i
+                                    className="fas fa-star"
+                                    style={starStyle}
+                                ></i>
+                                <i
+                                    className="fas fa-star"
+                                    style={starStyle}
+                                ></i>
+                                <i
+                                    className="fas fa-star"
+                                    style={starStyle}
+                                ></i>
+                                <i className="far fa-star"></i>
                             </h5>
                             <h5>Price Range: $-$$</h5>
 
