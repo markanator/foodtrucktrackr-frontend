@@ -34,52 +34,54 @@ const Header = (props) => {
                 <i className="fas fa-truck"></i>
                 <h1 className="headerTitle"> Food Truck Trackr</h1>
             </div>
-            <Link to="/" className="navItem">
-                Home
-            </Link>
-            {/* CHECK TO SEE IF USER IS LOGGED IN */}
+            <div className="nav-links">
+                <Link to="/" className="navItem">
+                    Home
+                </Link>
+                {/* CHECK TO SEE IF USER IS LOGGED IN */}
 
-            {!isActive ? null : rUser.user_role === "diner" ? (
-                <>
-                    {/* USER IS A DINER */}
-                    <Link to="/profile" className="navItem">
-                        User Profile
-                    </Link>
-                    <Link to="/trucks" className="navItem">
-                        Trucks
-                    </Link>
-                </>
-            ) : !isActive ? null : (
-                <>
-                    {/* USER IS A OPERATOR */}
-                    <Link to="/operator" className="navItem">
-                        Owner Dashboard
-                    </Link>
-                    <Link to="/trucks" className="navItem">
-                        Trucks
-                    </Link>
-                </>
-            )}
-            {/* check for username */}
-            {!isActive ? (
-                // USER NEEDS TO LOG **IN**
-                <div tag={Link} className="navItem" onClick={toggle}>
-                    Login
-                </div>
-            ) : (
-                // USER CAN LOG **OUT**
-                <div
-                    tag={Link}
-                    className="navItem"
-                    onClick={() => {
-                        // needs to be cleaner, but works
-                        dispatch(actions.logout());
-                        push("/");
-                    }}
-                >
-                    Logout
-                </div>
-            )}
+                {!isActive ? null : rUser.user_role === "diner" ? (
+                    <>
+                        {/* USER IS A DINER */}
+                        <Link to="/profile" className="navItem">
+                            User Profile
+                        </Link>
+                        <Link to="/trucks" className="navItem">
+                            Trucks
+                        </Link>
+                    </>
+                ) : !isActive ? null : (
+                    <>
+                        {/* USER IS A OPERATOR */}
+                        <Link to="/operator" className="navItem">
+                            Owner Dashboard
+                        </Link>
+                        <Link to="/trucks" className="navItem">
+                            Trucks
+                        </Link>
+                    </>
+                )}
+                {/* check for username */}
+                {!isActive ? (
+                    // USER NEEDS TO LOG **IN**
+                    <div tag={Link} className="navItem" onClick={toggle}>
+                        Login
+                    </div>
+                ) : (
+                    // USER CAN LOG **OUT**
+                    <div
+                        tag={Link}
+                        className="navItem"
+                        onClick={() => {
+                            // needs to be cleaner, but works
+                            dispatch(actions.logout());
+                            push("/");
+                        }}
+                    >
+                        Logout
+                    </div>
+                )}
+            </div>
         </Navbar>
     );
 };
