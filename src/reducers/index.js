@@ -3,23 +3,23 @@ import { truckReducer } from "./TruckReducer";
 import { menuItemReducer } from "./MenuItemReducer";
 
 // Kirsten reducer
-// import {dinerOperatorReducer} from './dinerOperatorReducer.js
+import { dinerOperatorReducer } from "./dinerOperatorReducer.js";
 
-const initialState = {
-    user: {
-        id: 1,
-    },
-};
+// const initialState = {
+//     user: {
+//         id: 1,
+//     },
+// };
 
-export const usersReducer = (state = initialState, action) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
-};
+// export const usersReducer = (state = initialState, action) => {
+//     switch (action.type) {
+//         default:
+//             return state;
+//     }
+// };
 
 export const rootReducer = combineReducers({
-    usersReducer,
+    dinerOperatorReducer,
     truckReducer,
     menuItemReducer,
 });

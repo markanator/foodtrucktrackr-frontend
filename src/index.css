@@ -142,7 +142,7 @@ table {
 
 .navTitle {
     display: flex;
-    width: 70%;
+    width: 60%;
 }
 
 .home-header {
@@ -161,15 +161,15 @@ footer {
 }
 
 .fas {
-    font-size: 5rem;
+    font-size: 2rem;
 }
 
 .headerTitle {
-    font-size: 4rem;
+    font-size: 2rem;
 }
 
 .navItem {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: rgb(223, 242, 255);
 }
 .navItem:hover {
