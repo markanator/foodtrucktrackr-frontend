@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 html,
 body,
 div,
@@ -122,6 +123,10 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+html {
+    font-family: "Roboto", sans-serif;
+}
 /* CUSTOM CSS */
 
 .App {
@@ -138,8 +143,9 @@ table {
 }
 
 .navbar {
-    top: 0;
-    position: fixed;
+    /* top: 0; */
+    /* position: fixed; */
+    width: 100%;
     margin-bottom: 20px;
     background-color: rgb(0, 106, 177);
     color: rgb(223, 242, 255);
