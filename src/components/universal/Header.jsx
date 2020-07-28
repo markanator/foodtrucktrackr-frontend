@@ -17,6 +17,7 @@ const Header = (props) => {
     const [modal, setModal] = useState(false);
 
     const toggle = () => setModal(!modal);
+
     return (
         <Navbar className="navbar">
             <Login modal={modal} setModal={setModal} toggle={toggle} />
