@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from "react-router-dom";
 import { trucks as data } from "../dummy-data";
 import { Button } from "reactstrap";
 
@@ -27,7 +28,9 @@ const TruckList = (props) => {
                             className="truckPictures"
                         />
                         <div className="truckCardText">
-                            <h3>Truck Name: {truck.truckName}</h3>
+                            <Link to={`/trucks/${truck.id}`}>
+                                <h3>Truck Name: {truck.truckName}</h3>
+                            </Link>
                             <h4>Distance: {truck.location}</h4>
                             <h5>Food Description: {truck.truckDescription}</h5>
                             <h5>
