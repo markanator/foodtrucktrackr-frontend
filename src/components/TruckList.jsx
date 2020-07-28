@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { trucks as data } from "../dummy-data";
 import { Button } from "reactstrap";
+// connect component to Redux store
+import { connect } from 'react-redux';
 
 const TruckList = (props) => {
     const starStyle = { fontSize: "20px" };
@@ -68,4 +70,13 @@ const TruckList = (props) => {
     );
 };
 
-export default TruckList;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+
+export default connect(mapStateToProps, {})(TruckList);
+
+//export default TruckList;
+// commented out ^^^ to connect component to the store
