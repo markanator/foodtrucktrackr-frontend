@@ -10,6 +10,7 @@ import OperatorDashboard from "./components/OperatorDashboard";
 import TruckList from "./components/TruckList";
 import CreateTruckForm from "./components/CreateTruckForm";
 import TruckDetails from "./components/truck_details/TruckDetails";
+import SearchPage from "./components/SearchPage";
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -34,11 +35,14 @@ const App = () => {
                     <Route path="/profile">
                         <DinerDashboard />
                     </Route>
-                    <Route path="/trucks">
+                    <Route exact path="/trucks">
                         <TruckList />
                     </Route>
                     <Route path="/add-truck">
                         <CreateTruckForm />
+                    </Route>
+                    <Route path="/search-results">
+                        <SearchPage></SearchPage>
                     </Route>
                     <Route path="/trucks/:id">
                         <TruckDetails />
