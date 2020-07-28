@@ -5,6 +5,9 @@ import SearchBar from "./SearchBar";
 // connect component to Redux store
 import { connect } from 'react-redux';
 
+//import login action creator
+//import {login} from '../actions';
+
 const Home = ({ users, setUsers }) => {
     const defaultState = {
         cSelected: "",
