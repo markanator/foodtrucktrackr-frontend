@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
 import axios from "axios";
 import SearchBar from "./SearchBar";
+// connect component to Redux store
+import { connect } from 'react-redux';
 
 const Home = ({ users, setUsers }) => {
     const defaultState = {
@@ -131,4 +133,14 @@ const Home = ({ users, setUsers }) => {
     );
 };
 
-export default Home;
+// connect component to Redux store
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+};
+
+export default connect(mapStateToProps, {})(Home);
+
+//export default Home;
+// commented out ^^^ to connect it to the store

@@ -11,12 +11,6 @@ import TruckList from "./components/TruckList";
 import CreateTruckForm from "./components/CreateTruckForm";
 import TruckDetails from "./components/truck_details/TruckDetails";
 
-import { createStore } from 'redux';
-import { reducer } from './reducers';
-
-//create store
-export const store = createStore(reducer);
-
 const App = () => {
     const [users, setUsers] = useState([]);
     return (
