@@ -4,7 +4,7 @@ import axios from "axios";
 import SearchBar from "./SearchBar";
 
 //import login action creator
-import {login} from '../actions';
+//import {login} from '../actions';
 
 const Home = ({ users, setUsers }) => {
     const defaultState = {
