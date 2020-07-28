@@ -146,4 +146,4 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {})(Home);
 
 //export default Home;
-// commented out ^^^ to connect it to the store
+// commented out ^^^ to connect component to the store
