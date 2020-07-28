@@ -6,29 +6,10 @@ import { menuItemReducer } from "./MenuItemReducer";
 // import {dinerOperatorReducer} from './dinerOperatorReducer.js
 
 const initialState = {
-<<<<<<< HEAD
-    diner: {
-
-    },
-    operator: {
-        trucks: [
-            {
-                menu: [
-                    {
-                        itemName: '',
-                        itemDescription: ''
-                    }
-                ]
-            }
-        ]
-    }
-}
-=======
     user: {
         id: 1,
     },
 };
->>>>>>> master
 
 export const usersReducer = (state = initialState, action) => {
     switch (action.type) {
