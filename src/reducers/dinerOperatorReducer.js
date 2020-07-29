@@ -85,19 +85,28 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         case (actions.DELETE_FAV_START):
             return {
                 ...state,
-                isDeleting: true
+                diner: {
+                    ...state.diner,
+                    isDeleting: true
+                }
             };
         case (actions.DELETE_FAV_SUCCESS):
             return {
                 ...state,
-                isDeleting: false,
-                favoriteTrucks: [state.favoriteTrucks.filter(truck => truck !== action.payload)]
+                diner: {
+                    ...state.diner,
+                    isDeleting: false,
+                    favoriteTrucks: [state.favoriteTrucks.filter(truck => truck !== action.payload)]
+                }
             };
         case (actions.DELETE_FAV_FAILURE):
             return {
                 ...state,
-                isDeleting: false,
-                error: action.payload
+                diner: {
+                    ...state.diner,
+                    isDeleting: false,
+                    dinerError: action.payload
+                }
             };
         
         // rate truck
@@ -114,12 +123,12 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         // will need access to specific truck in order to complete this
         // will need access to user's original rating in order to update it
         // action.payload should include truck id and newRating
-        case (actions.EDIT_RATING_START):
+        /* case (actions.EDIT_RATING_START):
             return state;
         case (actions.EDIT_RATING_SUCCESS):
             return state;
         case (actions.EDIT_RATING_FAILURE):
-            return state;
+            return state; */
         
 
             // state shape for searchState
