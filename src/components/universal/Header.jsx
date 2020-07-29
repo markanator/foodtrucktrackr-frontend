@@ -150,7 +150,10 @@ const Login = ({ modal, toggle }) => {
                 // get rid of modal
                 toggle();
                 // move the user to content
-                if (res.data.user_role === "diner") {
+                console.log(res.data);
+                const role = res.data.user.user_role;
+
+                if (role === "diner") {
                     push("/profile");
                 } else {
                     push("/operator");

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 // layout
 import Layout from "./Layout";
 import PrivateRoute from "./utils/PrivateRoute";
-
 // local components
 import Home from "./components/Home";
 import DinerDashboard from "./components/DinerDashboard";
@@ -13,11 +14,14 @@ import TruckList from "./components/TruckList";
 import CreateTruckForm from "./components/CreateTruckForm";
 import TruckDetails from "./components/truck_details/TruckDetails";
 import SearchPage from "./components/SearchPage";
+import EditTruck from "./components/EditTruck";
+import TrucksPage from "./components/TrucksPage";
 
 // removed redux to index.js
 
 const App = () => {
     const [users, setUsers] = useState({});
+    const userState = useSelector((state) => state.tempSiteReducer.user);
     return (
         <Layout>
             <div className="App">
@@ -32,11 +36,27 @@ const App = () => {
                         component={OperatorDashboard}
                     />
                     <PrivateRoute path="/profile" component={DinerDashboard} />
-                    <PrivateRoute exact path="/trucks" component={TruckList} />
+                    {userState.user_role === "operator" ? (
+                        <PrivateRoute
+                            exact
+                            path="/trucks"
+                            component={TruckList}
+                        />
+                    ) : (
+                        <PrivateRoute
+                            exact
+                            path="/trucks"
+                            component={TrucksPage}
+                        />
+                    )}
                     <PrivateRoute path="/trucks/:id" component={TruckDetails} />
                     <PrivateRoute
                         path="/add-truck"
                         component={CreateTruckForm}
+                    />
+                    <PrivateRoute
+                        path="/edit-truck/:id"
+                        component={EditTruck}
                     />
                     <PrivateRoute
                         path="/search-results"
