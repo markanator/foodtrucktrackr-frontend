@@ -29,8 +29,8 @@ export const deleteFavTruck = (truck) => (dispatch) => {
     console.log("deleteFavTruck action creator");
     dispatch({ type: DELETE_FAV_START, payload: truck });
     //is this managed by the backend? or do we manage which trucks are the favorites here in the app? In that case, how do we persist that data?
-    /* axios
-        .delete('url', truck?)
+    axiosWithAuth()
+        .delete('/user/:userID/favorites/:truckID')
         .then(res => {
             console.log(res);
             dispatch({ type: DELETE_FAV_SUCCESS });
@@ -38,14 +38,14 @@ export const deleteFavTruck = (truck) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: DELETE_FAV_FAILURE, payload: err });
-        }) */
+        })
 };
 
-export const addFavTruck = (newTruck) => (dispatch) => {
+export const addFavTruck = (truckId) => (dispatch) => {
     console.log("addFavTruck action creator");
-    dispatch({ type: ADD_FAV_START, payload: newTruck });
-    /* axios
-        .post('url', newTruck)
+    dispatch({ type: ADD_FAV_START, payload: truckId });
+    axiosWithAuth()
+        .post('/user/:userID/favorites', truckId)
         .then(res => {
             console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS });
@@ -53,7 +53,7 @@ export const addFavTruck = (newTruck) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: ADD_FAV_FAILURE, payload: err });
-        }) */
+        })
 };
 
 export const editTruckRating = (newRating) => (dispatch) => {
@@ -74,8 +74,8 @@ export const editTruckRating = (newRating) => (dispatch) => {
 export const rateTruck = (rating) => (dispatch) => {
     console.log("rateTruck action creator");
     dispatch({ type: RATE_TRUCK_START, payload: rating });
-    /* axios
-        .post('url', rating)
+    axios
+        .post('/trucks/:truck_id/rate', rating)
         .then(res => {
             console.log(res);
             dispatch({ type: RATE_TRUCK_SUCCESS });
@@ -83,7 +83,7 @@ export const rateTruck = (rating) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: RATE_TRUCK_FAILURE, payload: err });
-        }) */
+        })
 };
 
 export const searchForTrucks = (searchState) => (dispatch) => {
