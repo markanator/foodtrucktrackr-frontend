@@ -29,6 +29,12 @@ const initialState = {
                 menu: []
             }
         ]
+    },
+    truck: {
+        id: '',
+        rating: '',
+        isRating: false,
+        truckError: ''
     }
 }
 
@@ -120,14 +126,41 @@ export const dinerOperatorReducer = (state = initialState, action) => {
             isDeleting: false,
             dinerError: ''
         }, */
+        // state shape for truck
+        /* truck: {
+            id: '',
+            rating: '',
+            isRating: false,
+            truckError: ''
+        } */
         // will need access to specific truck in order to complete this
         // action.payload should include truck id and rating
         case(actions.RATE_TRUCK_START):
-            return state;
+            return {
+                ...state,
+                truck: {
+                    ...state.truck,
+                    isRating: true
+                }
+            };
         case(actions.RATE_TRUCK_SUCCESS):
-            return state;
+            return {
+                ...state,
+                truck: {
+                    ...state.truck,
+                    rating: action.payload,
+                    isRating: false
+                }
+            };
         case(actions.RATE_TRUCK_FAILURE):
-            return state;
+            return {
+                ...state,
+                truck: {
+                    ...state.truck,
+                    isRating: false,
+                    truckError: action.payload
+                }
+            };
 
         // edit rating
         // will need access to specific truck in order to complete this
