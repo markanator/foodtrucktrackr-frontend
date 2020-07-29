@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
-// time picker
-import TimePicker from "react-time-picker";
+// date-time picker
+import DateTimePicker from "react-datetime-picker";
+
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 // redux hooks
 import { useDispatch, useSelector } from "react-redux";
@@ -12,10 +14,14 @@ export default function CreateTruckForm(props) {
     // for redux actions
     const dispatch = useDispatch();
     // get state from redux
-    const ownerState = useSelector((state) => state.truckReducer);
+    const ownerState = useSelector((state) => state.tempSiteReducer.user);
     // time picker stuff
-    const [arrival, setArrival] = useState("11:00");
-    const [departure, setDeparture] = useState("17:00");
+    const [arrival, setArrival] = useState(
+        new Date("December 31, 2100 21:00:00")
+    );
+    const [departure, setDeparture] = useState(
+        new Date("December 31, 2100 23:59:59")
+    );
 
     const [formData, setFormData] = useState({
         ownerID: ownerState.id,
@@ -32,6 +38,9 @@ export default function CreateTruckForm(props) {
         truck_departure: 0,
         truck_arrival: 0,
     });
+
+    console.log("ownerID", formData.ownerID);
+
     const cuisineTypes = [
         "American",
         "Mexican",
@@ -59,17 +68,33 @@ export default function CreateTruckForm(props) {
 
         const dbTruck = {
             truck_name: formData.truckName,
-            truck_departure_time: departure,
-            truck_arrival_time: arrival,
+            truck_departure_time: new Date("December 31, 2100 21:00:00"),
+            truck_arrival_time: new Date("December 31, 2100 23:59:59"),
             user_id: formData.ownerID,
-            // location_address: ,
-            // location_city: ,
-            // location_zip_code: ,
-            // location_state: ,
+            location_zip_code: formData.zip,
+            location_city: formData.city,
+            location_address: formData.address,
+            location_state: formData.state,
         };
 
-        dispatch(actions.add_truck(dbTruck));
-        console.log(arrival, departure);
+        console.log(dbTruck);
+        // setTimeout(() => {
+        // dispatch(actions.add_truck(dbTruck));
+        axiosWithAuth()
+            .post(`http://localhost:5000/trucks`, dbTruck)
+            .then((resp) => {
+                // dispatch({
+                //     type: "TRUCK_SUCCESS",
+                //     payload: resp.data.results,
+                // });
+                console.log("SUBMITTED!");
+                console.log("post truck resp:: ", resp);
+            })
+            .catch((err) => {
+                dispatch({ type: "TRUCK_FAIL" });
+                console.error(err);
+            });
+        // }, 1500);
     };
 
     return (
@@ -200,17 +225,22 @@ export default function CreateTruckForm(props) {
                     <Label>
                         Arrival Time:
                         <br />
-                        <TimePicker onChange={setArrival} value={arrival} />
+                        <DateTimePicker
+                            onChange={setArrival}
+                            value={arrival}
+                            clearIcon="Clear"
+                            required={true}
+                        />
                     </Label>
                 </FormGroup>
                 <FormGroup>
                     <Label>
                         Departure Time:
                         <br />
-                        <TimePicker
+                        <DateTimePicker
                             onChange={setDeparture}
                             value={departure}
-                            disableClock
+                            clearIcon="Clear"
                         />
                     </Label>
                 </FormGroup>

@@ -24,7 +24,7 @@ export const tempSiteReducer = (state = initSiteState, action) => {
                 ...state,
                 isActive: true,
                 user: {
-                    ...action.payload,
+                    ...action.payload.user,
                 },
             };
         case "LOGGED_OUT":

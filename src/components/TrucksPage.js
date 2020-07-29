@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // redux hooks
 import { useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
+
 // actions
 import * as actions from "../actions";
-// dummy data
-import { trucks } from "../DummyData";
+
 import { Card, CardBody, CardImg, CardSubtitle, Button } from "reactstrap";
 
 const TrucksPage = () => {
     const dispatch = useDispatch();
-    // const truckies = useSelector((state) => state.truckReducer);
-    // console.log(truckies);
+
+    const [truckList, setTruckList] = useState([]);
+
+    useEffect(() => {
+        axiosWithAuth()
+            .get("http://localhost:5000/trucks")
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+    }, []);
 
     return (
         <div>
-            {trucks.map((car) => {
+            {truckList.map((car) => {
                 return (
                     <Card style={{ marginBottom: 20 }} key={car.id}>
                         <CardImg

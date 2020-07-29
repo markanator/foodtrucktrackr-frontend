@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import {Link} from "react-router-dom";
-import { trucks as data } from "../dummy-data";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+// import { trucks as data } from "../dummy-data";
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 import { Button } from "reactstrap";
 
 const TruckList = (props) => {
     const starStyle = { fontSize: "20px" };
-    const [truckList, setTruckList] = useState(data);
+    const [truckList, setTruckList] = useState([]);
 
+    const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
     const deleteCard = (e) => {
         setTruckList(
             truckList.filter((truck) => {
@@ -15,7 +17,12 @@ const TruckList = (props) => {
         );
     };
 
-    const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
+    useEffect(() => {
+        axiosWithAuth()
+            .get("http://localhost:5000/trucks")
+            .then((res) => setTruckList(res.data))
+            .catch((err) => console.error(err));
+    }, []);
 
     return (
         <div>
