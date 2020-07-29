@@ -110,6 +110,16 @@ export const dinerOperatorReducer = (state = initialState, action) => {
             };
         
         // rate truck
+        // state shape for diner
+        /* diner: {
+            username: '',
+            password: '',
+            currentLocation: '',
+            favoriteTrucks: [],
+            isAdding: false,
+            isDeleting: false,
+            dinerError: ''
+        }, */
         // will need access to specific truck in order to complete this
         // action.payload should include truck id and rating
         case(actions.RATE_TRUCK_START):
