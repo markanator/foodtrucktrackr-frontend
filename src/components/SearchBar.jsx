@@ -5,7 +5,9 @@ import {
 	FormGroup,
 	Input
 } from 'reactstrap';
-
+// connect component to Redux store
+import { connect } from 'react-redux';
+ 
 const SearchBar = () => {
 	const [formState, setFormstate] = useState({
 		query: "",
@@ -76,4 +78,12 @@ const SearchBar = () => {
 	);
 };
 
-export default SearchBar;
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	};
+};
+
+export default connect(mapStateToProps, {})(SearchBar);
+//export default SearchBar;
+// commented out ^^^ to connect component to the store
