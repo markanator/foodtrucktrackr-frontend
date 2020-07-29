@@ -16,7 +16,10 @@ export default function CreateTruckForm(props) {
         truckImage: "",
         cuisineType: "",
         priceRange: "",
-        location: "",
+        address: "",
+        city: "",
+        state: "",
+        zip: "",
         truckDescription: "",
         menuItem: [],
     });
@@ -118,14 +121,47 @@ export default function CreateTruckForm(props) {
                     </Input>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="location">Location</Label>
+                    <Label for="address">Address</Label>
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="location"
-                        name="location"
-                        placeholder="Where are you located?"
-                        value={formData.location}
+                        id="address"
+                        name="address"
+                        placeholder="Street address"
+                        value={formData.address}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="city">City</Label>
+                    <Input
+                        onChange={onInputChange}
+                        type="text"
+                        id="city"
+                        name="city"
+                        placeholder="City"
+                        value={formData.city}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="state">State</Label>
+                    <Input
+                        onChange={onInputChange}
+                        type="text"
+                        id="state"
+                        name="state"
+                        placeholder="State"
+                        value={formData.state}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="zip">Zip</Label>
+                    <Input
+                        onChange={onInputChange}
+                        type="text"
+                        id="zip"
+                        name="zip"
+                        placeholder="Local zip code"
+                        value={formData.zip}
                     />
                 </FormGroup>
                 <FormGroup>
