@@ -11,7 +11,9 @@ const initialState = {
         dinerError: ''
     },
     searchState: {
-        searchTerm: '',
+        searchQuery: '',
+        searchCuisine: '',
+        searchRadius: '',
         results: '',
         isSearching: false,
         searchError: ''
@@ -176,7 +178,9 @@ export const dinerOperatorReducer = (state = initialState, action) => {
 
             // state shape for searchState
             /* searchState: {
-                searchTerm: '',
+                searchQuery: '',
+                searchCuisine: '',
+                searchRadius: '',
                 results: '',
                 isSearching: false,
                 error: ''

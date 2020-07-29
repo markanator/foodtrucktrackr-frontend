@@ -95,7 +95,10 @@ export const searchForTrucks = (searchState) => (dispatch) => {
         .then(res => { 
             //filter results; 
             console.log(res);
-            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: { searchState: searchState, res: res }})
+            const searchResults = res.data.filter((result) => {
+                return result.truck_cuisine_type === searchState.searchCuisine && `${result.location_city}, ${result.location_state}` === searchState.searchQuery
+            });
+            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: searchResults })
         })
         .catch(err => {
             console.log(err);
