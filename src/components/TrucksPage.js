@@ -18,7 +18,7 @@ const TrucksPage = () => {
     useEffect(() => {
         axiosWithAuth()
             .get("http://localhost:5000/trucks")
-            .then((res) => console.log(res))
+            .then((res) => setTruckList(res.data))
             .catch((err) => console.error(err));
     }, []);
 
@@ -28,29 +28,26 @@ const TrucksPage = () => {
                 return (
                     <Card style={{ marginBottom: 20 }} key={car.id}>
                         <CardImg
-                            src={car.truckImage}
-                            alt={car.truckImage}
+                            src={car.truck_image}
+                            alt={car.truck_image}
                             width="250"
                         />
                         <CardBody>
-                            <b>{car.truckName}</b>
+                            <b>{car.truck_name}</b>
                         </CardBody>
-                        <CardSubtitle>Cuisine: {car.cuisineType}</CardSubtitle>
-                        <CardBody>{car.truckDescription}</CardBody>
-                        {/* START TERNARY
-                            if user is logged in &&
-                            user.id === car.ownerID
-                        */}
-                        <Button
+                        <CardSubtitle>
+                            Cuisine: {car.truck_cuisine_type}
+                        </CardSubtitle>
+                        <CardBody>{car.truck_description}</CardBody>
+                        {/* <Button
                             color="danger"
                             style={{ width: 100 }}
                             onClick={() => {
                                 dispatch(actions.delete_truck(car.id));
                             }}
                         >
-                            DELETE
-                        </Button>
-                        {/* END TERNARY */}
+                            Remove F
+                        </Button> */}
                     </Card>
                 );
             })}

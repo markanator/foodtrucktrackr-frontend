@@ -127,15 +127,21 @@ export const update_owner = (ownerID) => {
     console.log("# userLogged in...");
     return { type: "UPDATE_OWNER", payload: ownerID };
 };
+export const edit_truck = (truckInfo) => (dispatch) => {
+    dispatch({ type: "EDIT_TRUCK_SETUP", payload: { ...truckInfo } });
+};
+
 export const update_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");
+
     dispatch({ type: "TRUCK_START" });
+
     axios
         .put(`${baseURL}/trucks`, truckInfo)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
-                payload: resp.data.results,
+                payload: resp.data,
             });
             console.log("SUBMITTED!");
             console.log(resp.data);

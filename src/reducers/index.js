@@ -7,7 +7,7 @@ import { dinerOperatorReducer } from "./dinerOperatorReducer.js";
 const initSiteState = {
     isActive: false,
     user: {
-        id: 0,
+        id: null,
         username: "",
         password: "",
         user_email: "",
