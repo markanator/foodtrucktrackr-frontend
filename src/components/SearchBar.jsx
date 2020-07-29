@@ -9,13 +9,13 @@ import {
 import { connect } from 'react-redux';
  
 const SearchBar = () => {
-	const [formState, setFormstate] = useState({
-		query: "",
-		cuisineType: "",
-		radius: 5,
-	})
+    const [formState, setFormstate] = useState({
+        query: "",
+        cuisineType: "",
+        radius: 5,
+    });
 
-	const cuisineTypes = [ 
+    const cuisineTypes = [
         "American",
         "Mexican",
         "Greek",
@@ -27,55 +27,63 @@ const SearchBar = () => {
         "Dessert",
         "Italian",
         "Filipino",
-        "Kosher"
-	];
-	
-	const onInputChange = e => {
-		setFormstate({
-			...formState,
-			[e.target.name]: e.target.value
-		});
-	}
+        "Kosher",
+    ];
 
-	const submit = e => {
-		e.preventDefault();
-	}
+    const onInputChange = (e) => {
+        setFormstate({
+            ...formState,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-	console.log(formState);
+    const submit = (e) => {
+        e.preventDefault();
+    };
 
-	return (
-		<div className='home-header'>
-			<h1>Find the Right Truck for You</h1>
-			<Form onSubmit={submit}className='searchBarContainer' inline>
-				<FormGroup>
-					<Input
-						onChange={onInputChange}
-						type='search'
-						name='query'
-						id='query'
-						placeholder='City, State, USA'
-					/>
-				</FormGroup>
-				<Input onChange={onInputChange} type="select" name="cuisineType">
-					<option selected disabled value="">-- Select a cuisine type --</option>
-					{cuisineTypes.map(cuisineType =>{
-						return (
-							<option key={cuisineType} value={cuisineType}>{cuisineType}</option>
-						)
-					})}
-				</Input>
-				<Input onChange={onInputChange} type="select" name="radius">
-					<option value={5}>within 5 miles</option>
-					<option value={10}>within 10 miles</option>
-					<option value={15}>within 15 miles</option>
-					<option value={20}>within 20 miles</option>
-				</Input>
-				<Button id='btn' style={{ backgroundColor: 'rgb(0, 150, 250)' }}>
-					Search
-				</Button>
-			</Form>
-		</div>
-	);
+    // console.log(formState);
+
+    return (
+        <div className="home-header">
+            <h1>Find the Right Truck for You</h1>
+            <Form onSubmit={submit} className="searchBarContainer" inline>
+                <FormGroup>
+                    <Input
+                        onChange={onInputChange}
+                        type="search"
+                        name="query"
+                        id="query"
+                        placeholder="City, State, USA"
+                    />
+                </FormGroup>
+                <Input
+                    onChange={onInputChange}
+                    type="select"
+                    name="cuisineType"
+                >
+                    <option disabled defaultValue=" ">
+                        -- Select a cuisine type --
+                    </option>
+                    {cuisineTypes.map((cuisineType) => {
+                        return (
+                            <option key={cuisineType} value={cuisineType}>
+                                {cuisineType}
+                            </option>
+                        );
+                    })}
+                </Input>
+                <Input onChange={onInputChange} type="select" name="radius">
+                    <option value={5}>within 5 miles</option>
+                    <option value={10}>within 10 miles</option>
+                    <option value={15}>within 15 miles</option>
+                    <option value={20}>within 20 miles</option>
+                </Input>
+                <Button style={{ backgroundColor: "rgb(0, 150, 250)" }}>
+                    Search
+                </Button>
+            </Form>
+        </div>
+    );
 };
 
 const mapStateToProps = state => {

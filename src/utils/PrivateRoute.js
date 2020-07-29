@@ -12,8 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                 ) : (
                     // If NOT logged in =>
                     // change first link to whatever we want
-                    ((<Redirect to='/dashboard' />),
-                    console.log("redirecting..."))
+                    <Redirect to="/403" />
                 )
             }
         />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from "react-router-dom";
 import { trucks as data } from "../dummy-data";
 import { Button } from "reactstrap";
 // connect component to Redux store
@@ -29,16 +30,30 @@ const TruckList = (props) => {
                             className="truckPictures"
                         />
                         <div className="truckCardText">
-                            <h3>Truck Name: {truck.truckName}</h3>
+                            <Link to={`/trucks/${truck.id}`}>
+                                <h3>Truck Name: {truck.truckName}</h3>
+                            </Link>
                             <h4>Distance: {truck.location}</h4>
                             <h5>Food Description: {truck.truckDescription}</h5>
                             <h5>
                                 Rating:{" "}
-                                <i class="fas fa-star 8x" style={starStyle}></i>
-                                <i class="fas fa-star" style={starStyle}></i>
-                                <i class="fas fa-star" style={starStyle}></i>
-                                <i class="fas fa-star" style={starStyle}></i>
-                                <i class="far fa-star"></i>
+                                <i
+                                    className="fas fa-star 8x"
+                                    style={starStyle}
+                                ></i>
+                                <i
+                                    className="fas fa-star"
+                                    style={starStyle}
+                                ></i>
+                                <i
+                                    className="fas fa-star"
+                                    style={starStyle}
+                                ></i>
+                                <i
+                                    className="fas fa-star"
+                                    style={starStyle}
+                                ></i>
+                                <i className="far fa-star"></i>
                             </h5>
                             <h5>Price Range: $-$$</h5>
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // user actions
 // delete truck from favorites
@@ -24,7 +24,7 @@ export const SEARCH_TRUCKS_FAILURE = "SEARCH_TRUCK_FAILURE";
 // login
 export const LOGIN = "LOGIN";
 
-export const deleteFavTruck = truck => dispatch => {
+export const deleteFavTruck = (truck) => (dispatch) => {
     console.log("deleteFavTruck action creator");
     dispatch({ type: DELETE_FAV_START, payload: truck });
     //is this managed by the backend? or do we manage which trucks are the favorites here in the app? In that case, how do we persist that data?
@@ -40,7 +40,7 @@ export const deleteFavTruck = truck => dispatch => {
         }) */
 };
 
-export const addFavTruck = newTruck => dispatch => {
+export const addFavTruck = (newTruck) => (dispatch) => {
     console.log("addFavTruck action creator");
     dispatch({ type: ADD_FAV_START, payload: newTruck });
     /* axios
@@ -55,9 +55,9 @@ export const addFavTruck = newTruck => dispatch => {
         }) */
 };
 
-export const editTruckRating = newRating => dispatch => {
+export const editTruckRating = (newRating) => (dispatch) => {
     console.log("editTruckRating action creator");
-    dispatch({ type: EDIT_RATING_START, payload: newRating});
+    dispatch({ type: EDIT_RATING_START, payload: newRating });
     /* axios
         .put('url', newRating)
         .then(res => {
@@ -70,7 +70,7 @@ export const editTruckRating = newRating => dispatch => {
         }) */
 };
 
-export const rateTruck = rating => dispatch => {
+export const rateTruck = (rating) => (dispatch) => {
     console.log("rateTruck action creator");
     dispatch({ type: RATE_TRUCK_START, payload: rating });
     /* axios
@@ -83,9 +83,9 @@ export const rateTruck = rating => dispatch => {
             console.log(err);
             dispatch({ type: RATE_TRUCK_FAILURE, payload: err });
         }) */
-}
+};
 
-export const searchTrucksStart = searchState => dispatch => {
+export const searchTrucksStart = (searchState) => (dispatch) => {
     console.log("searchTrucksStart action creator");
     dispatch({ type: SEARCH_TRUCKS_START });
     //axios get request (may need to filter results to return what we want)
@@ -100,18 +100,33 @@ export const searchTrucksStart = searchState => dispatch => {
         }); */
 };
 
-export const login = user => dispatch => {
+export const login = () => (dispatch) => {
     console.log("login action creator");
-    dispatch({ type: LOGIN, payload: user });
-    axios
-        .post('/api/user', user)
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-}
+    const user = {
+        id: 0,
+        username: "",
+        password: "",
+        user_email: "",
+        user_first_name: "",
+        user_last_name: "",
+        user_role: "",
+    };
+    dispatch({ type: "LOGGED_IN", payload: { ...user } });
+    // axios
+    //     .post("/api/user", user)
+    //     .then((res) => {
+    //         console.log(res);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     });
+};
+
+export const logout = (user) => {
+    console.log("user wants to log out");
+    localStorage.removeItem("token");
+    return { type: "LOGGED_OUT", payload: { ...user } };
+};
 
 // import {axiosWithAuth} from '../utils/AxiosWithAuth';
 
