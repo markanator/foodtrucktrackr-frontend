@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+// time picker
+import TimePicker from "react-time-picker";
 
 // redux hooks
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
 
 export default function CreateTruckForm(props) {
+    // for redux actions
     const dispatch = useDispatch();
+    // get state from redux
     const ownerState = useSelector((state) => state.truckReducer);
+    // time picker stuff
+    const [arrival, setArrival] = useState("11:00");
+    const [departure, setDeparture] = useState("17:00");
 
     const [formData, setFormData] = useState({
         ownerID: ownerState.id,
@@ -19,6 +26,8 @@ export default function CreateTruckForm(props) {
         location: "",
         truckDescription: "",
         menuItem: [],
+        truck_departure: 0,
+        truck_arrival: 0,
     });
     const cuisineTypes = [
         "American",
@@ -44,8 +53,20 @@ export default function CreateTruckForm(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        dispatch(actions.add_truck(formData));
-        console.log(formData);
+
+        const dbTruck = {
+            truck_name: formData.truckName,
+            truck_departure_time: departure,
+            truck_arrival_time: arrival,
+            user_id: formData.ownerID,
+            // location_address: ,
+            // location_city: ,
+            // location_zip_code: ,
+            // location_state: ,
+        };
+
+        dispatch(actions.add_truck(dbTruck));
+        console.log(arrival, departure);
     };
 
     return (
@@ -139,6 +160,25 @@ export default function CreateTruckForm(props) {
                         value={formData.description}
                     />
                 </FormGroup>
+                <FormGroup>
+                    <Label>
+                        Arrival Time:
+                        <br />
+                        <TimePicker onChange={setArrival} value={arrival} />
+                    </Label>
+                </FormGroup>
+                <FormGroup>
+                    <Label>
+                        Departure Time:
+                        <br />
+                        <TimePicker
+                            onChange={setDeparture}
+                            value={departure}
+                            disableClock
+                        />
+                    </Label>
+                </FormGroup>
+
                 <Button color="primary">Submit</Button>
             </Form>
         </Container>
