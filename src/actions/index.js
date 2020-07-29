@@ -1,4 +1,5 @@
 import axios from "axios";
+import {axiosWithAuth} from '../utils/AxiosWithAuth';
 
 // user actions
 // delete truck from favorites
@@ -89,18 +90,20 @@ export const searchForTrucks = (searchState) => (dispatch) => {
     console.log("searchForTrucks action creator");
     dispatch({ type: SEARCH_TRUCKS_START });
     //axios get request (may need to filter results to return what we want)
-    axios
-        .get('http://localhost:5000/trucks')
+    axiosWithAuth()
+        .get('/trucks')
         .then(res => { 
             //filter results; 
             console.log(res);
-            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: res})
+            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: { searchState: searchState, res: res }})
         })
         .catch(err => {
             console.log(err);
             dispatch({type: SEARCH_TRUCKS_FAILURE, payload: err});
         });
 };
+
+// login/logout
 
 export const login = () => (dispatch) => {
     console.log("login action creator");

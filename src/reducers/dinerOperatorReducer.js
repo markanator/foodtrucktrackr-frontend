@@ -7,13 +7,13 @@ const initialState = {
         currentLocation: '',
         favoriteTrucks: [],
         isAdding: false,
-        error: "",
         isDeleting: false
     },
     searchState: {
         searchTerm: '',
         results: '',
-        isSearching: false
+        isSearching: false,
+        error: ''
     },
     operator: {
         username: '',
@@ -91,23 +91,40 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         case (actions.EDIT_RATING_FAILURE):
             return state;
         
+
+            // state shape for searchState
+            /* searchState: {
+                searchTerm: '',
+                results: '',
+                isSearching: false,
+                error: ''
+            } */
         // search for a truck
         case (actions.SEARCH_TRUCKS_START):
             return {
                 ...state,
-                isSearching: true
+                searchState: {
+                    ...state.searchState,
+                    isSearching: true
+                }
             };
         case (actions.SEARCH_TRUCKS_SUCCESS):
             return {
                 ...state,
-                isSearching: false,
-                results: action.payload
+                searchState: {
+                    ...state.searchState,
+                    isSearching: false,
+                    results: action.payload
+                }
             };
         case (actions.SEARCH_TRUCKS_FAILURE):
             return {
                 ...state,
-                isSearching: false,
-                error: ''
+                searchState: {
+                    ...state.searchState,
+                    isSearching: false,
+                    error: action.payload
+                }
             };
         default:
             return state;

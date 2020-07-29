@@ -91,7 +91,8 @@ const SearchBar = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		user: state.user
+        user: state.user,
+        searchState: state.searchState
 	};
 };
 
