@@ -109,10 +109,6 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                 isSearching: false,
                 error: ''
             };
-
-        // login
-        case (actions.LOGIN):
-            return state;
         default:
             return state;
     }
