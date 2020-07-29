@@ -7,13 +7,14 @@ const initialState = {
         currentLocation: '',
         favoriteTrucks: [],
         isAdding: false,
-        isDeleting: false
+        isDeleting: false,
+        dinerError: ''
     },
     searchState: {
         searchTerm: '',
         results: '',
         isSearching: false,
-        error: ''
+        searchError: ''
     },
     operator: {
         username: '',
@@ -33,24 +34,53 @@ const initialState = {
 
 export const dinerOperatorReducer = (state = initialState, action) => {
     switch (action.type) {
+        // state shape for diner
+        /* diner: {
+            username: '',
+            password: '',
+            currentLocation: '',
+            favoriteTrucks: [],
+            isAdding: false,
+            isDeleting: false,
+            dinerError: ''
+        }, */
         // add truck to favorites
         case (actions.ADD_FAV_START):
             return {
                 ...state,
-                isAdding: true
+                diner: {
+                    ...state.diner,
+                    isAdding: true
+                }
             };
         case (actions.ADD_FAV_SUCCESS):
             return {
                 ...state,
-                isAdding: false,
-                favoriteTrucks: [...state.favoriteTrucks, action.payload]
+                diner: {
+                    ...state.diner,
+                    isAdding: false,
+                    favoriteTrucks: [...state.favoriteTrucks, action.payload]
+                }
             };
         case (actions.ADD_FAV_FAILURE):
             return {
                 ...state,
-                isAdding: false,
-                error: action.payload
+                diner: {
+                    ...state.diner,
+                    isAdding: false,
+                    dinerError: action.payload
+                }
             };
+        // state shape for diner
+        /* diner: {
+            username: '',
+            password: '',
+            currentLocation: '',
+            favoriteTrucks: [],
+            isAdding: false,
+            isDeleting: false,
+            dinerError: ''
+        }, */
         // delete truck from favorites
         case (actions.DELETE_FAV_START):
             return {
@@ -123,7 +153,7 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                 searchState: {
                     ...state.searchState,
                     isSearching: false,
-                    error: action.payload
+                    searchError: action.payload
                 }
             };
         default:

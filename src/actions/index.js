@@ -56,10 +56,10 @@ export const addFavTruck = (truckId) => (dispatch) => {
         })
 };
 
-export const editTruckRating = (newRating) => (dispatch) => {
+/* export const editTruckRating = (newRating) => (dispatch) => {
     console.log("editTruckRating action creator");
     dispatch({ type: EDIT_RATING_START, payload: newRating });
-    /* axios
+    axios
         .put('url', newRating)
         .then(res => {
             console.log(res);
@@ -68,13 +68,13 @@ export const editTruckRating = (newRating) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: EDIT_RATING_FAILURE, payload: err });
-        }) */
-};
+        })
+}; */
 
 export const rateTruck = (rating) => (dispatch) => {
     console.log("rateTruck action creator");
     dispatch({ type: RATE_TRUCK_START, payload: rating });
-    axios
+    axiosWithAuth()
         .post('/trucks/:truck_id/rate', rating)
         .then(res => {
             console.log(res);
