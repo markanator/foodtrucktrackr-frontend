@@ -7,8 +7,9 @@ import {
 } from 'reactstrap';
 // connect component to Redux store
 import { connect } from 'react-redux';
+import { searchForTrucks } from '../actions';
  
-const SearchBar = () => {
+const SearchBar = (props) => {
     const [formState, setFormstate] = useState({
         query: "",
         cuisineType: "",
@@ -38,7 +39,9 @@ const SearchBar = () => {
     };
 
     const submit = (e) => {
-        e.preventDefault();
+		e.preventDefault();
+		console.log("hello from searchBar");
+		props.searchForTrucks(formState);
     };
 
     // console.log(formState);
@@ -92,6 +95,8 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, {})(SearchBar);
+const mapDispatchToProps = {searchForTrucks};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
 //export default SearchBar;
 // commented out ^^^ to connect component to the store

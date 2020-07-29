@@ -85,19 +85,21 @@ export const rateTruck = (rating) => (dispatch) => {
         }) */
 };
 
-export const searchTrucksStart = (searchState) => (dispatch) => {
-    console.log("searchTrucksStart action creator");
+export const searchForTrucks = (searchState) => (dispatch) => {
+    console.log("searchForTrucks action creator");
     dispatch({ type: SEARCH_TRUCKS_START });
     //axios get request (may need to filter results to return what we want)
-    /* axios
-        .get("url")
+    axios
+        .get('http://localhost:5000/trucks')
         .then(res => { 
-            filter results; 
-            dispatch({type: SEARCH_TRUCK_SUCCESS, payload: res....})
+            //filter results; 
+            console.log(res);
+            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: res})
         })
         .catch(err => {
-            dispatch({type: SEARCH_TRUCK_FAILURE, payload: err})
-        }); */
+            console.log(err);
+            dispatch({type: SEARCH_TRUCKS_FAILURE, payload: err});
+        });
 };
 
 export const login = () => (dispatch) => {
