@@ -87,9 +87,16 @@ const TruckList = (props) => {
 
 const mapStateToProps = state => {
     return {
-        user: state.user
+        searchState: {
+            ...state.searchState,
+            results: state.searchState.results
+        },
+        diner: {
+            ...state.diner,
+            favoriteTrucks: state.diner.favoriteTrucks
+        }
     }
-};
+}
 
 export default connect(mapStateToProps, {})(TruckList);
 
