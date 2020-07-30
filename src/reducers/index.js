@@ -7,7 +7,7 @@ import { dinerOperatorReducer } from "./dinerOperatorReducer.js";
 const initSiteState = {
     isActive: false,
     user: {
-        id: 0,
+        id: null,
         username: "",
         password: "",
         user_email: "",
@@ -24,7 +24,7 @@ export const tempSiteReducer = (state = initSiteState, action) => {
                 ...state,
                 isActive: true,
                 user: {
-                    ...action.payload,
+                    ...action.payload.user,
                 },
             };
         case "LOGGED_OUT":

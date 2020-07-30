@@ -1,45 +1,49 @@
-import React, { useState } from "react";
-import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import {
+    Container,
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Button,
+    Spinner,
+} from "reactstrap";
 // date-time picker
 import DateTimePicker from "react-datetime-picker";
 
-import { axiosWithAuth } from "../utils/AxiosWithAuth";
+// import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 // redux hooks
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+// for id
+import { useParams } from "react-router-dom";
 // actions
 // import * as actions from "../actions";
 
-export default function CreateTruckForm(props) {
+export default function EditTruck(props) {
+    // get id
+    const { id } = useParams();
     // for redux actions
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // get state from redux
-    const ownerState = useSelector((state) => state.tempSiteReducer.user);
+    const truckState = useSelector((state) => state.truckReducer);
+
+    const [loading, setLoading] = useState(true);
     // time picker stuff
-    const [arrival, setArrival] = useState(
-        new Date("December 31, 2100 21:00:00")
+    const [truck_arrival_time, setArrival] = useState(
+        truckState.truck_arrival_time
     );
-    const [departure, setDeparture] = useState(
-        new Date("December 31, 2100 23:59:59")
+    const [truck_departure_time, setDeparture] = useState(
+        truckState.truck_departure_time
     );
 
-    const [formData, setFormData] = useState({
-        ownerID: ownerState.id,
-        truckName: "",
-        truckImage: "",
-        cuisineType: "",
-        priceRange: "",
-        address: "",
-        city: "",
-        state: "",
-        zip: "",
-        truckDescription: "",
-        menuItem: [],
-        truck_departure: 0,
-        truck_arrival: 0,
-    });
+    const [formData, setFormData] = useState({ ...truckState });
 
-    console.log("ownerID", formData.ownerID);
+    useEffect(() => {
+        if (truckState.id != null) {
+            setLoading(false);
+        }
+    }, [id]);
 
     const cuisineTypes = [
         "American",
@@ -66,37 +70,25 @@ export default function CreateTruckForm(props) {
     const submit = (e) => {
         e.preventDefault();
 
-        const dbTruck = {
-            truck_name: formData.truckName,
-            truck_departure_time: new Date("December 31, 2100 21:00:00"),
-            truck_arrival_time: new Date("December 31, 2100 23:59:59"),
-            user_id: formData.ownerID,
-            location_zip_code: formData.zip,
-            location_city: formData.city,
-            location_address: formData.address,
-            location_state: formData.state,
-        };
-
-        console.log(dbTruck);
-        // setTimeout(() => {
-        // dispatch(actions.add_truck(dbTruck));
-        axiosWithAuth()
-            .post(`http://localhost:5000/trucks`, dbTruck)
-            .then((resp) => {
-                // dispatch({
-                //     type: "TRUCK_SUCCESS",
-                //     payload: resp.data.results,
-                // });
-                console.log("SUBMITTED!");
-                console.log("post truck resp:: ", resp);
-            })
-            .catch((err) => {
-                dispatch({ type: "TRUCK_FAIL" });
-                console.error(err);
-            });
-        // }, 1500);
+        // axiosWithAuth()
+        //     .put(`http://localhost:5000/trucks/${id}`, formData)
+        //     .then((resp) => {
+        //         // dispatch({
+        //         //     type: "TRUCK_SUCCESS",
+        //         //     payload: resp.data.results,
+        //         // });
+        //         console.log("SUBMITTED!");
+        //         console.log("post truck resp:: ", resp);
+        //     })
+        //     .catch((err) => {
+        //         dispatch({ type: "TRUCK_FAIL" });
+        //         console.error(err);
+        //     });
     };
 
+    if (loading) {
+        return <Spinner color="primary" />;
+    }
     return (
         <Container className="form-container">
             <Form className="createTruckForm" onSubmit={submit}>
@@ -106,10 +98,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="truckName"
-                        name="truckName"
+                        name="truck_name"
                         placeholder="Enter your truck's name"
-                        value={formData.truckName}
+                        value={formData.truck_name}
                         required
                     />
                 </FormGroup>
@@ -118,10 +109,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="image"
-                        name="truckImage"
+                        name="truck_image"
                         placeholder="Url of an image of your truck"
-                        value={formData.image}
+                        value={formData.truck_image}
                         required
                     />
                 </FormGroup>
@@ -130,19 +120,15 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="select"
-                        id="cuisineType"
-                        name="cuisineType"
+                        name="truck_cuisine_type"
                         required
                         defaultValue="-- Select your cuisine type --"
+                        value={formData.truck_cuisine_type}
                     >
-                        {/* <option
-                            value="-- Select your cuisine type --"
-                            disabled
-                        ></option> */}
-                        {cuisineTypes.map((cuisineType) => {
+                        {cuisineTypes.map((cuisine_type) => {
                             return (
-                                <option value={cuisineType} key={cuisineType}>
-                                    {cuisineType}
+                                <option value={cuisine_type} key={cuisine_type}>
+                                    {cuisine_type}
                                 </option>
                             );
                         })}
@@ -153,10 +139,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="select"
-                        id="priceRange"
-                        name="priceRange"
+                        name="price_range"
                         required
-                        defaultValue=""
+                        value={formData.price_range}
                     >
                         <option value="" disabled>
                             -- Select your price range --
@@ -171,10 +156,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="address"
-                        name="address"
+                        name="location_address"
                         placeholder="Street address"
-                        value={formData.address}
+                        value={formData.location_address}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -182,10 +166,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="city"
-                        name="city"
+                        name="location_city"
                         placeholder="City"
-                        value={formData.city}
+                        value={formData.location_city}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -193,10 +176,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="state"
-                        name="state"
+                        name="location_state"
                         placeholder="State"
-                        value={formData.state}
+                        value={formData.location_state}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -204,10 +186,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        id="zip"
-                        name="zip"
+                        name="location_zip_code"
                         placeholder="Local zip code"
-                        value={formData.zip}
+                        value={formData.location_zip_code}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -215,10 +196,9 @@ export default function CreateTruckForm(props) {
                     <Input
                         onChange={onInputChange}
                         type="textarea"
-                        id="description"
-                        name="truckDescription"
+                        name="truck_description"
                         placeholder="Tell us what you're all about!"
-                        value={formData.description}
+                        value={formData.truck_description}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -227,7 +207,7 @@ export default function CreateTruckForm(props) {
                         <br />
                         <DateTimePicker
                             onChange={setArrival}
-                            value={arrival}
+                            value={truck_arrival_time}
                             clearIcon="Clear"
                             required={true}
                         />
@@ -239,13 +219,15 @@ export default function CreateTruckForm(props) {
                         <br />
                         <DateTimePicker
                             onChange={setDeparture}
-                            value={departure}
+                            value={truck_departure_time}
                             clearIcon="Clear"
                         />
                     </Label>
                 </FormGroup>
 
-                <Button color="primary">Submit</Button>
+                <Button color="primary" type="submit">
+                    Submit
+                </Button>
             </Form>
         </Container>
     );

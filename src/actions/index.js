@@ -98,7 +98,8 @@ export const searchForTrucks = (searchState) => (dispatch) => {
             const searchResults = res.data.filter((result) => {
                 return result.truck_cuisine_type === searchState.searchCuisine && `${result.location_city}, ${result.location_state}` === searchState.searchQuery
             });
-            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: searchResults })
+            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: searchResults });
+            
         })
         .catch(err => {
             console.log(err);
@@ -106,28 +107,9 @@ export const searchForTrucks = (searchState) => (dispatch) => {
         });
 };
 
-// login/logout
-
-export const login = () => (dispatch) => {
+export const login = (user) => (dispatch) => {
     console.log("login action creator");
-    const user = {
-        id: 0,
-        username: "",
-        password: "",
-        user_email: "",
-        user_first_name: "",
-        user_last_name: "",
-        user_role: "",
-    };
-    dispatch({ type: "LOGGED_IN", payload: { ...user } });
-    // axios
-    //     .post("/api/user", user)
-    //     .then((res) => {
-    //         console.log(res);
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
+    dispatch({ type: "LOGGED_IN", payload: user });
 };
 
 export const logout = (user) => {
@@ -136,46 +118,36 @@ export const logout = (user) => {
     return { type: "LOGGED_OUT", payload: { ...user } };
 };
 
-// import {axiosWithAuth} from '../utils/AxiosWithAuth';
-
 // Trucks
 export const ADD_TRUCK = "ADD_TRUCK";
 export const UPDATE_TRUCK = "UPDATE_TRUCK";
 export const DELETE_TRUCK = "DELETE_TRUCK";
 
-const baseURL = "https://lambdatracker.free.beeceptor.com/api";
+const baseURL = "http://localhost:5000";
 
 export const add_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
-    axios
-        .post(`${baseURL}/trucks`, truckInfo)
-        .then((resp) => {
-            dispatch({
-                type: "TRUCK_SUCCESS",
-                payload: resp.data.results,
-            });
-            console.log("SUBMITTED!");
-            console.log(resp.data);
-        })
-        .catch((err) => {
-            dispatch({ type: "TRUCK_FAIL" });
-            console.error(err);
-        });
 };
 export const update_owner = (ownerID) => {
     console.log("# userLogged in...");
     return { type: "UPDATE_OWNER", payload: ownerID };
 };
+export const edit_truck = (truckInfo) => (dispatch) => {
+    dispatch({ type: "EDIT_TRUCK_SETUP", payload: { ...truckInfo } });
+};
+
 export const update_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");
+
     dispatch({ type: "TRUCK_START" });
+
     axios
         .put(`${baseURL}/trucks`, truckInfo)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
-                payload: resp.data.results,
+                payload: resp.data,
             });
             console.log("SUBMITTED!");
             console.log(resp.data);

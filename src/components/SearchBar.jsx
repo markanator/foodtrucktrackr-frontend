@@ -8,8 +8,10 @@ import {
 // connect component to Redux store
 import { connect } from 'react-redux';
 import { searchForTrucks } from '../actions';
+import { useHistory } from 'react-router-dom';
  
 const SearchBar = (props) => {
+    const {push} = useHistory();
     const [formState, setFormstate] = useState({
         query: "",
         cuisineType: "",
@@ -40,7 +42,8 @@ const SearchBar = (props) => {
 
     const submit = (e) => {
 		e.preventDefault();
-		console.log("hello from searchBar");
+        console.log("hello from searchBar");
+        push("/search-results");
 		props.searchForTrucks(formState);
     };
 

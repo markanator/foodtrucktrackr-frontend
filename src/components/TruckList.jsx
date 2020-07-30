@@ -1,23 +1,55 @@
-import React, { useState } from "react";
-import {Link} from "react-router-dom";
-import { trucks as data } from "../dummy-data";
-import { Button } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 // connect component to Redux store
 import { connect } from 'react-redux';
+// auth AXIOS
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
+// redux
+import { useSelector, useDispatch } from "react-redux";
+// actions
+import * as actions from "../actions";
+// styles
+import { Button, Spinner } from "reactstrap";
 
-const TruckList = (props) => {
+const TruckList = ({ OperatorDashboard, ...props }) => {
+    const dispatch = useDispatch();
+    const { push } = useHistory();
+    // get state from redux
+    const ownerState = useSelector((state) => state.tempSiteReducer.user);
+
     const starStyle = { fontSize: "20px" };
-    const [truckList, setTruckList] = useState(data);
-
-    const deleteCard = (e) => {
-        setTruckList(
-            truckList.filter((truck) => {
-                return truck.id.toString() !== e.target.id;
-            })
-        );
-    };
+    const [truckList, setTruckList] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
+    const deleteCard = (e) => {
+        e.preventDefault();
+    };
+    useEffect(() => {
+        axiosWithAuth()
+            .get("http://localhost:5000/trucks")
+            .then((res) => {
+                // console.log(res.data);
+                // filter results based off Logged in user ID
+                const ownerTrucks = res.data.filter(
+                    (store) => store.user_id === ownerState.id
+                );
+                setTruckList(ownerTrucks);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <Spinner color="primary" />;
+    }
+
+    if (props.searchResults) {
+        setTruckList(props.searchResults)
+    }
 
     return (
         <div>
@@ -31,10 +63,10 @@ const TruckList = (props) => {
                         />
                         <div className="truckCardText">
                             <Link to={`/trucks/${truck.id}`}>
-                                <h3>Truck Name: {truck.truckName}</h3>
+                                <h3>Truck Name: {truck.truck_name}</h3>
                             </Link>
                             <h4>Distance: {truck.location}</h4>
-                            <h5>Food Description: {truck.truckDescription}</h5>
+                            <h5>Food Description: {truck.truck_description}</h5>
                             <h5>
                                 Rating:{" "}
                                 <i
@@ -57,14 +89,17 @@ const TruckList = (props) => {
                             </h5>
                             <h5>Price Range: $-$$</h5>
 
-                            {props.OperatorDashboard && (
+                            {OperatorDashboard && (
                                 <>
-                                    {/* STRETCH:::
-										<Button className='btn' style={buttonStyle}>
-											Promote
-										</Button> 
-									*/}
-                                    <Button className="btn" style={buttonStyle}>
+                                    <Button
+                                        className="btn"
+                                        style={buttonStyle}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            dispatch(actions.edit_truck(truck));
+                                            push(`/edit-truck/${truck.id}`);
+                                        }}
+                                    >
                                         Edit
                                     </Button>
                                     <Button
@@ -86,15 +121,15 @@ const TruckList = (props) => {
 };
 
 const mapStateToProps = state => {
-    return {
-        searchState: {
+    return { state
+        /* searchState: {
             ...state.searchState,
             results: state.searchState.results
         },
         diner: {
             ...state.diner,
             favoriteTrucks: state.diner.favoriteTrucks
-        }
+        } */
     }
 }
 
