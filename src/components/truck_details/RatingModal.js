@@ -3,6 +3,8 @@ import axios from "axios";
 import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 //import actions
 import { rateTruck } from '../../actions';
+// connect component to Redux store
+import { connect } from 'react-redux';
 
 function RatingModal(props){
     const [userRating, setUserRating] = useState(0);
@@ -14,7 +16,7 @@ function RatingModal(props){
 
     const submit = () => {
         console.log(userRating);
-        rateTruck(userRating);
+        props.rateTruck(userRating);
         closeRatingModal();
     }
 
@@ -40,4 +42,12 @@ function RatingModal(props){
     )
 }
 
-export default RatingModal;
+const mapStateToProps = state => {
+    return state;
+};
+
+const mapDispatchToProps = {rateTruck};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RatingModal);
+//export default RatingModal;
+// comment this ^^^ out to connect component to the store

@@ -28,7 +28,7 @@ export default function TruckDetails(props){
     
     const addToFavorites = () => {
         setIsFavorited(true);
-        addFavTruck();
+        addFavTruck(props.match.params.id);
     }
 
     const removeFromFavorites = () => {
