@@ -81,7 +81,7 @@ export default function CreateTruckForm(props) {
         // setTimeout(() => {
         // dispatch(actions.add_truck(dbTruck));
         axiosWithAuth()
-            .post(`http://localhost:5000/trucks`, dbTruck)
+            .post(`/trucks`, dbTruck)
             .then((resp) => {
                 // dispatch({
                 //     type: "TRUCK_SUCCESS",

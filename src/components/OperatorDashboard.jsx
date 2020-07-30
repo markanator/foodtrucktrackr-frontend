@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import TruckList from './TruckList';
 import { Button } from 'reactstrap';
+// connect component to Redux store
+import { connect } from 'react-redux';
 
 const OperatorDashboard = () => {
 	return (
@@ -23,4 +25,13 @@ const OperatorDashboard = () => {
 	);
 };
 
-export default OperatorDashboard;
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+};
+
+export default connect(mapStateToProps, {})(OperatorDashboard);
+
+//export default OperatorDashboard;
+// commented out ^^^ to connect component to the store

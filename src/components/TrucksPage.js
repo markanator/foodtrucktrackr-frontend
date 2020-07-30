@@ -17,7 +17,7 @@ const TrucksPage = () => {
 
     useEffect(() => {
         axiosWithAuth()
-            .get("http://localhost:5000/trucks")
+            .get("/trucks")
             .then((res) => setTruckList(res.data))
             .catch((err) => console.error(err));
     }, []);

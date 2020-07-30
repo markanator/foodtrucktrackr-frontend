@@ -2,6 +2,8 @@ import React from "react";
 
 import SearchBar from "./SearchBar";
 import TruckList from "./TruckList";
+// connect component to Redux store
+//import { connect } from 'react-redux';
 
 function SearchPage(props){
     return (
@@ -12,4 +14,16 @@ function SearchPage(props){
     )
 }
 
+/* const mapStateToProps = state => {
+    return {
+        searchState: {
+            ...state.searchState,
+            results: state.searchState.results
+        }
+    }
+} */
+
+
+//export default connect(mapStateToProps, {})(SearchPage);
 export default SearchPage;
+// commented out ^^^ to connect component to the store

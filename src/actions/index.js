@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { axiosWithAuth } from "../utils/AxiosWithAuth";
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 // user actions
 // delete truck from favorites
@@ -29,37 +29,37 @@ export const deleteFavTruck = (truck) => (dispatch) => {
     console.log("deleteFavTruck action creator");
     dispatch({ type: DELETE_FAV_START, payload: truck });
     //is this managed by the backend? or do we manage which trucks are the favorites here in the app? In that case, how do we persist that data?
-    /* axios
-        .delete('url', truck?)
-        .then(res => {
+    axiosWithAuth()
+        .delete("/user/:userID/favorites/:truckID")
+        .then((res) => {
             console.log(res);
             dispatch({ type: DELETE_FAV_SUCCESS });
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
             dispatch({ type: DELETE_FAV_FAILURE, payload: err });
-        }) */
+        });
 };
 
-export const addFavTruck = (newTruck) => (dispatch) => {
+export const addFavTruck = (truckId) => (dispatch) => {
     console.log("addFavTruck action creator");
-    dispatch({ type: ADD_FAV_START, payload: newTruck });
-    /* axios
-        .post('url', newTruck)
-        .then(res => {
+    dispatch({ type: ADD_FAV_START, payload: truckId });
+    axiosWithAuth()
+        .post("/user/:userID/favorites", truckId)
+        .then((res) => {
             console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS });
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
             dispatch({ type: ADD_FAV_FAILURE, payload: err });
-        }) */
+        });
 };
 
-export const editTruckRating = (newRating) => (dispatch) => {
+/* export const editTruckRating = (newRating) => (dispatch) => {
     console.log("editTruckRating action creator");
     dispatch({ type: EDIT_RATING_START, payload: newRating });
-    /* axios
+    axios
         .put('url', newRating)
         .then(res => {
             console.log(res);
@@ -68,37 +68,46 @@ export const editTruckRating = (newRating) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: EDIT_RATING_FAILURE, payload: err });
-        }) */
-};
-
-export const rateTruck = (rating) => (dispatch) => {
-    console.log("rateTruck action creator");
-    dispatch({ type: RATE_TRUCK_START, payload: rating });
-    /* axios
-        .post('url', rating)
-        .then(res => {
-            console.log(res);
-            dispatch({ type: RATE_TRUCK_SUCCESS });
         })
-        .catch(err => {
+}; */
+
+export const rateTruck = (rating, user_id) => (dispatch) => {
+    console.log("rateTruck action creator");
+    dispatch({ type: RATE_TRUCK_START, payload: { rating, user_id } });
+    axiosWithAuth()
+        .post("/trucks/:truck_id/rate", { rating: rating, user_id: user_id })
+        .then((res) => {
+            console.log(res);
+            dispatch({ type: RATE_TRUCK_SUCCESS, payload: res });
+        })
+        .catch((err) => {
             console.log(err);
             dispatch({ type: RATE_TRUCK_FAILURE, payload: err });
-        }) */
+        });
 };
 
-export const searchTrucksStart = (searchState) => (dispatch) => {
-    console.log("searchTrucksStart action creator");
+export const searchForTrucks = (searchState) => (dispatch) => {
+    console.log("searchForTrucks action creator");
     dispatch({ type: SEARCH_TRUCKS_START });
     //axios get request (may need to filter results to return what we want)
-    /* axios
-        .get("url")
-        .then(res => { 
-            filter results; 
-            dispatch({type: SEARCH_TRUCK_SUCCESS, payload: res....})
+    axiosWithAuth()
+        .get("/trucks")
+        .then((res) => {
+            //filter results;
+            console.log(res);
+            const searchResults = res.data.filter((result) => {
+                return (
+                    result.truck_cuisine_type === searchState.searchCuisine &&
+                    `${result.location_city}, ${result.location_state}` ===
+                        searchState.searchQuery
+                );
+            });
+            dispatch({ type: SEARCH_TRUCKS_SUCCESS, payload: searchResults });
         })
-        .catch(err => {
-            dispatch({type: SEARCH_TRUCK_FAILURE, payload: err})
-        }); */
+        .catch((err) => {
+            console.log(err);
+            dispatch({ type: SEARCH_TRUCKS_FAILURE, payload: err });
+        });
 };
 
 export const login = (user) => (dispatch) => {
@@ -136,8 +145,8 @@ export const update_truck = (truckInfo) => (dispatch) => {
 
     dispatch({ type: "TRUCK_START" });
 
-    axios
-        .put(`${baseURL}/trucks`, truckInfo)
+    axiosWithAuth()
+        .put(`/trucks/${truckInfo.id}`, truckInfo)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
@@ -154,8 +163,8 @@ export const update_truck = (truckInfo) => (dispatch) => {
 export const delete_truck = (truckId) => (dispatch) => {
     console.log("# Operator deleting truck...", truckId);
     dispatch({ type: "TRUCK_START" });
-    axios
-        .delete(`${baseURL}/truck/${truckId}`)
+    axiosWithAuth()
+        .delete(`/trucks/${truckId}`)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
@@ -177,8 +186,9 @@ export const DELETE_MENU_ITEM = "DELETE_MENU_ITEM";
 export const add_menu_item = (menuItem) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
-    axios
-        .post(`${baseURL}/trucks/menu/${menuItem.truckId}`, menuItem)
+    // NEED TO FINISH
+    axiosWithAuth()
+        .post(`/trucks/menu/${menuItem.truckId}`, menuItem)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
@@ -195,8 +205,9 @@ export const add_menu_item = (menuItem) => (dispatch) => {
 export const update_menu_item = (menuItem) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
-    axios
-        .put(`${baseURL}/trucks/menu/${menuItem.truckId}`, menuItem)
+    // NEED TO FINISH
+    axiosWithAuth()
+        .put(`/trucks/menu/${menuItem.truckId}`, menuItem)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
@@ -213,8 +224,8 @@ export const update_menu_item = (menuItem) => (dispatch) => {
 export const delete_menu_item = (menuItemID) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
-    axios
-        .delete(`${baseURL}/trucks/menu/${menuItemID}`)
+    axiosWithAuth()
+        .delete(`/trucks/menu/${menuItemID}`)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",

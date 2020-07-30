@@ -22,7 +22,7 @@ const logger = () => (next) => (action) => {
 };
 
 // redux store w/ async funcs
-const store = createStore(rootReducer, applyMiddleware(logger, Thunk));
+export const store = createStore(rootReducer, applyMiddleware(logger, Thunk));
 
 // render to page
 ReactDOM.render(

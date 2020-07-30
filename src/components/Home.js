@@ -5,6 +5,8 @@ import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
 
 // local imports
 import SearchBar from "./SearchBar";
+// connect component to Redux store
+import { connect } from "react-redux";
 
 //import login action creator
 //import {login} from '../actions';
@@ -56,7 +58,7 @@ const Home = ({ users, setUsers }) => {
         setFormState({ ...formState, cSelected: e.target.id });
     };
 
-    const baseURL = "http://localhost:5000";
+    const baseURL = "https://foodtrackertcr.herokuapp.com";
 
     //user creation
     const newUser = (user) => {
@@ -160,4 +162,14 @@ const Home = ({ users, setUsers }) => {
     );
 };
 
-export default Home;
+// connect component to Redux store
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+export default connect(mapStateToProps, {})(Home);
+
+//export default Home;
+// commented out ^^^ to connect component to the store

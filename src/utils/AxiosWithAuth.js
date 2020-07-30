@@ -8,7 +8,7 @@ export const axiosWithAuth = () => {
         // base url for our local server
         // once server is hosted use:
         // https://cors-anywhere.herokuapp.com/
-        // baseURL: "http://localhost:5000",
+        baseURL: "https://foodtrackertcr.herokuapp.com",
         headers: {
             Authorization: token,
         },
