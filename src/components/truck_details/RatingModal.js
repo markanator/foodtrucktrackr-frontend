@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
 import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+//import actions
+import { rateTruck } from '../../actions';
 
 function RatingModal(props){
     const [userRating, setUserRating] = useState(0);
@@ -12,6 +14,7 @@ function RatingModal(props){
 
     const submit = () => {
         console.log(userRating);
+        rateTruck(userRating);
         closeRatingModal();
     }
 

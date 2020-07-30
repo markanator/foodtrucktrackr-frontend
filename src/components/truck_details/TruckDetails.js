@@ -7,7 +7,11 @@ import MenuItemModal from "./MenuItemModal";
 import RatingModal from "./RatingModal";
 import FavoriteButton from "./FavoriteButton";
 
+//import actions
+import { addFavTruck, deleteFavTruck } from '../../actions';
+
 export default function TruckDetails(props){
+    console.log("props from truckDetails", props);
     const [modals, setModals] = useState({
         rating: false,
         menu: false
@@ -24,10 +28,12 @@ export default function TruckDetails(props){
     
     const addToFavorites = () => {
         setIsFavorited(true);
+        addFavTruck();
     }
 
     const removeFromFavorites = () => {
         setIsFavorited(false);
+        deleteFavTruck();
     }
 
     return (

@@ -28,7 +28,6 @@ export const LOGIN = "LOGIN";
 export const deleteFavTruck = (truck) => (dispatch) => {
     console.log("deleteFavTruck action creator");
     dispatch({ type: DELETE_FAV_START, payload: truck });
-    //is this managed by the backend? or do we manage which trucks are the favorites here in the app? In that case, how do we persist that data?
     axiosWithAuth()
         .delete("/user/:userID/favorites/:truckID")
         .then((res) => {
@@ -71,9 +70,9 @@ export const addFavTruck = (truckId) => (dispatch) => {
         })
 }; */
 
-export const rateTruck = (rating, user_id) => (dispatch) => {
+export const rateTruck = rating => (dispatch) => {
     console.log("rateTruck action creator");
-    dispatch({ type: RATE_TRUCK_START, payload: { rating, user_id } });
+    dispatch({ type: RATE_TRUCK_START, payload: rating });
     axiosWithAuth()
         .post('/trucks/:truck_id/rate', rating)
         .then(res => {
