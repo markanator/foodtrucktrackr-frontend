@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-
+// connect component to Redux store
+import { connect } from 'react-redux';
 // auth AXIOS
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 // redux
@@ -10,7 +11,7 @@ import * as actions from "../actions";
 // styles
 import { Button, Spinner } from "reactstrap";
 
-const TruckList = ({ OperatorDashboard }) => {
+const TruckList = ({ OperatorDashboard, ...props }) => {
     const dispatch = useDispatch();
     const { push } = useHistory();
     // get state from redux
@@ -45,6 +46,11 @@ const TruckList = ({ OperatorDashboard }) => {
     if (loading) {
         return <Spinner color="primary" />;
     }
+
+    if (props.searchResults) {
+        setTruckList(props.searchResults)
+    }
+
     return (
         <div>
             <div className="truckListCardContainer">
@@ -114,4 +120,20 @@ const TruckList = ({ OperatorDashboard }) => {
     );
 };
 
-export default TruckList;
+const mapStateToProps = state => {
+    return { state
+        /* searchState: {
+            ...state.searchState,
+            results: state.searchState.results
+        },
+        diner: {
+            ...state.diner,
+            favoriteTrucks: state.diner.favoriteTrucks
+        } */
+    }
+}
+
+export default connect(mapStateToProps, {})(TruckList);
+
+//export default TruckList;
+// commented out ^^^ to connect component to the store

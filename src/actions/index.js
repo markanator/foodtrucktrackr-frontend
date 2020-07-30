@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { axiosWithAuth } from "../utils/AxiosWithAuth";
+import {axiosWithAuth} from '../utils/AxiosWithAuth';
 
 // user actions
 // delete truck from favorites
@@ -29,8 +29,8 @@ export const deleteFavTruck = (truck) => (dispatch) => {
     console.log("deleteFavTruck action creator");
     dispatch({ type: DELETE_FAV_START, payload: truck });
     //is this managed by the backend? or do we manage which trucks are the favorites here in the app? In that case, how do we persist that data?
-    /* axios
-        .delete('url', truck?)
+    axiosWithAuth()
+        .delete('/user/:userID/favorites/:truckID')
         .then(res => {
             console.log(res);
             dispatch({ type: DELETE_FAV_SUCCESS });
@@ -38,14 +38,14 @@ export const deleteFavTruck = (truck) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: DELETE_FAV_FAILURE, payload: err });
-        }) */
+        })
 };
 
-export const addFavTruck = (newTruck) => (dispatch) => {
+export const addFavTruck = (truckId) => (dispatch) => {
     console.log("addFavTruck action creator");
-    dispatch({ type: ADD_FAV_START, payload: newTruck });
-    /* axios
-        .post('url', newTruck)
+    dispatch({ type: ADD_FAV_START, payload: truckId });
+    axiosWithAuth()
+        .post('/user/:userID/favorites', truckId)
         .then(res => {
             console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS });
@@ -53,13 +53,13 @@ export const addFavTruck = (newTruck) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: ADD_FAV_FAILURE, payload: err });
-        }) */
+        })
 };
 
-export const editTruckRating = (newRating) => (dispatch) => {
+/* export const editTruckRating = (newRating) => (dispatch) => {
     console.log("editTruckRating action creator");
     dispatch({ type: EDIT_RATING_START, payload: newRating });
-    /* axios
+    axios
         .put('url', newRating)
         .then(res => {
             console.log(res);
@@ -68,37 +68,43 @@ export const editTruckRating = (newRating) => (dispatch) => {
         .catch(err => {
             console.log(err);
             dispatch({ type: EDIT_RATING_FAILURE, payload: err });
-        }) */
-};
+        })
+}; */
 
-export const rateTruck = (rating) => (dispatch) => {
+export const rateTruck = (rating, user_id) => (dispatch) => {
     console.log("rateTruck action creator");
-    dispatch({ type: RATE_TRUCK_START, payload: rating });
-    /* axios
-        .post('url', rating)
+    dispatch({ type: RATE_TRUCK_START, payload: {rating, user_id} });
+    axiosWithAuth()
+        .post('/trucks/:truck_id/rate', {rating: rating, user_id: user_id})
         .then(res => {
             console.log(res);
-            dispatch({ type: RATE_TRUCK_SUCCESS });
+            dispatch({ type: RATE_TRUCK_SUCCESS, payload: res });
         })
         .catch(err => {
             console.log(err);
             dispatch({ type: RATE_TRUCK_FAILURE, payload: err });
-        }) */
+        })
 };
 
-export const searchTrucksStart = (searchState) => (dispatch) => {
-    console.log("searchTrucksStart action creator");
+export const searchForTrucks = (searchState) => (dispatch) => {
+    console.log("searchForTrucks action creator");
     dispatch({ type: SEARCH_TRUCKS_START });
     //axios get request (may need to filter results to return what we want)
-    /* axios
-        .get("url")
+    axiosWithAuth()
+        .get('/trucks')
         .then(res => { 
-            filter results; 
-            dispatch({type: SEARCH_TRUCK_SUCCESS, payload: res....})
+            //filter results; 
+            console.log(res);
+            const searchResults = res.data.filter((result) => {
+                return result.truck_cuisine_type === searchState.searchCuisine && `${result.location_city}, ${result.location_state}` === searchState.searchQuery
+            });
+            dispatch({type: SEARCH_TRUCKS_SUCCESS, payload: searchResults });
+            
         })
         .catch(err => {
-            dispatch({type: SEARCH_TRUCK_FAILURE, payload: err})
-        }); */
+            console.log(err);
+            dispatch({type: SEARCH_TRUCKS_FAILURE, payload: err});
+        });
 };
 
 export const login = (user) => (dispatch) => {

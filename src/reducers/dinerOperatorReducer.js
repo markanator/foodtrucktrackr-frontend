@@ -7,13 +7,16 @@ const initialState = {
         currentLocation: '',
         favoriteTrucks: [],
         isAdding: false,
-        error: "",
-        isDeleting: false
+        isDeleting: false,
+        dinerError: ''
     },
     searchState: {
-        searchTerm: '',
+        searchQuery: '',
+        searchCuisine: '',
+        searchRadius: '',
         results: '',
-        isSearching: false
+        isSearching: false,
+        searchError: ''
     },
     operator: {
         username: '',
@@ -28,91 +31,187 @@ const initialState = {
                 menu: []
             }
         ]
+    },
+    truck: {
+        id: '',
+        rating: '',
+        isRating: false,
+        truckError: ''
     }
 }
 
 export const dinerOperatorReducer = (state = initialState, action) => {
     switch (action.type) {
+        // state shape for diner
+        /* diner: {
+            username: '',
+            password: '',
+            currentLocation: '',
+            favoriteTrucks: [],
+            isAdding: false,
+            isDeleting: false,
+            dinerError: ''
+        }, */
         // add truck to favorites
         case (actions.ADD_FAV_START):
             return {
                 ...state,
-                isAdding: true
+                diner: {
+                    ...state.diner,
+                    isAdding: true
+                }
             };
         case (actions.ADD_FAV_SUCCESS):
             return {
                 ...state,
-                isAdding: false,
-                favoriteTrucks: [...state.favoriteTrucks, action.payload]
+                diner: {
+                    ...state.diner,
+                    isAdding: false,
+                    favoriteTrucks: [...state.favoriteTrucks, action.payload]
+                }
             };
         case (actions.ADD_FAV_FAILURE):
             return {
                 ...state,
-                isAdding: false,
-                error: action.payload
+                diner: {
+                    ...state.diner,
+                    isAdding: false,
+                    dinerError: action.payload
+                }
             };
+        // state shape for diner
+        /* diner: {
+            username: '',
+            password: '',
+            currentLocation: '',
+            favoriteTrucks: [],
+            isAdding: false,
+            isDeleting: false,
+            dinerError: ''
+        }, */
         // delete truck from favorites
         case (actions.DELETE_FAV_START):
             return {
                 ...state,
-                isDeleting: true
+                diner: {
+                    ...state.diner,
+                    isDeleting: true
+                }
             };
         case (actions.DELETE_FAV_SUCCESS):
             return {
                 ...state,
-                isDeleting: false,
-                favoriteTrucks: [state.favoriteTrucks.filter(truck => truck !== action.payload)]
+                diner: {
+                    ...state.diner,
+                    isDeleting: false,
+                    favoriteTrucks: [state.favoriteTrucks.filter(truck => truck !== action.payload)]
+                }
             };
         case (actions.DELETE_FAV_FAILURE):
             return {
                 ...state,
-                isDeleting: false,
-                error: action.payload
+                diner: {
+                    ...state.diner,
+                    isDeleting: false,
+                    dinerError: action.payload
+                }
             };
         
         // rate truck
+        // state shape for diner
+        /* diner: {
+            username: '',
+            password: '',
+            currentLocation: '',
+            favoriteTrucks: [],
+            isAdding: false,
+            isDeleting: false,
+            dinerError: ''
+        }, */
+        // state shape for truck
+        /* truck: {
+            id: '',
+            rating: '',
+            isRating: false,
+            truckError: ''
+        } */
         // will need access to specific truck in order to complete this
         // action.payload should include truck id and rating
         case(actions.RATE_TRUCK_START):
-            return state;
+            return {
+                ...state,
+                truck: {
+                    ...state.truck,
+                    isRating: true
+                }
+            };
         case(actions.RATE_TRUCK_SUCCESS):
-            return state;
+            return {
+                ...state,
+                truck: {
+                    ...state.truck,
+                    rating: action.payload,
+                    isRating: false
+                }
+            };
         case(actions.RATE_TRUCK_FAILURE):
-            return state;
+            return {
+                ...state,
+                truck: {
+                    ...state.truck,
+                    isRating: false,
+                    truckError: action.payload
+                }
+            };
 
         // edit rating
         // will need access to specific truck in order to complete this
         // will need access to user's original rating in order to update it
         // action.payload should include truck id and newRating
-        case (actions.EDIT_RATING_START):
+        /* case (actions.EDIT_RATING_START):
             return state;
         case (actions.EDIT_RATING_SUCCESS):
             return state;
         case (actions.EDIT_RATING_FAILURE):
-            return state;
+            return state; */
         
+
+            // state shape for searchState
+            /* searchState: {
+                searchQuery: '',
+                searchCuisine: '',
+                searchRadius: '',
+                results: '',
+                isSearching: false,
+                error: ''
+            } */
         // search for a truck
         case (actions.SEARCH_TRUCKS_START):
             return {
                 ...state,
-                isSearching: true
+                searchState: {
+                    ...state.searchState,
+                    isSearching: true
+                }
             };
         case (actions.SEARCH_TRUCKS_SUCCESS):
             return {
                 ...state,
-                isSearching: false,
-                results: action.payload
+                searchState: {
+                    ...state.searchState,
+                    isSearching: false,
+                    results: action.payload
+                }
             };
         case (actions.SEARCH_TRUCKS_FAILURE):
             return {
                 ...state,
-                isSearching: false,
-                error: ''
+                searchState: {
+                    ...state.searchState,
+                    isSearching: false,
+                    searchError: action.payload
+                }
             };
-
-        // login
-        case (actions.LOGIN):
-            return state;
         default:
             return state;
     }
