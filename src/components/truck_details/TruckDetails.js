@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Row, Col, Button} from "reactstrap";
 
 import MenuItem from "./MenuItem";
@@ -11,13 +11,16 @@ import FavoriteButton from "./FavoriteButton";
 import { addFavTruck, deleteFavTruck } from '../../actions';
 // connect to the Store
 import { connect } from 'react-redux';
+import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 
 function TruckDetails(props){
     console.log("props from truckDetails", props);
     const [modals, setModals] = useState({
         rating: false,
         menu: false
-    })
+    });
+
+    const [truckDetails, setTruckDetails] = useState({});
 
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -29,6 +32,7 @@ function TruckDetails(props){
     }
     
     const addToFavorites = () => {
+        console.log('truckDetails', truckDetails);
         setIsFavorited(true);
         props.addFavTruck(props.match.params.id);
     }
@@ -37,6 +41,19 @@ function TruckDetails(props){
         setIsFavorited(false);
         props.deleteFavTruck();
     }
+
+    useEffect(() => {
+        console.log(props.state);
+        axiosWithAuth()
+            .get(`trucks/${props.match.params.id}`)
+            .then(res => {
+                console.log(res);
+                setTruckDetails(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
 
     return (
         <div className="text-left truck-details-page">
@@ -52,18 +69,18 @@ function TruckDetails(props){
                 <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
                 <i style={{"color": "gold", "fontSize": "1.4rem"}} className="far fa-star"></i>
             </div>
-            <h1 className="pt-2 pb-2 truck name">Cousins Maine Lobster</h1>
-            <address className="location text-muted" >153 Place Plaza, New York NY</address>
-            <p className="description lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum, lacus vel aliquam gravida, erat purus dignissim quam, id feugiat magna orci a magna. Vestibulum odio magna, semper gravida ex ac, auctor accumsan velit. Nullam ac dignissim nibh. Vivamus ultricies ligula quis rhoncus venenatis. Vestibulum nisl purus, vehicula sit amet lobortis quis, viverra laoreet nisl. Nam non neque libero. In hac habitasse platea dictumst. Mauris vitae eleifend dui. Pellentesque quis enim id lorem pellentesque suscipit.</p>
+            <h1 className="pt-2 pb-2 truck name">{truckDetails.truck_name}</h1>
+            <address className="location text-muted" >{truckDetails.location_address}, {truckDetails.location_city} {truckDetails.location_state}</address>
+            <p className="description lead">{truckDetails.truck_description}</p>
             <h3 className="pb-3">Menu</h3>
             <Row className="menu-items"> 
-                {[1,2,3,4,5].map(menuItem=>{
+                {/* {truckDetails.foodItems.length > 0 ? truckDetails.foodItems.map(menuItem=>{
                     return(
                         <Col className="mb-3" md="6" lg="6">
                             <MenuItem menuItem={menuItem}></MenuItem>
                         </Col>
                     );
-                })}
+                }) : <p>Sorry, this truck has not provided a menu.</p>} */}
                 <Col className="mb-3" md="6" lg= "6">
                     <AddMenuItem showMenuModal={()=> toggleModal("menu")}></AddMenuItem>
                 </Col> 
@@ -75,7 +92,9 @@ function TruckDetails(props){
 };
 
 const mapStateToProps = state => {
-    return state;
+    return {
+        state: state
+    };
 };
 
 const mapDispatchToProps = {addFavTruck, deleteFavTruck};
