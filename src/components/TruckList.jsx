@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 // connect component to Redux store
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 // auth AXIOS
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 // redux
@@ -27,7 +27,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     };
     useEffect(() => {
         axiosWithAuth()
-            .get("http://localhost:5000/trucks")
+            .get("/trucks")
             .then((res) => {
                 // console.log(res.data);
                 // filter results based off Logged in user ID
@@ -48,7 +48,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     }
 
     if (props.searchResults) {
-        setTruckList(props.searchResults)
+        setTruckList(props.searchResults);
     }
 
     return (
@@ -120,8 +120,9 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     );
 };
 
-const mapStateToProps = state => {
-    return { state
+const mapStateToProps = (state) => {
+    return {
+        state,
         /* searchState: {
             ...state.searchState,
             results: state.searchState.results
@@ -130,8 +131,8 @@ const mapStateToProps = state => {
             ...state.diner,
             favoriteTrucks: state.diner.favoriteTrucks
         } */
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, {})(TruckList);
 

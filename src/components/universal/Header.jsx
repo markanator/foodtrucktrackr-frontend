@@ -16,6 +16,7 @@ import {
     Input,
     Form,
 } from "reactstrap";
+import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 
 const Header = (props) => {
     const [modal, setModal] = useState(false);
@@ -136,8 +137,8 @@ const Login = ({ modal, toggle }) => {
 
     // main axios request
     const userLogin = (user) => {
-        axios
-            .post("http://localhost:5000/user/auth/login", user)
+        axiosWithAuth()
+            .post("https://foodtrackertcr.herokuapp.com/user/auth/login", user)
             .then((res) => {
                 // set local cookie token to access site
                 localStorage.setItem("token", res.data.token);
