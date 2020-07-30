@@ -5,6 +5,7 @@ import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
 import MenuItemModal from "./MenuItemModal";
 import RatingModal from "./RatingModal";
+import FavoriteButton from "./FavoriteButton";
 
 export default function TruckDetails(props){
     const [modals, setModals] = useState({
@@ -33,19 +34,7 @@ export default function TruckDetails(props){
         <div className="text-left truck-details-page">
             <div className="position-relative">
                 <img alt="food truck" className="img-fluid" src="https://www.tasteofhome.com/wp-content/uploads/2019/09/cousins-maine-lobster-food-truck_1378623194-2.jpg"/>
-                {!isFavorited &&
-                    <i 
-                        onClick={addToFavorites}
-                        style={{"color": "hotpink", "fontSize": "3rem", "bottom": "5%", "right": "5%"}} 
-                        className="far fa-heart position-absolute">
-                    </i>
-                }{isFavorited &&
-                    <i 
-                        onClick={removeFromFavorites}
-                        style={{"color": "hotpink", "fontSize": "3rem", "bottom": "5%", "right": "5%"}} 
-                        className="fas fa-heart position-absolute">
-                    </i>
-                }
+                <FavoriteButton isFavorited={isFavorited} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
             </div>
             <div className="pt-3 stars float-right">
                 <Button color="warning" className="mr-3" onClick={()=>toggleModal("rating")}>Rate</Button>
