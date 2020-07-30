@@ -18,30 +18,36 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     const ownerState = useSelector((state) => state.tempSiteReducer.user);
 
     const starStyle = { fontSize: "20px" };
+    // owner trucks list initial load
     const [truckList, setTruckList] = useState([]);
+    // loading visual
     const [loading, setLoading] = useState(true);
 
     const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
     const deleteCard = (e) => {
         e.preventDefault();
     };
+
     useEffect(() => {
+        // fetch current trucks
         axiosWithAuth()
             .get("/trucks")
             .then((res) => {
                 // console.log(res.data);
                 // filter results based off Logged in user ID
-                // const ownerTrucks = res.data.filter(
-                //     (store) => store.user_id === ownerState.id
-                // );
-                setTruckList(res.data);
-                setLoading(false);
+                const ownerTrucks = res.data.filter(
+                    (store) => store.operator_id === ownerState.id
+                );
+                setTruckList(ownerTrucks);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
             })
             .catch((err) => {
                 console.error(err);
                 setLoading(false);
             });
-    }, []);
+    }, [ownerState.ownedTrucks]);
 
     if (loading) {
         return <Spinner color="primary" />;
@@ -57,7 +63,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                 {truckList.map((truck) => (
                     <div key={truck.id} className="truckListCard">
                         <img
-                            src="https://picsum.photos/300/"
+                            src={truck.truck_photo}
                             alt="truckImage"
                             className="truckPictures"
                         />
@@ -87,7 +93,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                                 ></i>
                                 <i className="far fa-star"></i>
                             </h5>
-                            <h5>Price Range: $-$$</h5>
+                            <h5>Price Range: {truck.price_range}</h5>
 
                             {OperatorDashboard && (
                                 <>

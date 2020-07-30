@@ -12,7 +12,8 @@ import {
 import DateTimePicker from "react-datetime-picker";
 
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
-
+// move user
+import { useHistory } from "react-router-dom";
 // redux hooks
 import { useSelector, useDispatch } from "react-redux";
 // for id
@@ -21,6 +22,7 @@ import { useParams } from "react-router-dom";
 // import * as actions from "../actions";
 
 export default function EditTruck(props) {
+    const { push } = useHistory();
     // get id
     const { id } = useParams();
     // for redux actions
@@ -90,6 +92,7 @@ export default function EditTruck(props) {
             location_state: formData.state,
             truck_cuisine_type: formData.cuisineType,
             truck_description: formData.truckDescription,
+            truck_photo: formData.truck_photo,
         };
 
         axiosWithAuth()
@@ -100,7 +103,8 @@ export default function EditTruck(props) {
                 //     payload: resp.data.results,
                 // });
                 console.log("SUBMITTED!");
-                console.log("post truck resp:: ", resp);
+                // console.log("post truck resp:: ", resp);
+                push(`/trucks/${resp.data.truck_id}`);
             })
             .catch((err) => {
                 dispatch({ type: "TRUCK_FAIL" });
@@ -131,9 +135,9 @@ export default function EditTruck(props) {
                     <Input
                         onChange={onInputChange}
                         type="text"
-                        name="truck_image"
+                        name="truck_photo"
                         placeholder="Url of an image of your truck"
-                        value={formData.truck_image}
+                        value={formData.truck_photo}
                         required
                     />
                 </FormGroup>
@@ -223,7 +227,7 @@ export default function EditTruck(props) {
                         value={formData.truck_description}
                     />
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                     <Label>
                         Arrival Time:
                         <br />
@@ -245,7 +249,7 @@ export default function EditTruck(props) {
                             clearIcon="Clear"
                         />
                     </Label>
-                </FormGroup>
+                </FormGroup> */}
 
                 <Button color="primary" type="submit">
                     Submit
