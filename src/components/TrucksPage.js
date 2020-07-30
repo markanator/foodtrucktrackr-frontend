@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 // redux hooks
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 // actions
-import * as actions from "../actions";
+// import * as actions from "../actions";
 
-import { Card, CardBody, CardImg, CardSubtitle, Button } from "reactstrap";
+import { Card, CardBody, CardImg, CardSubtitle } from "reactstrap";
 
 const TrucksPage = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [truckList, setTruckList] = useState([]);
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 import {
     Button,
@@ -98,8 +98,7 @@ export default function MenuItemModal(props) {
             price: "",
         });
         props.toggleModal();
-    }
-
+    };
 
     return (
         <Modal isOpen={props.modal}>

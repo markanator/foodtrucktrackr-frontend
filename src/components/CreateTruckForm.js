@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 // date-time picker
 import DateTimePicker from "react-datetime-picker";
-
+// token axios calls
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
-
+// router
+import { useHistory } from "react-router-dom";
 // redux hooks
 import { useDispatch, useSelector } from "react-redux";
 // actions
-// import * as actions from "../actions";
+import * as actions from "../actions";
+// styles
+import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 export default function CreateTruckForm(props) {
+    // push users
+    const { push } = useHistory();
     // for redux actions
     const dispatch = useDispatch();
     // get state from redux
@@ -39,8 +43,6 @@ export default function CreateTruckForm(props) {
         truck_arrival: 0,
     });
 
-    console.log("ownerID", formData.ownerID);
-
     const cuisineTypes = [
         "American",
         "Mexican",
@@ -65,36 +67,47 @@ export default function CreateTruckForm(props) {
 
     const submit = (e) => {
         e.preventDefault();
+        // its what the database needs
+        // ask Pedro!
+        const arrDate =
+            new Date(arrival).getHours() * 60 + new Date(arrival).getMinutes();
+        const depDate =
+            new Date(departure).getHours() * 60 +
+            new Date(departure).getMinutes();
 
+        // refactor to ensure database gets what it needs
         const dbTruck = {
             truck_name: formData.truckName,
-            truck_departure_time: new Date("December 31, 2100 21:00:00"),
-            truck_arrival_time: new Date("December 31, 2100 23:59:59"),
+            truck_departure_time: arrDate,
+            truck_arrival_time: depDate,
             user_id: formData.ownerID,
             location_zip_code: formData.zip,
             location_city: formData.city,
             location_address: formData.address,
             location_state: formData.state,
+            truck_cuisine_type: formData.cuisineType,
+            truck_description: formData.truckDescription,
         };
 
-        console.log(dbTruck);
-        // setTimeout(() => {
-        // dispatch(actions.add_truck(dbTruck));
+        // console.log(dbTruck);
         axiosWithAuth()
             .post(`/trucks`, dbTruck)
             .then((resp) => {
-                // dispatch({
-                //     type: "TRUCK_SUCCESS",
-                //     payload: resp.data.results,
-                // });
+                // log
                 console.log("SUBMITTED!");
-                console.log("post truck resp:: ", resp);
+                // add to tempSite state
+                dispatch(actions.addTruckToOwnedList(resp.data));
+                // log results
+                // console.log("post truck resp:: ", resp);
+                // push to view the truck details
+                push(`/trucks/${resp.data.truck_id}`);
             })
             .catch((err) => {
+                // dispatch not working
                 dispatch({ type: "TRUCK_FAIL" });
+                // log why it didnt work
                 console.error(err);
             });
-        // }, 1500);
     };
 
     return (

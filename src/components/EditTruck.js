@@ -11,10 +11,10 @@ import {
 // date-time picker
 import DateTimePicker from "react-datetime-picker";
 
-// import { axiosWithAuth } from "../utils/AxiosWithAuth";
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 // redux hooks
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // for id
 import { useParams } from "react-router-dom";
 // actions
@@ -24,7 +24,7 @@ export default function EditTruck(props) {
     // get id
     const { id } = useParams();
     // for redux actions
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // get state from redux
     const truckState = useSelector((state) => state.truckReducer);
 
@@ -43,7 +43,7 @@ export default function EditTruck(props) {
         if (truckState.id != null) {
             setLoading(false);
         }
-    }, [id]);
+    }, [id, truckState.id]);
 
     const cuisineTypes = [
         "American",
@@ -69,21 +69,43 @@ export default function EditTruck(props) {
 
     const submit = (e) => {
         e.preventDefault();
+        // its what the database needs
+        // ask Pedro!
+        const arrDate =
+            new Date(truck_arrival_time).getHours() * 60 +
+            new Date(truck_arrival_time).getMinutes();
+        const depDate =
+            new Date(truck_departure_time).getHours() * 60 +
+            new Date(truck_departure_time).getMinutes();
 
-        // axiosWithAuth()
-        //     .put(`http://localhost:5000/trucks/${id}`, formData)
-        //     .then((resp) => {
-        //         // dispatch({
-        //         //     type: "TRUCK_SUCCESS",
-        //         //     payload: resp.data.results,
-        //         // });
-        //         console.log("SUBMITTED!");
-        //         console.log("post truck resp:: ", resp);
-        //     })
-        //     .catch((err) => {
-        //         dispatch({ type: "TRUCK_FAIL" });
-        //         console.error(err);
-        //     });
+        // refactor to ensure database gets what it needs
+        const dbTruck = {
+            truck_name: formData.truckName,
+            truck_departure_time: arrDate,
+            truck_arrival_time: depDate,
+            user_id: formData.ownerID,
+            location_zip_code: formData.zip,
+            location_city: formData.city,
+            location_address: formData.address,
+            location_state: formData.state,
+            truck_cuisine_type: formData.cuisineType,
+            truck_description: formData.truckDescription,
+        };
+
+        axiosWithAuth()
+            .put(`/trucks/${id}`, dbTruck)
+            .then((resp) => {
+                // dispatch({
+                //     type: "TRUCK_SUCCESS",
+                //     payload: resp.data.results,
+                // });
+                console.log("SUBMITTED!");
+                console.log("post truck resp:: ", resp);
+            })
+            .catch((err) => {
+                dispatch({ type: "TRUCK_FAIL" });
+                console.error(err);
+            });
     };
 
     if (loading) {

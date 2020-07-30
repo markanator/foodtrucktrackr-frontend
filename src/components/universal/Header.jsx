@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -137,7 +137,7 @@ const Login = ({ modal, toggle }) => {
 
     // main axios request
     const userLogin = (user) => {
-        const BaseURL = "http://localhost:5000";
+        const BaseURL = "https://foodtrackertcr.herokuapp.com";
         axiosWithAuth()
             .post(`${BaseURL}/user/auth/login`, user)
             .then((res) => {

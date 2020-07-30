@@ -31,10 +31,10 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
             .then((res) => {
                 // console.log(res.data);
                 // filter results based off Logged in user ID
-                const ownerTrucks = res.data.filter(
-                    (store) => store.user_id === ownerState.id
-                );
-                setTruckList(ownerTrucks);
+                // const ownerTrucks = res.data.filter(
+                //     (store) => store.user_id === ownerState.id
+                // );
+                setTruckList(res.data);
                 setLoading(false);
             })
             .catch((err) => {

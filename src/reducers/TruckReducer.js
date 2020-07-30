@@ -1,22 +1,25 @@
 // import { ADD_TRUCK, UPDATE_TRUCK, DELETE_TRUCK } from "../actions";
 
 const initialTruckState = {
+    averageRating: null,
+    foodItems: [],
     id: null,
-    truck_name: "",
-    truck_departure_time: "",
-    truck_arrival_time: "",
-    user_id: null,
-    location_zip_code: "",
-    location_city: "",
+    latitude: null,
     location_address: "",
+    location_city: "",
     location_state: "",
-    truck_rating: null,
+    location_zip_code: "",
+    longitude: null,
+    operator_id: 5,
+    price_range: null,
+    truck_arrival_time: "",
     truck_cuisine_type: "",
+    truck_departure_time: "",
     truck_description: "",
-    price_range: "",
-    truck_image: "",
-    food_items: [],
-    isLoading: false,
+    truck_id: null,
+    truck_name: "",
+    truck_photo: null,
+    userRating: null,
 };
 
 export const truckReducer = (state = initialTruckState, action) => {
