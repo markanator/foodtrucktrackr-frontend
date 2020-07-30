@@ -138,7 +138,7 @@ const Login = ({ modal, toggle }) => {
     // main axios request
     const userLogin = (user) => {
         axiosWithAuth()
-            .post("https://foodtrackertcr.herokuapp.com/user/auth/login", user)
+            .post("user/auth/login", user)
             .then((res) => {
                 // set local cookie token to access site
                 localStorage.setItem("token", res.data.token);

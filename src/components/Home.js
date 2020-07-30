@@ -58,7 +58,8 @@ const Home = ({ users, setUsers }) => {
         setFormState({ ...formState, cSelected: e.target.id });
     };
 
-    const baseURL = "https://foodtrackertcr.herokuapp.com";
+    //const baseURL = "https://foodtrackertcr.herokuapp.com";
+    const baseURL = "http://localhost:5000";
 
     //user creation
     const newUser = (user) => {

@@ -11,6 +11,9 @@ import * as actions from "../actions";
 // styles
 import { Button, Spinner } from "reactstrap";
 
+//import dummy data since server is not working
+import { trucks } from '../dummy-data';
+
 const TruckList = ({ OperatorDashboard, ...props }) => {
     const dispatch = useDispatch();
     const { push } = useHistory();
@@ -18,14 +21,19 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     const ownerState = useSelector((state) => state.tempSiteReducer.user);
 
     const starStyle = { fontSize: "20px" };
-    const [truckList, setTruckList] = useState([]);
-    const [loading, setLoading] = useState(true);
+    //const [truckList, setTruckList] = useState([]);
+    //server is not working so I'm going to use the dummy data
+    const [truckList, setTruckList] = useState(trucks);
+    //const [loading, setLoading] = useState(true);
+    // uncomment this ^^^ when server is working
+    const [loading, setLoading] = useState(false);
 
     const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
     const deleteCard = (e) => {
         e.preventDefault();
     };
-    useEffect(() => {
+
+    /* useEffect(() => {
         axiosWithAuth()
             .get("/trucks")
             .then((res) => {
@@ -41,7 +49,8 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                 console.error(err);
                 setLoading(false);
             });
-    }, []);
+    }, []); */
+    // uncomment this ^^^ when server is working
 
     if (loading) {
         return <Spinner color="primary" />;
