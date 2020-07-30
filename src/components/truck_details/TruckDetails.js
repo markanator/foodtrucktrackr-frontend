@@ -1,5 +1,12 @@
-import React, {useState, useEffect} from "react";
-import {Row, Col, Button} from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Button, Spinner } from "reactstrap";
+
+// router stuff
+import { useParams } from "react-router-dom";
+// redux stuff
+import { useSelector } from "react-redux";
+// auth reqs
+import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
@@ -7,96 +14,182 @@ import MenuItemModal from "./MenuItemModal";
 import RatingModal from "./RatingModal";
 import FavoriteButton from "./FavoriteButton";
 
-//import actions
-import { addFavTruck, deleteFavTruck } from '../../actions';
-// connect to the Store
-import { connect } from 'react-redux';
-import { axiosWithAuth } from '../../utils/AxiosWithAuth';
+export default function TruckDetails(props) {
+    // get id from URL
+    const { id } = useParams();
+    // get userID
+    const userProfileData = useSelector((state) => state.tempSiteReducer.user);
 
-function TruckDetails(props){
-    console.log("props from truckDetails", props);
-    const [modals, setModals] = useState({
-        rating: false,
-        menu: false
+    // used to inform user site is loading
+    const [isLoading, setIsLoading] = useState(true);
+
+    // create truckState for the page to use
+    const [truckInfo, setTruckInfo] = useState({
+        averageRating: null,
+        foodItems: [],
+        id: null,
+        latitude: 0,
+        location_address: "",
+        location_city: "",
+        location_state: "",
+        location_zip_code: "",
+        longitude: 0,
+        operator_id: 0,
+        price_range: "",
+        truck_arrival_time: "",
+        truck_cuisine_type: "",
+        truck_departure_time: "",
+        truck_description: "",
+        truck_id: null,
+        truck_name: "",
+        truck_photo: "",
+        userRating: null,
     });
 
-    const [truckDetails, setTruckDetails] = useState({});
+    const [modals, setModals] = useState({
+        rating: false,
+        menu: false,
+    });
 
     const [isFavorited, setIsFavorited] = useState(false);
 
-    const toggleModal = (modal) =>{
+    const toggleModal = (modal) => {
         setModals({
             ...modals,
-            [modal]: !modals[modal]
+            [modal]: !modals[modal],
         });
-    }
-    
+    };
+
     const addToFavorites = () => {
-        console.log('truckDetails', truckDetails);
-        setIsFavorited(true);
-        props.addFavTruck(props.match.params.id);
-    }
+        return axiosWithAuth()
+            .post(`/trucks/favorites/${id}`)
+            .then((resp) => {
+                console.log(resp);
+                // set local state
+                return setIsFavorited(true);
+            })
+            .catch((err) => {
+                // set local state
+                setIsLoading(false);
+                // log why it couldn't
+                console.error(err);
+
+                return setIsFavorited(false);
+            });
+    };
 
     const removeFromFavorites = () => {
-        setIsFavorited(false);
-        props.deleteFavTruck();
-    }
+        return axiosWithAuth()
+            .delete(`/trucks/favorites/${id}`)
+            .then((resp) => {
+                console.log(resp);
+                // set local state
+                return setIsFavorited(false);
+            })
+            .catch((err) => {
+                // set local state
+                setIsLoading(false);
+                // log why it couldn't
+                console.error(err);
+
+                return setIsFavorited(true);
+            });
+    };
 
     useEffect(() => {
-        console.log(props.state);
         axiosWithAuth()
-            .get(`trucks/${props.match.params.id}`)
-            .then(res => {
-                console.log(res);
-                setTruckDetails(res.data);
+            .get(`/trucks/${id}`)
+            .then((resp) => {
+                // console.log(resp.data);
+                // set local state
+                setIsLoading(false);
+                setTruckInfo({ ...resp.data });
             })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
+            .catch((err) => {
+                // set local state
+                setIsLoading(false);
+                // log why it couldn't
+                console.error(err);
+            });
+    }, [id, userProfileData.id]);
 
+    if (isLoading) {
+        return <Spinner color="primary" />;
+    }
     return (
         <div className="text-left truck-details-page">
             <div className="position-relative">
-                <img alt="food truck" className="img-fluid" src="https://www.tasteofhome.com/wp-content/uploads/2019/09/cousins-maine-lobster-food-truck_1378623194-2.jpg"/>
-                <FavoriteButton isFavorited={isFavorited} addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}/>
+                <img
+                    alt="food truck"
+                    className="img-fluid"
+                    src={truckInfo.truck_photo}
+                />
+                <FavoriteButton
+                    isFavorited={isFavorited}
+                    addToFavorites={addToFavorites}
+                    removeFromFavorites={removeFromFavorites}
+                />
             </div>
             <div className="pt-3 stars float-right">
-                <Button color="warning" className="mr-3" onClick={()=>toggleModal("rating")}>Rate</Button>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="fas fa-star"></i>
-                <i style={{"color": "gold", "fontSize": "1.4rem"}} className="far fa-star"></i>
+                <Button
+                    color="warning"
+                    className="mr-3"
+                    onClick={() => toggleModal("rating")}
+                >
+                    Rate
+                </Button>
+                <i
+                    style={{ color: "gold", fontSize: "1.4rem" }}
+                    className="fas fa-star"
+                ></i>
+                <i
+                    style={{ color: "gold", fontSize: "1.4rem" }}
+                    className="fas fa-star"
+                ></i>
+                <i
+                    style={{ color: "gold", fontSize: "1.4rem" }}
+                    className="fas fa-star"
+                ></i>
+                <i
+                    style={{ color: "gold", fontSize: "1.4rem" }}
+                    className="fas fa-star"
+                ></i>
+                <i
+                    style={{ color: "gold", fontSize: "1.4rem" }}
+                    className="far fa-star"
+                ></i>
             </div>
-            <h1 className="pt-2 pb-2 truck name">{truckDetails.truck_name}</h1>
-            <address className="location text-muted" >{truckDetails.location_address}, {truckDetails.location_city} {truckDetails.location_state}</address>
-            <p className="description lead">{truckDetails.truck_description}</p>
+            <h1 className="pt-2 pb-2 truck name">{truckInfo.truck_name}</h1>
+            <address className="location text-muted">
+                {truckInfo.location_address}, {truckInfo.location_city}{" "}
+                {truckInfo.location_state} {truckInfo.location_zip_code}
+            </address>
+            <p className="description lead">{truckInfo.truck_description}</p>
             <h3 className="pb-3">Menu</h3>
-            <Row className="menu-items"> 
-                {/* {truckDetails.foodItems.length > 0 ? truckDetails.foodItems.map(menuItem=>{
-                    return(
+            <Row className="menu-items">
+                {truckInfo.foodItems.map((menuItem) => {
+                    return (
                         <Col className="mb-3" md="6" lg="6">
-                            <MenuItem menuItem={menuItem}></MenuItem>
+                            <MenuItem key={menuItem.id} menuItem={menuItem} />
                         </Col>
                     );
-                }) : <p>Sorry, this truck has not provided a menu.</p>} */}
-                <Col className="mb-3" md="6" lg= "6">
-                    <AddMenuItem showMenuModal={()=> toggleModal("menu")}></AddMenuItem>
-                </Col> 
+                })}
+                <Col className="mb-3" md="6" lg="6">
+                    {truckInfo.operator_id === userProfileData.id ? (
+                        <AddMenuItem
+                            showMenuModal={() => toggleModal("menu")}
+                        ></AddMenuItem>
+                    ) : null}
+                </Col>
             </Row>
-            <MenuItemModal toggleModal={()=> toggleModal("menu")} modal={modals.menu}></MenuItemModal>
-            <RatingModal toggleModal={()=> toggleModal("rating")} show={modals.rating}></RatingModal>
+            <MenuItemModal
+                toggleModal={() => toggleModal("menu")}
+                modal={modals.menu}
+            ></MenuItemModal>
+            <RatingModal
+                toggleModal={() => toggleModal("rating")}
+                show={modals.rating}
+            ></RatingModal>
         </div>
-    )
-};
-
-const mapStateToProps = state => {
-    return {
-        state: state
-    };
-};
-
-const mapDispatchToProps = {addFavTruck, deleteFavTruck};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TruckDetails);
+    );
+}

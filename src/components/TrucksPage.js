@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-// redux hooks
-import { useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
-// actions
-import * as actions from "../actions";
-
-import { Card, CardBody, CardImg, CardSubtitle, Button } from "reactstrap";
+import {
+    Card,
+    CardBody,
+    CardImg,
+    CardSubtitle,
+    CardFooter,
+    Button,
+} from "reactstrap";
 
 const TrucksPage = () => {
-    const dispatch = useDispatch();
+    const { push } = useHistory();
 
     const [truckList, setTruckList] = useState([]);
 
@@ -28,8 +31,8 @@ const TrucksPage = () => {
                 return (
                     <Card style={{ marginBottom: 20 }} key={car.id}>
                         <CardImg
-                            src={car.truck_image}
-                            alt={car.truck_image}
+                            src={car.truck_photo}
+                            alt={car.truck_name}
                             width="250"
                         />
                         <CardBody>
@@ -48,6 +51,16 @@ const TrucksPage = () => {
                         >
                             Remove F
                         </Button> */}
+                        <CardFooter>
+                            <Button
+                                color="success"
+                                onClick={() => {
+                                    push(`/trucks/${car.id}`);
+                                }}
+                            >
+                                Checkout!
+                            </Button>
+                        </CardFooter>
                     </Card>
                 );
             })}

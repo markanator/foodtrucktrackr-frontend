@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 // user actions
@@ -109,9 +109,11 @@ export const searchForTrucks = (searchState) => (dispatch) => {
         });
 };
 
-export const login = (user) => (dispatch) => {
+// TEMP SITE REDUCER
+
+export const login = (user) => {
     console.log("login action creator");
-    dispatch({ type: "LOGGED_IN", payload: user });
+    return { type: "LOGGED_IN", payload: user };
 };
 
 export const logout = (user) => {
@@ -120,12 +122,17 @@ export const logout = (user) => {
     return { type: "LOGGED_OUT", payload: { ...user } };
 };
 
+export const addTruckToOwnedList = (truck) => {
+    console.log("ADD_TRUCK_TO_OWNED_LIST");
+    return { type: "ADD_TRUCK_TO_OWNED_LIST", payload: truck };
+};
+
 // Trucks
 export const ADD_TRUCK = "ADD_TRUCK";
 export const UPDATE_TRUCK = "UPDATE_TRUCK";
 export const DELETE_TRUCK = "DELETE_TRUCK";
 
-const baseURL = "http://localhost:5000";
+// const baseURL = "http://localhost:5000";
 
 export const add_truck = (truckInfo) => (dispatch) => {
     console.log("# Operator adding truck...");

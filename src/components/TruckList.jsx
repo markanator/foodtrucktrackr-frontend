@@ -21,9 +21,9 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     const ownerState = useSelector((state) => state.tempSiteReducer.user);
 
     const starStyle = { fontSize: "20px" };
+    // owner trucks list initial load
     const [truckList, setTruckList] = useState([]);
-    //server is not working so I'm going to use the dummy data
-    //const [truckList, setTruckList] = useState(trucks);
+    // loading visual
     const [loading, setLoading] = useState(true);
     // uncomment this ^^^ when server is working
     //const [loading, setLoading] = useState(false);
@@ -34,26 +34,25 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     };
 
     useEffect(() => {
+        // fetch current trucks
         axiosWithAuth()
             .get("/trucks")
             .then((res) => {
                 // console.log(res.data);
                 // filter results based off Logged in user ID
                 const ownerTrucks = res.data.filter(
-                    (store) => store.user_id === ownerState.id
+                    (store) => store.operator_id === ownerState.id
                 );
-                console.log('res in TruckList useEffect', res);
-                console.log(props.state);
-                //setTruckList(ownerTrucks);
-                setTruckList(res.data);
-                setLoading(false);
+                setTruckList(ownerTrucks);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000);
             })
             .catch((err) => {
                 console.error(err);
                 setLoading(false);
             });
-    }, []);
-    // uncomment this ^^^ when server is working
+    }, [ownerState.ownedTrucks]);
 
     if (loading) {
         return <Spinner color="primary" />;
@@ -69,7 +68,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                 {truckList.map((truck) => (
                     <div key={truck.id} className="truckListCard">
                         <img
-                            src="https://picsum.photos/300/"
+                            src={truck.truck_photo}
                             alt="truckImage"
                             className="truckPictures"
                         />
@@ -99,7 +98,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                                 ></i>
                                 <i className="far fa-star"></i>
                             </h5>
-                            <h5>Price Range: $-$$</h5>
+                            <h5>Price Range: {truck.price_range}</h5>
 
                             {OperatorDashboard && (
                                 <>

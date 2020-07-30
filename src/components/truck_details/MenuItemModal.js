@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
+import * as Yup from "yup";
+
+// import axios from "axios";
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
+// router stuff
+import { useParams } from "react-router-dom";
+
 import {
     Button,
     Modal,
@@ -13,9 +18,11 @@ import {
     FormFeedback,
     FormText,
 } from "reactstrap";
-import * as Yup from "yup";
 
 export default function MenuItemModal(props) {
+    // get truck id
+    const { id } = useParams();
+
     const [formState, setFormState] = useState({
         image: "",
         name: "",
@@ -64,6 +71,16 @@ export default function MenuItemModal(props) {
 
     const submit = (e) => {
         e.preventDefault();
+
+        // refactored for DB needs
+        const dbMenuItem = {
+            menu_item_photo: formState.image,
+            menu_item_name: formState.name,
+            menu_item_description: formState.description,
+            menu_item_price: formState.price,
+            truck_id: id,
+        };
+
         formSchema.isValid(formState).then((valid) => {
             if (valid === true) {
                 setErrors({
@@ -73,9 +90,11 @@ export default function MenuItemModal(props) {
 
                 // NEED TO FINISH
                 axiosWithAuth()
-                    .post("/trucks/menu-items/", formState)
+                    .post(`/trucks/food/${id}`, dbMenuItem)
                     .then(({ data }) => {
                         console.log(data);
+                        // need to dispatch add_truck_menu_item(data)
+                        // need to refresh truck page to reflect changes
                         closeModal();
                     })
                     .catch((err) => {
@@ -98,8 +117,7 @@ export default function MenuItemModal(props) {
             price: "",
         });
         props.toggleModal();
-    }
-
+    };
 
     return (
         <Modal isOpen={props.modal}>

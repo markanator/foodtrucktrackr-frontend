@@ -14,6 +14,8 @@ const initSiteState = {
         user_first_name: "",
         user_last_name: "",
         user_role: "",
+        ownedTrucks: [],
+        avatar_url: "",
     },
 };
 
@@ -33,6 +35,14 @@ export const tempSiteReducer = (state = initSiteState, action) => {
                 isActive: false,
                 user: {
                     ...action.payload,
+                },
+            };
+        case "ADD_TRUCK_TO_OWNED_LIST":
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ownedTrucks: [...state.user.ownedTrucks, action.payload],
                 },
             };
         default:

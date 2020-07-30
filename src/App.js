@@ -36,19 +36,7 @@ const App = () => {
                         component={OperatorDashboard}
                     />
                     <PrivateRoute path="/profile" component={DinerDashboard} />
-                    {userState.user_role === "operator" ? (
-                        <PrivateRoute
-                            exact
-                            path="/trucks"
-                            component={TruckList}
-                        />
-                    ) : (
-                        <PrivateRoute
-                            exact
-                            path="/trucks"
-                            component={TrucksPage}
-                        />
-                    )}
+                    <PrivateRoute exact path="/trucks" component={TrucksPage} />
                     <PrivateRoute path="/trucks/:id" component={TruckDetails} />
                     <PrivateRoute
                         path="/add-truck"
