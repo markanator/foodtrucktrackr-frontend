@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+// redux hooks
+import { useDispatch } from "react-redux";
+// redux actions
+import * as actions from "../actions";
+// styles
 import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
 
 // local imports
@@ -12,6 +17,7 @@ import { connect } from "react-redux";
 //import {login} from '../actions';
 
 const Home = ({ users, setUsers }) => {
+    const dispatch = useDispatch();
     const { push } = useHistory();
     const defaultState = {
         cSelected: "",
@@ -58,7 +64,6 @@ const Home = ({ users, setUsers }) => {
         setFormState({ ...formState, cSelected: e.target.id });
     };
 
-    //const baseURL = "https://foodtrackertcr.herokuapp.com";
     const baseURL = "http://localhost:5000";
 
     //user creation
@@ -66,19 +71,41 @@ const Home = ({ users, setUsers }) => {
         axios
             .post(`${baseURL}/user`, user)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 //
-                if (res.data.user_role === "Diner") {
-                    setUsers(res.data);
+                if (res.data.user.user_role === "diner") {
+                    // set local token
+                    localStorage.setItem("token", res.data.token);
+                    // set local current user
+                    setUsers(res.data.user);
+                    // reset formstate
                     setFormState(defaultState);
-
+                    // log account type
                     console.log("user is a DINER!");
-                    // push("/operator");
-                } else if (res.data.user_role === "Operator") {
-                    setUsers(res.data);
+                    // using redux hooks => dispatch action >> login
+                    dispatch(actions.login(res.data));
+                    // push user to profile page
+                    push("/profile");
+                } else if (res.data.user.user_role === "operator") {
+                    // set token
+                    localStorage.setItem("token", res.data.token);
+                    // st local user
+                    setUsers(res.data.user);
+                    // reset form
                     setFormState(defaultState);
+                    // log account type
                     console.log("user is a OPERATOR!");
-                    // push("/profile");
+                    // using redux hooks => dispatch action >> login
+                    dispatch(actions.login(res.data));
+                    // send to operator dash
+                    push("/operator");
+                } else {
+                    // set token
+                    localStorage.setItem("token", res.data.token);
+                    // using redux hooks => dispatch action >> login
+                    dispatch(actions.login(res.data));
+                    // log response => user
+                    console.log("couldn't read data", res.data.user);
                 }
             })
             .catch((err) => {
