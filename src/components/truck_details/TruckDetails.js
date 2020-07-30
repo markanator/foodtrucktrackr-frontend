@@ -9,8 +9,10 @@ import FavoriteButton from "./FavoriteButton";
 
 //import actions
 import { addFavTruck, deleteFavTruck } from '../../actions';
+// connect to the Store
+import { connect } from 'react-redux';
 
-export default function TruckDetails(props){
+function TruckDetails(props){
     console.log("props from truckDetails", props);
     const [modals, setModals] = useState({
         rating: false,
@@ -28,12 +30,12 @@ export default function TruckDetails(props){
     
     const addToFavorites = () => {
         setIsFavorited(true);
-        addFavTruck(props.match.params.id);
+        props.addFavTruck(props.match.params.id);
     }
 
     const removeFromFavorites = () => {
         setIsFavorited(false);
-        deleteFavTruck();
+        props.deleteFavTruck();
     }
 
     return (
@@ -70,4 +72,12 @@ export default function TruckDetails(props){
             <RatingModal toggleModal={()=> toggleModal("rating")} show={modals.rating}></RatingModal>
         </div>
     )
-}
+};
+
+const mapStateToProps = state => {
+    return state;
+};
+
+const mapDispatchToProps = {addFavTruck, deleteFavTruck};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TruckDetails);
