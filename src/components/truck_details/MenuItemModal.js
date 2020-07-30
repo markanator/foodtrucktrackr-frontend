@@ -97,8 +97,9 @@ export default function MenuItemModal(props) {
             description: "",
             price: "",
         });
-        props.toggleMenuModal();
-    };
+        props.toggleModal();
+    }
+
 
     return (
         <Modal isOpen={props.modal}>
