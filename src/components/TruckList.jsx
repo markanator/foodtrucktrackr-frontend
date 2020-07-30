@@ -42,7 +42,10 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                 const ownerTrucks = res.data.filter(
                     (store) => store.user_id === ownerState.id
                 );
-                setTruckList(ownerTrucks);
+                console.log('res in TruckList useEffect', res);
+                console.log(props.state);
+                //setTruckList(ownerTrucks);
+                setTruckList(res.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -131,15 +134,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
 
 const mapStateToProps = (state) => {
     return {
-        state,
-        /* searchState: {
-            ...state.searchState,
-            results: state.searchState.results
-        },
-        diner: {
-            ...state.diner,
-            favoriteTrucks: state.diner.favoriteTrucks
-        } */
+        state: state
     };
 };
 
