@@ -93,14 +93,17 @@ export const searchForTrucks = (searchState) => (dispatch) => {
         .get("/trucks")
         .then((res) => {
             //filter results;
-            console.log(res);
-            const searchResults = res.data/* .filter((result) => {
-                return (
-                    result.truck_cuisine_type === searchState.searchCuisine &&
-                    `${result.location_city}, ${result.location_state}` ===
-                        searchState.searchQuery
-                );
-            }); */
+            console.log('res from search', res);
+            const searchResults = res.data.filter(result => {
+                //cuisine and location are provided
+                if (searchState.cuisineType !== "" && searchState.query !== "") {
+                    return result.truck_cuisine_type === searchState.cuisineType.toLowerCase() && `${result.location_city}, ${result.location_state}` === searchState.query.toLowerCase();
+                } else if (searchState.cuisineType === "") { //cuisine not provided
+                    return `${result.location_city}, ${result.location_state}` === searchState.query.toLowerCase();
+                } else if (searchState.query === "") { //location not provided
+                    return result.truck_cuisine_type === searchState.cuisineType.toLowerCase();
+                }
+            });
             dispatch({ type: SEARCH_TRUCKS_SUCCESS, payload: {searchResults: searchResults, cuisine: searchState.cuisineType, location: searchState.query, radius: searchState.radius} });
         })
         .catch((err) => {
