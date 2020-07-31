@@ -38,6 +38,11 @@ const initialState = {
         isRating: false,
         truckError: ''
     } */
+    rating: {
+        truckRating: '',
+        isRating: '',
+        ratingError: ''
+    }
 }
 
 export const dinerOperatorReducer = (state = initialState, action) => {
@@ -140,27 +145,27 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         case(actions.RATE_TRUCK_START):
             return {
                 ...state,
-                truck: {
-                    ...state.truck,
+                rating: {
+                    ...state.rating,
                     isRating: true
                 }
             };
         case(actions.RATE_TRUCK_SUCCESS):
             return {
                 ...state,
-                truck: {
-                    ...state.truck,
-                    rating: action.payload,
+                rating: {
+                    ...state.rating,
+                    truckRating: action.payload,
                     isRating: false
                 }
             };
         case(actions.RATE_TRUCK_FAILURE):
             return {
                 ...state,
-                truck: {
-                    ...state.truck,
-                    isRating: false,
-                    truckError: action.payload
+                rating: {
+                    ...state.rating,
+                    ratingError: action.payload,
+                    isRating: false
                 }
             };
 

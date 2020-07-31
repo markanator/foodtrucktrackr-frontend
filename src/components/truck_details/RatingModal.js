@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 // import axios from "axios";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+//redux hooks dispatching
+import { useDispatch } from 'react-redux';
+import * as actions from '../../actions';
 
 function RatingModal(props) {
     const [userRating, setUserRating] = useState(0);
+
+    const dispatch = useDispatch();
 
     const closeRatingModal = () => {
         setUserRating(0);
@@ -12,7 +17,8 @@ function RatingModal(props) {
 
     const submit = () => {
         console.log(userRating);
-        props.rateTruck(userRating);
+        //props.rateTruck(userRating);
+        dispatch(actions.rateTruck(userRating));
         closeRatingModal();
     };
 

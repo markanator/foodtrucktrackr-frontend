@@ -58,10 +58,6 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
         return <Spinner color="primary" />;
     }
 
-    if (props.searchResults) {
-        setTruckList(props.searchResults);
-    }
-
     return (
         <div>
             <div className="truckListCardContainer">
