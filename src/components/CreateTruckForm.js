@@ -18,7 +18,7 @@ export default function CreateTruckForm(props) {
     // for redux actions
     const dispatch = useDispatch();
     // get state from redux
-    const ownerState = useSelector((state) => state.tempSiteReducer.user);
+    const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
     // time picker stuff
     const [arrival, setArrival] = useState(
         new Date("December 31, 2100 21:00:00")

@@ -25,7 +25,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     // uncomment this ^^^ when server is working
     //const [loading, setLoading] = useState(false);
 
-    const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
+    // const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
 
     useEffect(() => {
         // fetch current trucks
