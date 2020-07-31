@@ -18,7 +18,7 @@ function SearchPage(props){
         <div className="search-page operatorDashboard">
             <SearchBar></SearchBar>
             {/* <TruckList></TruckList> */}
-            {searchInfo.results === [] ? <p>Sorry, no trucks match that description!</p> : searchInfo.results.map((truck, index) => {
+            {searchInfo.results.length === 0 ? <div><p>Sorry, no trucks match that description!</p></div> : searchInfo.results.map((truck, index) => {
                 return (
                     <div key={index}>
                         <h3>{truck.truck_name}</h3>
