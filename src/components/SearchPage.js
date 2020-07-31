@@ -8,7 +8,7 @@ import TruckList from "./TruckList";
 import { useSelector } from 'react-redux';
 
 function SearchPage(props){
-    console.log("props from SearchPage", props);
+    //console.log("props from SearchPage", props);
     const searchInfo = useSelector(
         (state) => state.dinerOperatorReducer.searchState
     );
@@ -18,7 +18,18 @@ function SearchPage(props){
         <div className="search-page operatorDashboard">
             <SearchBar></SearchBar>
             {/* <TruckList></TruckList> */}
-            {/* {props.searchState.results} */}
+            {searchInfo.results === [] ? <p>Sorry, no trucks match that description!</p> : searchInfo.results.map((truck, index) => {
+                return (
+                    <div key={index}>
+                        <h3>{truck.truck_name}</h3>
+                        <p>{truck.truck_cuisine_type}</p>
+                        <p>{truck.price_range}</p>
+                        <p>{truck.location_address}</p>
+                        <p>{truck.location_city}, {truck.location_state}</p>
+                        <p>{truck.truck_description}</p>
+                    </div>
+                )
+            })}
         </div>
     )
 }

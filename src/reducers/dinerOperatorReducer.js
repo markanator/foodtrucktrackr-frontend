@@ -21,7 +21,7 @@ const initialState = {
         location: "",
         cuisine: "",
         radius: "",
-        results: ""
+        results: []
     },
     // diner: {
     //     username: "",

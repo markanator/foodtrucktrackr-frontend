@@ -86,14 +86,14 @@ export const rateTruck = rating => (dispatch) => {
 };
 
 export const searchForTrucks = (searchState) => (dispatch) => {
-    console.log("searchForTrucks action creator, searchState", searchState);
+    //console.log("searchForTrucks action creator, searchState", searchState);
     dispatch({ type: SEARCH_TRUCKS_START });
     //axios get request (may need to filter results to return what we want)
     axiosWithAuth()
         .get("/trucks")
         .then((res) => {
             //filter results;
-            console.log('res from search', res);
+            //console.log('res from search', res);
             const searchResults = res.data.filter(result => {
                 //cuisine and location are provided
                 if (searchState.cuisineType !== "" && searchState.query !== "") {
@@ -104,7 +104,7 @@ export const searchForTrucks = (searchState) => (dispatch) => {
                     return result.truck_cuisine_type === searchState.cuisineType.toLowerCase();
                 }
             });
-            dispatch({ type: SEARCH_TRUCKS_SUCCESS, payload: {searchResults: searchResults, cuisine: searchState.cuisineType, location: searchState.query, radius: searchState.radius} });
+            dispatch({ type: SEARCH_TRUCKS_SUCCESS, payload: {results: searchResults, cuisine: searchState.cuisineType, location: searchState.query, radius: searchState.radius} });
         })
         .catch((err) => {
             console.log(err);
