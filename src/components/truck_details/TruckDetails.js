@@ -79,14 +79,14 @@ function TruckDetails(props) {
         axios
             .get(`https://foodtrackertcr.herokuapp.com/trucks`)
             .then((resp) => {
-                console.log(resp.data);
-                console.log("id", id);
+                // console.log(resp.data);
+                // console.log("id", id);
                 // set local state
                 setIsLoading(false);
                 const truckInQuestion = resp.data.filter((truck) => {
                     return truck.truck_id == id;
                 });
-                console.log("truckInQuestion", truckInQuestion);
+                // console.log("truckInQuestion", truckInQuestion);
                 setTruckInfo(truckInQuestion[0]);
             })
             .catch((err) => {

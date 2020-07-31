@@ -154,7 +154,7 @@ const Login = ({ modal, toggle }) => {
                 // get rid of modal
                 toggle();
                 // move the user to content
-                console.log(res.data);
+                // console.log(res.data);
                 const role = res.data.user.user_role;
 
                 if (role === "diner") {
