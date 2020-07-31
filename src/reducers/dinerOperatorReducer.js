@@ -18,12 +18,10 @@ const initialState = {
         truckError: "",
     },
     searchState: {
-        searchQuery: "",
-        searchCuisine: "",
-        searchRadius: "",
-        results: "",
-        isSearching: false,
-        searchError: "",
+        location: "",
+        cuisine: "",
+        radius: "",
+        results: ""
     },
     // diner: {
     //     username: "",
@@ -206,36 +204,25 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                 searchCuisine: '',
                 searchRadius: '',
                 results: '',
-                isSearching: false,
+                //isSearching: false,
                 error: ''
             } */
+            /* searchState: {
+                location: "",
+                cuisine: "",
+                radius: "",
+                results: ""
+            }, */
         // search for a truck
         case actions.SEARCH_TRUCKS_START:
-            return {
-                ...state,
-                searchState: {
-                    ...state.searchState,
-                    isSearching: true,
-                },
-            };
+            return state;
         case actions.SEARCH_TRUCKS_SUCCESS:
             return {
                 ...state,
-                searchState: {
-                    ...state.searchState,
-                    isSearching: false,
-                    results: action.payload,
-                },
+                searchState: action.payload
             };
         case actions.SEARCH_TRUCKS_FAILURE:
-            return {
-                ...state,
-                searchState: {
-                    ...state.searchState,
-                    isSearching: false,
-                    searchError: action.payload,
-                },
-            };
+            return state;
 
         // MERGED FROM TEMPSITEREDUCER
         case "LOGGED_IN":
