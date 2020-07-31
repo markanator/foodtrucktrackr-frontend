@@ -16,7 +16,7 @@ function RatingModal(props) {
     };
 
     const submit = () => {
-        console.log(userRating);
+        console.log('userRating', userRating);
         //props.rateTruck(userRating);
         dispatch(actions.rateTruck(userRating, props.truckId));
         closeRatingModal();
