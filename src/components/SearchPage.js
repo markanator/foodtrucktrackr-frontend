@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 import SearchBar from "./SearchBar";
 import TruckList from "./TruckList";
 // connect component to Redux store
@@ -21,7 +21,7 @@ function SearchPage(props){
             {searchInfo.results.length === 0 ? <div><p>Sorry, no trucks match that description!</p></div> : searchInfo.results.map((truck, index) => {
                 return (
                     <div key={index}>
-                        <h3>{truck.truck_name}</h3>
+                        <Link to={`/trucks/${truck.truck_id}`}><h3>{truck.truck_name}</h3></Link>
                         <p>{truck.truck_cuisine_type}</p>
                         <p>{truck.price_range}</p>
                         <p>{truck.location_address}</p>
