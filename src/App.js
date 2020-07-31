@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-
-import { useSelector } from "react-redux";
+// redux hooks
+// import { useSelector } from "react-redux";
 
 // layout
 import Layout from "./Layout";
@@ -10,7 +10,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Home from "./components/Home";
 import DinerDashboard from "./components/DinerDashboard";
 import OperatorDashboard from "./components/OperatorDashboard";
-import TruckList from "./components/TruckList";
+// import TruckList from "./components/TruckList";
 import CreateTruckForm from "./components/CreateTruckForm";
 import TruckDetails from "./components/truck_details/TruckDetails";
 import SearchPage from "./components/SearchPage";
@@ -22,7 +22,7 @@ import EditMenuItem from "./components/truck_details/EditMenuItem";
 
 const App = () => {
     const [users, setUsers] = useState({});
-    const userState = useSelector((state) => state.tempSiteReducer.user);
+    // const userState = useSelector((state) => state.dinerOperatorReducer.user);
     return (
         <Layout>
             <div className="App">

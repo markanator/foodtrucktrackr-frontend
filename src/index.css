@@ -229,9 +229,14 @@ footer {
 .truckListCard {
     background-color: rgb(239, 247, 255);
     border: 1px solid rgb(195, 231, 255);
+    text-align: center !important;
     border-radius: 50px;
     margin: 2% 1%;
     padding: 1%;
+}
+
+.truckCardText h3 {
+    text-align: center;
 }
 
 .operatorDashboard .truckListCardContainer {

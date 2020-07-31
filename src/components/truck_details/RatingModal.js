@@ -27,10 +27,11 @@ function RatingModal(props) {
             <ModalHeader>Leave a Rating</ModalHeader>
             <ModalBody>
                 <div className="pt-3 stars">
-                    {[1, 2, 3, 4, 5].map((starCount) => {
+                    {[1, 2, 3, 4, 5].map((starCount, index) => {
                         if (starCount <= userRating) {
                             return (
                                 <i
+                                    key={index}
                                     onClick={() => setUserRating(starCount)}
                                     style={{
                                         color: "gold",
@@ -42,6 +43,7 @@ function RatingModal(props) {
                         } else {
                             return (
                                 <i
+                                    key={index}
                                     onClick={() => setUserRating(starCount)}
                                     style={{
                                         color: "gold",
