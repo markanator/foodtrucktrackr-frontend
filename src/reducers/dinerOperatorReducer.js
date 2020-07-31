@@ -12,18 +12,17 @@ const initialState = {
         user_role: "",
         ownedTrucks: [],
         avatar_url: "",
+        favoriteTrucks: []
     },
     truckInQuestion: {
         isRating: false,
         truckError: "",
     },
     searchState: {
-        searchQuery: "",
-        searchCuisine: "",
-        searchRadius: "",
-        results: "",
-        isSearching: false,
-        searchError: "",
+        location: "",
+        cuisine: "",
+        radius: "",
+        results: []
     },
     // diner: {
     //     username: "",
@@ -54,6 +53,11 @@ const initialState = {
     //     isRating: false,
     //     truckError: "",
     // },
+    rating: {
+        truckRating: '',
+        isRating: '',
+        ratingError: ''
+    }
 };
 
 export const dinerOperatorReducer = (state = initialState, action) => {
@@ -71,29 +75,34 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         // add truck to favorites
         case actions.ADD_FAV_START:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isAdding: true,
-                },
+                }, */
             };
         case actions.ADD_FAV_SUCCESS:
             return {
                 ...state,
-                diner: {
+                user: {
+                    ...state.user,
+                    favoriteTrucks: [...state.user.favoriteTrucks, action.payload]
+                }
+                
+                /* diner: {
                     ...state.diner,
                     isAdding: false,
                     favoriteTrucks: [...state.favoriteTrucks, action.payload],
-                },
+                }, */
             };
         case actions.ADD_FAV_FAILURE:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isAdding: false,
                     dinerError: action.payload,
-                },
+                }, */
             };
         // state shape for diner
         /* diner: {
@@ -108,16 +117,20 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         // delete truck from favorites
         case actions.DELETE_FAV_START:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isDeleting: true,
-                },
+                }, */
             };
         case actions.DELETE_FAV_SUCCESS:
             return {
                 ...state,
-                diner: {
+                user: {
+                    ...state.user,
+                    favoriteTrucks: [state.user.favoriteTrucks.filter(truck => truck.truck_id !== action.payload)]
+                }
+                /* diner: {
                     ...state.diner,
                     isDeleting: false,
                     favoriteTrucks: [
@@ -125,16 +138,16 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                             (truck) => truck !== action.payload
                         ),
                     ],
-                },
+                }, */
             };
         case actions.DELETE_FAV_FAILURE:
             return {
                 ...state,
-                diner: {
+                /* diner: {
                     ...state.diner,
                     isDeleting: false,
                     dinerError: action.payload,
-                },
+                }, */
             };
 
         // rate truck
@@ -160,28 +173,28 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         case actions.RATE_TRUCK_START:
             return {
                 ...state,
-                truck: {
-                    ...state.truck,
-                    isRating: true,
-                },
+                rating: {
+                    ...state.rating,
+                    isRating: true
+                }
             };
         case actions.RATE_TRUCK_SUCCESS:
             return {
                 ...state,
-                truck: {
-                    ...state.truck,
-                    rating: action.payload,
-                    isRating: false,
-                },
+                rating: {
+                    ...state.rating,
+                    truckRating: action.payload,
+                    isRating: false
+                }
             };
         case actions.RATE_TRUCK_FAILURE:
             return {
                 ...state,
-                truck: {
-                    ...state.truck,
-                    isRating: false,
-                    truckError: action.payload,
-                },
+                rating: {
+                    ...state.rating,
+                    ratingError: action.payload,
+                    isRating: false
+                }
             };
 
         // edit rating
@@ -201,36 +214,25 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                 searchCuisine: '',
                 searchRadius: '',
                 results: '',
-                isSearching: false,
+                //isSearching: false,
                 error: ''
             } */
+            /* searchState: {
+                location: "",
+                cuisine: "",
+                radius: "",
+                results: ""
+            }, */
         // search for a truck
         case actions.SEARCH_TRUCKS_START:
-            return {
-                ...state,
-                searchState: {
-                    ...state.searchState,
-                    isSearching: true,
-                },
-            };
+            return state;
         case actions.SEARCH_TRUCKS_SUCCESS:
             return {
                 ...state,
-                searchState: {
-                    ...state.searchState,
-                    isSearching: false,
-                    results: action.payload,
-                },
+                searchState: action.payload
             };
         case actions.SEARCH_TRUCKS_FAILURE:
-            return {
-                ...state,
-                searchState: {
-                    ...state.searchState,
-                    isSearching: false,
-                    searchError: action.payload,
-                },
-            };
+            return state;
 
         // MERGED FROM TEMPSITEREDUCER
         case "LOGGED_IN":

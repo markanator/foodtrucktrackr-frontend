@@ -43,6 +43,8 @@ const SearchBar = (props) => {
     const submit = (e) => {
 		e.preventDefault();
         console.log("hello from searchBar");
+        console.log('searchBar props.searchState', props.searchState);
+        console.log('searchBar formState', formState);
         push("/search-results");
 		props.searchForTrucks(formState);
     };

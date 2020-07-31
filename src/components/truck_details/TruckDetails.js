@@ -5,11 +5,11 @@ import axios from "axios";
 // router stuff
 import { useParams } from "react-router-dom";
 // redux stuff
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // auth reqs
 // import { axiosWithAuth } from "../../utils/AxiosWithAuth";
-import { connect } from "react-redux";
-import { addFavTruck, deleteFavTruck } from "../../actions";
+//import { connect } from "react-redux";
+import * as actions from "../../actions";
 
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
@@ -17,13 +17,15 @@ import MenuItemModal from "./MenuItemModal";
 import RatingModal from "./RatingModal";
 import FavoriteButton from "./FavoriteButton";
 
-function TruckDetails(props) {
+export default function TruckDetails(props) {
     // get id from URL
     const { id } = useParams();
     // get userID
     const userProfileData = useSelector(
         (state) => state.dinerOperatorReducer.user
     );
+
+    const dispatch = useDispatch();
 
     // used to inform user site is loading
     const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +60,12 @@ function TruckDetails(props) {
 
     const [isFavorited, setIsFavorited] = useState(false);
 
+    useEffect(() => {
+        console.log('userProfileData', userProfileData)
+        const thisTruck = userProfileData.favoriteTrucks.filter(truck => truck.truck_id === id);
+        console.log("thisTruck", thisTruck);
+    }, []);
+
     const toggleModal = (modal) => {
         setModals({
             ...modals,
@@ -67,12 +75,19 @@ function TruckDetails(props) {
 
     const addToFavorites = () => {
         setIsFavorited(true);
-        props.addFavTruck();
+        //console.log('params', params);
+        console.log('id from add', id);
+        //console.log('id.id', id.id)
+        //console.log('user', userProfileData);
+        //props.addFavTruck(id);
+        dispatch(actions.addFavTruck(id));
     };
 
     const removeFromFavorites = () => {
         setIsFavorited(false);
-        props.deleteFavTruck();
+        console.log('id from delete', id);
+        //props.deleteFavTruck(id);
+        dispatch(actions.deleteFavTruck(id));
     };
 
     useEffect(() => {
@@ -200,17 +215,18 @@ function TruckDetails(props) {
             <RatingModal
                 toggleModal={() => toggleModal("rating")}
                 show={modals.rating}
+                truckId={id}
             ></RatingModal>
         </div>
     );
 }
 
-const mapStateToProps = (state) => {
+/* const mapStateToProps = (state) => {
     return {
         state: state,
     };
-};
+}; */
 
-const mapDispatchToProps = { addFavTruck, deleteFavTruck };
+//const mapDispatchToProps = { addFavTruck, deleteFavTruck };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TruckDetails);
+//export default connect(mapStateToProps, mapDispatchToProps)(TruckDetails);
