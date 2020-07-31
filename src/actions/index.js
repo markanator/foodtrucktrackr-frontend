@@ -234,7 +234,7 @@ export const delete_menu_item = (menuItemID) => (dispatch) => {
     console.log("# Operator adding truck...");
     dispatch({ type: "TRUCK_START" });
     axiosWithAuth()
-        .delete(`/trucks/menu/${menuItemID}`)
+        .delete(`/trucks/food/${menuItemID}`)
         .then((resp) => {
             dispatch({
                 type: "TRUCK_SUCCESS",
