@@ -65,7 +65,8 @@ function TruckDetails(props) {
 
     const addToFavorites = () => {
         setIsFavorited(true);
-        props.addFavTruck();
+        console.log('user', userProfileData);
+        props.addFavTruck({truckId: id, userId: userProfileData.id});
     };
 
     const removeFromFavorites = () => {

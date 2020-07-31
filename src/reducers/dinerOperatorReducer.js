@@ -1,7 +1,7 @@
 import * as actions from '../actions';
 
 const initialState = {
-    diner: {
+    /* diner: {
         username: '',
         password: '',
         currentLocation: '',
@@ -9,7 +9,7 @@ const initialState = {
         isAdding: false,
         isDeleting: false,
         dinerError: ''
-    },
+    }, */
     searchState: {
         searchQuery: '',
         searchCuisine: '',
@@ -18,7 +18,7 @@ const initialState = {
         isSearching: false,
         searchError: ''
     },
-    operator: {
+    /* operator: {
         username: '',
         password: '',
         trucksOwned: [
@@ -31,13 +31,13 @@ const initialState = {
                 menu: []
             }
         ]
-    },
-    truck: {
+    }, */
+    /* truck: {
         id: '',
         rating: '',
         isRating: false,
         truckError: ''
-    }
+    } */
 }
 
 export const dinerOperatorReducer = (state = initialState, action) => {

@@ -40,17 +40,17 @@ export const deleteFavTruck = (truck) => (dispatch) => {
         });
 };
 
-export const addFavTruck = (truckId) => (dispatch) => {
+export const addFavTruck = (truckId, userId) => (dispatch) => {
     console.log("addFavTruck action creator");
     dispatch({ type: ADD_FAV_START, payload: truckId });
     axiosWithAuth()
-        .post("/user/:userID/favorites", truckId)
+        .post(`/favorites/${truckId}`, { truckId: truckId, userId: userId })
         .then((res) => {
             console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS });
         })
         .catch((err) => {
-            console.log(err);
+            console.log('err', err);
             dispatch({ type: ADD_FAV_FAILURE, payload: err });
         });
 };
