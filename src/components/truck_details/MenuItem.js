@@ -7,8 +7,11 @@ import {
     CardText,
     Button,
 } from "reactstrap";
+import { useHistory } from 'react-router-dom';
 
 export default function MenuItem({ menuItem }) {
+    const {push} = useHistory();
+
     return (
         <Card className="p-2 h-100 menu-item">
             <CardImg
@@ -24,6 +27,7 @@ export default function MenuItem({ menuItem }) {
                 </CardText>
                 {/* <Button color="primary">View Item</Button> */}
             </CardBody>
+            {/* <Button onClick={push(`/edit-menu-item/${menuItem.id}`)} color="primary">Edit Item</Button> */}
         </Card>
     );
 }
