@@ -74,7 +74,7 @@ export const rateTruck = (rating, truckId) => (dispatch) => {
     console.log("rateTruck action creator");
     dispatch({ type: RATE_TRUCK_START, payload: rating });
     axiosWithAuth()
-        .post(`/trucks/ratings/${truckId}`, rating)
+        .post(`/trucks/ratings/${truckId}`, {rating: rating})
         .then(res => {
             console.log(res);
             dispatch({ type: RATE_TRUCK_SUCCESS, payload: res });
