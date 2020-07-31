@@ -60,6 +60,12 @@ export default function TruckDetails(props) {
 
     const [isFavorited, setIsFavorited] = useState(false);
 
+    useEffect(() => {
+        console.log('userProfileData', userProfileData)
+        const thisTruck = userProfileData.favoriteTrucks.filter(truck => truck.truck_id === id);
+        console.log("thisTruck", thisTruck);
+    }, []);
+
     const toggleModal = (modal) => {
         setModals({
             ...modals,
