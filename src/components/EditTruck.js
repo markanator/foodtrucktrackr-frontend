@@ -9,7 +9,7 @@ import {
     Spinner,
 } from "reactstrap";
 // date-time picker
-import DateTimePicker from "react-datetime-picker";
+// import DateTimePicker from "react-datetime-picker";
 
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 // move user

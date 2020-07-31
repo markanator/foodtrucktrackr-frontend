@@ -21,8 +21,10 @@ import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 const Header = (props) => {
     const [modal, setModal] = useState(false);
     // redux user for login
-    const isActive = useSelector((state) => state.tempSiteReducer.isActive);
-    const rUser = useSelector((state) => state.tempSiteReducer.user);
+    const isActive = useSelector(
+        (state) => state.dinerOperatorReducer.isActive
+    );
+    const rUser = useSelector((state) => state.dinerOperatorReducer.user);
     const { push } = useHistory();
     const dispatch = useDispatch();
 
@@ -152,7 +154,7 @@ const Login = ({ modal, toggle }) => {
                 // get rid of modal
                 toggle();
                 // move the user to content
-                console.log(res.data);
+                // console.log(res.data);
                 const role = res.data.user.user_role;
 
                 if (role === "diner") {

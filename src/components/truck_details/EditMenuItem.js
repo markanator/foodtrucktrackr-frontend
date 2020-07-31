@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { Form, FormGroup, Label, Input, FormFeedback, Button, FormText } from 'reactstrap';
-import * as Yup from 'yup';
-import { axiosWithAuth} from '../../utils/AxiosWithAuth';
+import { useParams } from "react-router-dom";
+import {
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    FormFeedback,
+    Button,
+    FormText,
+} from "reactstrap";
+import * as Yup from "yup";
+import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 //redux hooks to fetch state
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const EditMenuItem = () => {
     const { id } = useParams();
 
-    const truckInfo = useSelector((state) => state.tempSiteReducer.truckInQuestion);
+    const truckInfo = useSelector(
+        (state) => state.dinerOperatorReducer.truckInQuestion
+    );
 
     const [formState, setFormState] = useState({
         image: "",
@@ -27,7 +37,7 @@ const EditMenuItem = () => {
     });
 
     useEffect(() => {
-        console.log('truckInfo', truckInfo);
+        console.log("truckInfo", truckInfo);
         setFormState({
             image: truckInfo.menu_item_photo,
             name: truckInfo.menu_item_name,
@@ -94,7 +104,6 @@ const EditMenuItem = () => {
                         console.log(data);
                         // need to dispatch add_truck_menu_item(data)
                         // need to refresh truck page to reflect changes
-                        
                     })
                     .catch((err) => {
                         console.log(err);
@@ -109,85 +118,74 @@ const EditMenuItem = () => {
     };
 
     const deleteItem = () => {
-        axiosWithAuth()
-            .delete(`/truck/food/${id}`)
-            .then()
-            .catch()
+        axiosWithAuth().delete(`/truck/food/${id}`).then().catch();
     };
 
     return (
         <Form onSubmit={submit}>
-                    <FormGroup>
-                        <Label for="name">Item Name</Label>
-                        <Input
-                            className={errors.name ? "is-invalid" : ""}
-                            onChange={onInputChange}
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formState.name}
-                        />
-                        {errors.name && (
-                            <FormFeedback>{errors.name}</FormFeedback>
-                        )}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="image">Image</Label>
-                        <Input
-                            className={errors.image ? "is-invalid" : ""}
-                            onChange={onInputChange}
-                            type="text"
-                            id="image"
-                            name="image"
-                            value={formState.image}
-                        />
-                        {errors.image && (
-                            <FormFeedback>{errors.image}</FormFeedback>
-                        )}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="name">Price</Label>
-                        <Input
-                            className={errors.price ? "is-invalid" : ""}
-                            onChange={onInputChange}
-                            type="number"
-                            min="0"
-                            step="0.01"
-                            id="price"
-                            name="price"
-                            value={formState.price}
-                        />
-                        {errors.price && (
-                            <FormFeedback>{errors.price}</FormFeedback>
-                        )}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="name">Description</Label>
-                        <Input
-                            className={errors.description ? "is-invalid" : ""}
-                            onChange={onInputChange}
-                            type="textarea"
-                            id="description"
-                            name="description"
-                            value={formState.description}
-                        />
-                        {errors.description && (
-                            <FormFeedback>{errors.description}</FormFeedback>
-                        )}
-                    </FormGroup>
-                    {errors.submit && (
-                        <FormText className="bg-danger p-2 mb-2" color="white">
-                            {errors.submit}
-                        </FormText>
-                    )}
-                    <Button color="primary"> Add Item</Button>
-                    <Button color="secondary">
-                        Cancel
-                    </Button>
-                    <Button>DELETE ITEM</Button>
-                </Form>
-    )
-}
+            <FormGroup>
+                <Label for="name">Item Name</Label>
+                <Input
+                    className={errors.name ? "is-invalid" : ""}
+                    onChange={onInputChange}
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formState.name}
+                />
+                {errors.name && <FormFeedback>{errors.name}</FormFeedback>}
+            </FormGroup>
+            <FormGroup>
+                <Label for="image">Image</Label>
+                <Input
+                    className={errors.image ? "is-invalid" : ""}
+                    onChange={onInputChange}
+                    type="text"
+                    id="image"
+                    name="image"
+                    value={formState.image}
+                />
+                {errors.image && <FormFeedback>{errors.image}</FormFeedback>}
+            </FormGroup>
+            <FormGroup>
+                <Label for="name">Price</Label>
+                <Input
+                    className={errors.price ? "is-invalid" : ""}
+                    onChange={onInputChange}
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    id="price"
+                    name="price"
+                    value={formState.price}
+                />
+                {errors.price && <FormFeedback>{errors.price}</FormFeedback>}
+            </FormGroup>
+            <FormGroup>
+                <Label for="name">Description</Label>
+                <Input
+                    className={errors.description ? "is-invalid" : ""}
+                    onChange={onInputChange}
+                    type="textarea"
+                    id="description"
+                    name="description"
+                    value={formState.description}
+                />
+                {errors.description && (
+                    <FormFeedback>{errors.description}</FormFeedback>
+                )}
+            </FormGroup>
+            {errors.submit && (
+                <FormText className="bg-danger p-2 mb-2" color="white">
+                    {errors.submit}
+                </FormText>
+            )}
+            <Button color="primary"> Add Item</Button>
+            <Button color="secondary">Cancel</Button>
+            <Button>DELETE ITEM</Button>
+        </Form>
+    );
+};
 
 export default EditMenuItem;
 
