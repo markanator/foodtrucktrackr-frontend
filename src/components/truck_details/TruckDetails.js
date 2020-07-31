@@ -201,6 +201,7 @@ function TruckDetails(props) {
             <RatingModal
                 toggleModal={() => toggleModal("rating")}
                 show={modals.rating}
+                truckId={id}
             ></RatingModal>
         </div>
     );

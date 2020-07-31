@@ -70,11 +70,11 @@ export const addFavTruck = (truckId) => (dispatch) => {
         })
 }; */
 
-export const rateTruck = rating => (dispatch) => {
+export const rateTruck = (rating, truckId) => (dispatch) => {
     console.log("rateTruck action creator");
     dispatch({ type: RATE_TRUCK_START, payload: rating });
     axiosWithAuth()
-        .post('/trucks/:truck_id/rate', rating)
+        .post(`/trucks/ratings/${truckId}`, rating)
         .then(res => {
             console.log(res);
             dispatch({ type: RATE_TRUCK_SUCCESS, payload: res });
