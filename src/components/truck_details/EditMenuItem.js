@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, FormFeedback, Button, FormText } from 'reactstrap';
 import * as Yup from 'yup';
 import { axiosWithAuth} from '../../utils/AxiosWithAuth';
+//redux hooks to fetch state
+import { useSelector } from 'react-redux';
 
 const EditMenuItem = () => {
     const { id } = useParams();
+
+    const truckInfo = useSelector((state) => state.tempSiteReducer.truckInQuestion);
 
     const [formState, setFormState] = useState({
         image: "",
@@ -21,6 +25,16 @@ const EditMenuItem = () => {
         description: "",
         price: "",
     });
+
+    useEffect(() => {
+        console.log('truckInfo', truckInfo);
+        setFormState({
+            image: truckInfo.menu_item_photo,
+            name: truckInfo.menu_item_name,
+            description: truckInfo.menu_item_description,
+            price: truckInfo.menu_item_price,
+        });
+    }, []);
 
     const formSchema = Yup.object().shape({
         image: Yup.string()
@@ -75,7 +89,7 @@ const EditMenuItem = () => {
 
                 // NEED TO FINISH
                 axiosWithAuth()
-                    .post(`/trucks/food/${id}`, dbMenuItem)
+                    .put(`/trucks/food/${id}`, dbMenuItem)
                     .then(({ data }) => {
                         console.log(data);
                         // need to dispatch add_truck_menu_item(data)

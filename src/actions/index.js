@@ -245,3 +245,7 @@ export const delete_menu_item = (menuItemID) => (dispatch) => {
             console.error(err);
         });
 };
+
+export const truckInQuestion = (truckInfo) => (dispatch) => {
+    dispatch({ type: "TRUCK_IN_QUESTION", payload: truckInfo })
+}
