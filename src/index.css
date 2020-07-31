@@ -142,18 +142,54 @@ html {
     border-radius: 15px;
 }
 
-.navbar {
-    /* top: 0; */
-    /* position: fixed; */
+.navbar-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
     width: 100%;
     margin-bottom: 20px;
     background-color: rgb(0, 106, 177);
     color: rgb(223, 242, 255);
 }
 
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1000px;
+}
+
 .navTitle {
     display: flex;
-    width: 60%;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 320px;
+}
+.fas {
+    font-size: 2rem;
+    margin: 5px;
+}
+
+.headerTitle {
+    font-size: 2rem;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+
+.navItem {
+    padding: 0 10px;
+    font-size: 1.2rem;
+    color: rgb(223, 242, 255);
+}
+.navItem:hover {
+    color: rgb(255, 255, 255);
+    text-shadow: 0.5px 0.5px cyan;
+    text-decoration: none;
 }
 
 .home-header {
@@ -169,28 +205,6 @@ html {
 footer {
     text-align: center;
     padding: 20px;
-}
-
-.fas {
-    font-size: 2rem;
-}
-
-.headerTitle {
-    font-size: 2rem;
-}
-.nav-links {
-    display: flex;
-}
-
-.navItem {
-    padding: 0 10px;
-    font-size: 1.2rem;
-    color: rgb(223, 242, 255);
-}
-.navItem:hover {
-    color: rgb(255, 255, 255);
-    text-shadow: 0.5px 0.5px cyan;
-    text-decoration: none;
 }
 
 .sign-up {

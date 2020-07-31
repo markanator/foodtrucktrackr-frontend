@@ -76,26 +76,28 @@ const Header = (props) => {
     };
 
     return (
-        <Navbar className="navbar">
-            <Login modal={modal} setModal={setModal} toggle={toggle} />
-            <div className="navTitle">
-                <i className="fas fa-truck"></i>
-                <h1 className="headerTitle"> Food Truck Trackr</h1>
-            </div>
-            <div className="nav-links">
-                <Link to="/" className="navItem">
-                    Home
-                </Link>
-                {/* AFTER LOG-IN, RENDER BASED ON ACCOUNT TYPE */}
-                {!isActive
-                    ? null
-                    : rUser.user_role === "diner"
-                    ? renderUserLinks()
-                    : !isActive
-                    ? null
-                    : renderOperatorLinks()}
-                {/* CHECK TO SEE IF USER IS LOGGED IN */}
-                {LogLinks()}
+        <Navbar className="navbar-wrapper">
+            <div className="navbar-container">
+                <Login modal={modal} setModal={setModal} toggle={toggle} />
+                <div className="navTitle">
+                    <i className="fas fa-truck"></i>
+                    <h1 className="headerTitle"> Food Truck Trackr</h1>
+                </div>
+                <div className="nav-links">
+                    <Link to="/" className="navItem">
+                        Home
+                    </Link>
+                    {/* AFTER LOG-IN, RENDER BASED ON ACCOUNT TYPE */}
+                    {!isActive
+                        ? null
+                        : rUser.user_role === "diner"
+                        ? renderUserLinks()
+                        : !isActive
+                        ? null
+                        : renderOperatorLinks()}
+                    {/* CHECK TO SEE IF USER IS LOGGED IN */}
+                    {LogLinks()}
+                </div>
             </div>
         </Navbar>
     );
