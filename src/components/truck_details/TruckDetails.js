@@ -63,15 +63,15 @@ function TruckDetails(props) {
         });
     };
 
-    const addToFavorites = () => {
+    const addToFavorites = (id) => {
         setIsFavorited(true);
-        console.log('user', userProfileData);
-        props.addFavTruck({truckId: id, userId: userProfileData.id});
+        //console.log('user', userProfileData);
+        props.addFavTruck(id);
     };
 
-    const removeFromFavorites = () => {
+    const removeFromFavorites = (id) => {
         setIsFavorited(false);
-        props.deleteFavTruck();
+        props.deleteFavTruck(id);
     };
 
     useEffect(() => {
@@ -96,7 +96,7 @@ function TruckDetails(props) {
             });
     }, [id, userProfileData.id]);
 
-    const renderMenuItems = (menuItemArray) => {
+    /* const renderMenuItems = (menuItemArray) => {
         if ((menuItemArray !== undefined) && (menuItemArray.length > 0)) {
             return (truckInfo.foodItems.map((menuItem) => {
                 return (
@@ -113,7 +113,7 @@ function TruckDetails(props) {
         } else {
             return <p>No menu items to show.</p>
         }
-    };
+    }; */
 
     if (isLoading) {
         return <Spinner color="primary" />;

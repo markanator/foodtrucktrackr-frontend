@@ -25,11 +25,11 @@ export const SEARCH_TRUCKS_FAILURE = "SEARCH_TRUCK_FAILURE";
 // login
 export const LOGIN = "LOGIN";
 
-export const deleteFavTruck = (truck) => (dispatch) => {
+export const deleteFavTruck = (truckId) => (dispatch) => {
     console.log("deleteFavTruck action creator");
-    dispatch({ type: DELETE_FAV_START, payload: truck });
+    dispatch({ type: DELETE_FAV_START, payload: truckId });
     axiosWithAuth()
-        .delete("/user/:userID/favorites/:truckID")
+        .delete(`/trucks/favorites/${truckId}`)
         .then((res) => {
             console.log(res);
             dispatch({ type: DELETE_FAV_SUCCESS });
@@ -40,11 +40,11 @@ export const deleteFavTruck = (truck) => (dispatch) => {
         });
 };
 
-export const addFavTruck = (truckId, userId) => (dispatch) => {
+export const addFavTruck = (truckId) => (dispatch) => {
     console.log("addFavTruck action creator");
     dispatch({ type: ADD_FAV_START, payload: truckId });
     axiosWithAuth()
-        .post(`/favorites/${truckId}`, { truckId: truckId, userId: userId })
+        .post(`/trucks/favorites/${truckId}`, {})
         .then((res) => {
             console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS });
