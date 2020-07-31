@@ -11,9 +11,6 @@ import * as actions from "../actions";
 // styles
 import { Button, Spinner } from "reactstrap";
 
-//import dummy data since server is not working
-//import { trucks } from '../dummy-data';
-
 const TruckList = ({ OperatorDashboard, ...props }) => {
     const dispatch = useDispatch();
     const { push } = useHistory();
@@ -29,9 +26,6 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     //const [loading, setLoading] = useState(false);
 
     const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
-    const deleteCard = (e) => {
-        e.preventDefault();
-    };
 
     useEffect(() => {
         // fetch current trucks
@@ -71,10 +65,13 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                             src={truck.truck_photo}
                             alt="truckImage"
                             className="truckPictures"
+                            width="425px"
                         />
                         <div className="truckCardText">
                             <Link to={`/trucks/${truck.id}`}>
-                                <h3>Truck Name: {truck.truck_name}</h3>
+                                <h3 style={{ textAlign: "center" }}>
+                                    Truck Name: {truck.truck_name}
+                                </h3>
                             </Link>
                             <h4>Distance: {truck.location}</h4>
                             <h5>Food Description: {truck.truck_description}</h5>
@@ -103,8 +100,9 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                             {OperatorDashboard && (
                                 <>
                                     <Button
-                                        className="btn"
-                                        style={buttonStyle}
+                                        color="primary"
+                                        // className="btn"
+                                        // style={buttonStyle}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             dispatch(actions.edit_truck(truck));
@@ -114,10 +112,22 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                                         Edit
                                     </Button>
                                     <Button
-                                        className="btn"
-                                        onClick={deleteCard}
+                                        color="danger"
+                                        // className="btn"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            axiosWithAuth()
+                                                .delete(`/trucks/${truck.id}`)
+                                                .then((resp) => {
+                                                    // console.log(resp);
+                                                    push("/operator");
+                                                })
+                                                .catch((err) =>
+                                                    console.error(err)
+                                                );
+                                        }}
                                         id={truck.id}
-                                        style={buttonStyle}
+                                        // style={buttonStyle}
                                     >
                                         Delete
                                     </Button>
@@ -133,7 +143,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
 
 const mapStateToProps = (state) => {
     return {
-        state: state
+        state: state,
     };
 };
 
