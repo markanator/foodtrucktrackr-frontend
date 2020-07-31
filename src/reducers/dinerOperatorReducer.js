@@ -12,6 +12,7 @@ const initialState = {
         user_role: "",
         ownedTrucks: [],
         avatar_url: "",
+        favoriteTrucks: []
     },
     truckInQuestion: {
         isRating: false,
@@ -82,7 +83,12 @@ export const dinerOperatorReducer = (state = initialState, action) => {
             };
         case actions.ADD_FAV_SUCCESS:
             return {
-                ...state
+                ...state,
+                user: {
+                    ...state.user,
+                    favoriteTrucks: [...state.user.favoriteTrucks, action.payload]
+                }
+                
                 /* diner: {
                     ...state.diner,
                     isAdding: false,
@@ -119,7 +125,11 @@ export const dinerOperatorReducer = (state = initialState, action) => {
             };
         case actions.DELETE_FAV_SUCCESS:
             return {
-                ...state
+                ...state,
+                user: {
+                    ...state.user,
+                    favoriteTrucks: [state.user.favoriteTrucks.filter(truck => truck.truck_id !== action.payload)]
+                }
                 /* diner: {
                     ...state.diner,
                     isDeleting: false,

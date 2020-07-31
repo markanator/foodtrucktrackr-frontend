@@ -13,17 +13,27 @@ import {
     Button,
 } from "reactstrap";
 
+//redux to grab state
+import { useSelector } from 'react-redux';
+
 const TrucksPage = () => {
     const { push } = useHistory();
 
     const [truckList, setTruckList] = useState([]);
 
+    const userInfo = useSelector(
+        (state) => state.dinerOperatorReducer.user 
+    );
+
+    console.log('userInfo', userInfo);
+
     useEffect(() => {
-        axiosWithAuth()
+        /* axiosWithAuth()
             .get("/trucks")
             .then((res) => setTruckList(res.data))
-            .catch((err) => console.error(err));
-    }, []);
+            .catch((err) => console.error(err)); */
+        setTruckList(userInfo.favoriteTrucks)
+    }, [userInfo.favoriteTrucks]);
 
     return (
         <div>

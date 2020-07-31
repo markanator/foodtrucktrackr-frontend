@@ -32,7 +32,7 @@ export const deleteFavTruck = (truckId) => (dispatch) => {
         .delete(`/trucks/favorites/${truckId}`)
         .then((res) => {
             console.log(res);
-            dispatch({ type: DELETE_FAV_SUCCESS });
+            dispatch({ type: DELETE_FAV_SUCCESS, payload: truckId });
         })
         .catch((err) => {
             console.log(err);
@@ -47,7 +47,7 @@ export const addFavTruck = (truckId) => (dispatch) => {
         .post(`/trucks/favorites/${truckId}`, {})
         .then((res) => {
             console.log(res);
-            dispatch({ type: ADD_FAV_SUCCESS });
+            dispatch({ type: ADD_FAV_SUCCESS, payload: res.data });
         })
         .catch((err) => {
             console.log('err', err);
