@@ -76,29 +76,29 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         // add truck to favorites
         case actions.ADD_FAV_START:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isAdding: true,
-                },
+                }, */
             };
         case actions.ADD_FAV_SUCCESS:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isAdding: false,
                     favoriteTrucks: [...state.favoriteTrucks, action.payload],
-                },
+                }, */
             };
         case actions.ADD_FAV_FAILURE:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isAdding: false,
                     dinerError: action.payload,
-                },
+                }, */
             };
         // state shape for diner
         /* diner: {
@@ -113,16 +113,16 @@ export const dinerOperatorReducer = (state = initialState, action) => {
         // delete truck from favorites
         case actions.DELETE_FAV_START:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isDeleting: true,
-                },
+                }, */
             };
         case actions.DELETE_FAV_SUCCESS:
             return {
-                ...state,
-                diner: {
+                ...state
+                /* diner: {
                     ...state.diner,
                     isDeleting: false,
                     favoriteTrucks: [
@@ -130,16 +130,16 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                             (truck) => truck !== action.payload
                         ),
                     ],
-                },
+                }, */
             };
         case actions.DELETE_FAV_FAILURE:
             return {
                 ...state,
-                diner: {
+                /* diner: {
                     ...state.diner,
                     isDeleting: false,
                     dinerError: action.payload,
-                },
+                }, */
             };
 
         // rate truck

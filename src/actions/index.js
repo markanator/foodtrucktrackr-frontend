@@ -27,7 +27,7 @@ export const LOGIN = "LOGIN";
 
 export const deleteFavTruck = (truckId) => (dispatch) => {
     console.log("deleteFavTruck action creator");
-    dispatch({ type: DELETE_FAV_START, payload: truckId });
+    dispatch({ type: DELETE_FAV_START });
     axiosWithAuth()
         .delete(`/trucks/favorites/${truckId}`)
         .then((res) => {
@@ -42,7 +42,7 @@ export const deleteFavTruck = (truckId) => (dispatch) => {
 
 export const addFavTruck = (truckId) => (dispatch) => {
     console.log("addFavTruck action creator");
-    dispatch({ type: ADD_FAV_START, payload: truckId });
+    dispatch({ type: ADD_FAV_START });
     axiosWithAuth()
         .post(`/trucks/favorites/${truckId}`, {})
         .then((res) => {
