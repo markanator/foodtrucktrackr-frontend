@@ -17,6 +17,7 @@ const initSiteState = {
         ownedTrucks: [],
         avatar_url: "",
     },
+    truckInQuestion: {}
 };
 
 export const tempSiteReducer = (state = initSiteState, action) => {
@@ -45,6 +46,11 @@ export const tempSiteReducer = (state = initSiteState, action) => {
                     ownedTrucks: [...state.user.ownedTrucks, action.payload],
                 },
             };
+        case "TRUCK_IN_QUESTION":
+            return {
+                ...state,
+                truckInQuestion: action.payload
+            }
         default:
             return state;
     }

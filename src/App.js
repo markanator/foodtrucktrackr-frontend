@@ -16,6 +16,7 @@ import TruckDetails from "./components/truck_details/TruckDetails";
 import SearchPage from "./components/SearchPage";
 import EditTruck from "./components/EditTruck";
 import TrucksPage from "./components/TrucksPage";
+import EditMenuItem from "./components/truck_details/EditMenuItem";
 
 // removed redux to index.js
 
@@ -45,6 +46,10 @@ const App = () => {
                     <PrivateRoute
                         path="/edit-truck/:id"
                         component={EditTruck}
+                    />
+                    <PrivateRoute
+                        path="/edit-menu-item/:id"
+                        component={EditMenuItem}
                     />
                     <PrivateRoute
                         path="/search-results"

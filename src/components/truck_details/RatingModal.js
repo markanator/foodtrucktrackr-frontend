@@ -12,6 +12,7 @@ function RatingModal(props) {
 
     const submit = () => {
         console.log(userRating);
+        props.rateTruck(userRating);
         closeRatingModal();
     };
 

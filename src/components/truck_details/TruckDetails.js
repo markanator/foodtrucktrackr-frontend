@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Spinner } from "reactstrap";
+import axios from 'axios';
 
 // router stuff
 import { useParams } from "react-router-dom";
@@ -7,6 +8,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 // auth reqs
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
+import { connect } from 'react-redux';
+import { addFavTruck, deleteFavTruck } from '../../actions';
 
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
@@ -14,7 +17,7 @@ import MenuItemModal from "./MenuItemModal";
 import RatingModal from "./RatingModal";
 import FavoriteButton from "./FavoriteButton";
 
-export default function TruckDetails(props) {
+function TruckDetails(props) {
     // get id from URL
     const { id } = useParams();
     // get userID
@@ -61,49 +64,28 @@ export default function TruckDetails(props) {
     };
 
     const addToFavorites = () => {
-        return axiosWithAuth()
-            .post(`/trucks/favorites/${id}`)
-            .then((resp) => {
-                console.log(resp);
-                // set local state
-                return setIsFavorited(true);
-            })
-            .catch((err) => {
-                // set local state
-                setIsLoading(false);
-                // log why it couldn't
-                console.error(err);
-
-                return setIsFavorited(false);
-            });
+        setIsFavorited(true);
+        props.addFavTruck();
     };
 
     const removeFromFavorites = () => {
-        return axiosWithAuth()
-            .delete(`/trucks/favorites/${id}`)
-            .then((resp) => {
-                console.log(resp);
-                // set local state
-                return setIsFavorited(false);
-            })
-            .catch((err) => {
-                // set local state
-                setIsLoading(false);
-                // log why it couldn't
-                console.error(err);
-
-                return setIsFavorited(true);
-            });
+        setIsFavorited(false);
+        props.deleteFavTruck();
     };
 
     useEffect(() => {
-        axiosWithAuth()
-            .get(`/trucks/${id}`)
+        axios
+            .get(`https://foodtrackertcr.herokuapp.com/trucks`)
             .then((resp) => {
-                // console.log(resp.data);
+                console.log(resp.data);
+                console.log('id', id);
                 // set local state
                 setIsLoading(false);
-                setTruckInfo({ ...resp.data });
+                const truckInQuestion = resp.data.filter((truck) => {
+                    return truck.truck_id == id;
+                });
+                console.log('truckInQuestion', truckInQuestion);
+                setTruckInfo(truckInQuestion[0]);
             })
             .catch((err) => {
                 // set local state
@@ -112,6 +94,25 @@ export default function TruckDetails(props) {
                 console.error(err);
             });
     }, [id, userProfileData.id]);
+
+    const renderMenuItems = (menuItemArray) => {
+        if ((menuItemArray !== undefined) && (menuItemArray.length > 0)) {
+            return (truckInfo.foodItems.map((menuItem) => {
+                return (
+                    <Col className="mb-3" md="6" lg="6">
+                        <MenuItem key={menuItem.id} menuItem={menuItem} />
+                    </Col>
+                );
+            }),
+            truckInfo.operator_id === userProfileData.id ? (
+                <AddMenuItem
+                    showMenuModal={() => toggleModal("menu")}
+                ></AddMenuItem>
+            ) : null)
+        } else {
+            return <p>No menu items to show.</p>
+        }
+    };
 
     if (isLoading) {
         return <Spinner color="primary" />;
@@ -167,6 +168,7 @@ export default function TruckDetails(props) {
             <p className="description lead">{truckInfo.truck_description}</p>
             <h3 className="pb-3">Menu</h3>
             <Row className="menu-items">
+                {/* {renderMenuItems(truckInfo.foodItems)} */}
                 {truckInfo.foodItems.map((menuItem) => {
                     return (
                         <Col className="mb-3" md="6" lg="6">
@@ -193,3 +195,13 @@ export default function TruckDetails(props) {
         </div>
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        state: state
+    }
+}
+
+const mapDispatchToProps = { addFavTruck, deleteFavTruck };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TruckDetails);

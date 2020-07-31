@@ -11,6 +11,9 @@ import * as actions from "../actions";
 // styles
 import { Button, Spinner } from "reactstrap";
 
+//import dummy data since server is not working
+//import { trucks } from '../dummy-data';
+
 const TruckList = ({ OperatorDashboard, ...props }) => {
     const dispatch = useDispatch();
     const { push } = useHistory();
@@ -22,6 +25,8 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     const [truckList, setTruckList] = useState([]);
     // loading visual
     const [loading, setLoading] = useState(true);
+    // uncomment this ^^^ when server is working
+    //const [loading, setLoading] = useState(false);
 
     const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
     const deleteCard = (e) => {
@@ -128,15 +133,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
 
 const mapStateToProps = (state) => {
     return {
-        state,
-        /* searchState: {
-            ...state.searchState,
-            results: state.searchState.results
-        },
-        diner: {
-            ...state.diner,
-            favoriteTrucks: state.diner.favoriteTrucks
-        } */
+        state: state
     };
 };
 
