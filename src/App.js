@@ -22,7 +22,7 @@ import EditMenuItem from "./components/truck_details/EditMenuItem";
 
 const App = () => {
     const [users, setUsers] = useState({});
-    const userState = useSelector((state) => state.tempSiteReducer.user);
+    const userState = useSelector((state) => state.dinerOperatorReducer.user);
     return (
         <Layout>
             <div className="App">

@@ -15,7 +15,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     const dispatch = useDispatch();
     const { push } = useHistory();
     // get state from redux
-    const ownerState = useSelector((state) => state.tempSiteReducer.user);
+    const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
 
     const starStyle = { fontSize: "20px" };
     // owner trucks list initial load

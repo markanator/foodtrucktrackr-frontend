@@ -21,8 +21,10 @@ import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 const Header = (props) => {
     const [modal, setModal] = useState(false);
     // redux user for login
-    const isActive = useSelector((state) => state.tempSiteReducer.isActive);
-    const rUser = useSelector((state) => state.tempSiteReducer.user);
+    const isActive = useSelector(
+        (state) => state.dinerOperatorReducer.isActive
+    );
+    const rUser = useSelector((state) => state.dinerOperatorReducer.user);
     const { push } = useHistory();
     const dispatch = useDispatch();
 

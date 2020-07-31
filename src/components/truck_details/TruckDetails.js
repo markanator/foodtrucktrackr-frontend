@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Spinner } from "reactstrap";
-import axios from 'axios';
+import axios from "axios";
 
 // router stuff
 import { useParams } from "react-router-dom";
@@ -8,8 +8,8 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 // auth reqs
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
-import { connect } from 'react-redux';
-import { addFavTruck, deleteFavTruck } from '../../actions';
+import { connect } from "react-redux";
+import { addFavTruck, deleteFavTruck } from "../../actions";
 
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
@@ -21,7 +21,9 @@ function TruckDetails(props) {
     // get id from URL
     const { id } = useParams();
     // get userID
-    const userProfileData = useSelector((state) => state.tempSiteReducer.user);
+    const userProfileData = useSelector(
+        (state) => state.dinerOperatorReducer.user
+    );
 
     // used to inform user site is loading
     const [isLoading, setIsLoading] = useState(true);
@@ -78,13 +80,13 @@ function TruckDetails(props) {
             .get(`https://foodtrackertcr.herokuapp.com/trucks`)
             .then((resp) => {
                 console.log(resp.data);
-                console.log('id', id);
+                console.log("id", id);
                 // set local state
                 setIsLoading(false);
                 const truckInQuestion = resp.data.filter((truck) => {
                     return truck.truck_id == id;
                 });
-                console.log('truckInQuestion', truckInQuestion);
+                console.log("truckInQuestion", truckInQuestion);
                 setTruckInfo(truckInQuestion[0]);
             })
             .catch((err) => {
@@ -96,21 +98,23 @@ function TruckDetails(props) {
     }, [id, userProfileData.id]);
 
     const renderMenuItems = (menuItemArray) => {
-        if ((menuItemArray !== undefined) && (menuItemArray.length > 0)) {
-            return (truckInfo.foodItems.map((menuItem) => {
-                return (
-                    <Col className="mb-3" md="6" lg="6">
-                        <MenuItem key={menuItem.id} menuItem={menuItem} />
-                    </Col>
-                );
-            }),
-            truckInfo.operator_id === userProfileData.id ? (
-                <AddMenuItem
-                    showMenuModal={() => toggleModal("menu")}
-                ></AddMenuItem>
-            ) : null)
+        if (menuItemArray !== undefined && menuItemArray.length > 0) {
+            return (
+                truckInfo.foodItems.map((menuItem) => {
+                    return (
+                        <Col className="mb-3" md="6" lg="6">
+                            <MenuItem key={menuItem.id} menuItem={menuItem} />
+                        </Col>
+                    );
+                }),
+                truckInfo.operator_id === userProfileData.id ? (
+                    <AddMenuItem
+                        showMenuModal={() => toggleModal("menu")}
+                    ></AddMenuItem>
+                ) : null
+            );
         } else {
-            return <p>No menu items to show.</p>
+            return <p>No menu items to show.</p>;
         }
     };
 
@@ -196,11 +200,11 @@ function TruckDetails(props) {
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
-        state: state
-    }
-}
+        state: state,
+    };
+};
 
 const mapDispatchToProps = { addFavTruck, deleteFavTruck };
 
