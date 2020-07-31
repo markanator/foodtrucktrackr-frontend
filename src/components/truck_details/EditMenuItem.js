@@ -108,6 +108,13 @@ const EditMenuItem = () => {
         });
     };
 
+    const deleteItem = () => {
+        axiosWithAuth()
+            .delete(`/truck/food/${id}`)
+            .then()
+            .catch()
+    };
+
     return (
         <Form onSubmit={submit}>
                     <FormGroup>
@@ -177,6 +184,7 @@ const EditMenuItem = () => {
                     <Button color="secondary">
                         Cancel
                     </Button>
+                    <Button>DELETE ITEM</Button>
                 </Form>
     )
 }
