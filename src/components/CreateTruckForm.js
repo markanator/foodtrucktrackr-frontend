@@ -87,6 +87,7 @@ export default function CreateTruckForm(props) {
             location_state: formData.state,
             truck_cuisine_type: formData.cuisineType,
             truck_description: formData.truckDescription,
+            truck_photo: formData.truckImage,
         };
 
         // console.log(dbTruck);

@@ -87,6 +87,13 @@ const Header = (props) => {
                     <Link to="/" className="navItem">
                         Home
                     </Link>
+                    <a
+                        tag="Link"
+                        href="https://foodtrucktrackr1.netlify.app/about.html"
+                        className="navItem"
+                    >
+                        About
+                    </a>
                     {/* AFTER LOG-IN, RENDER BASED ON ACCOUNT TYPE */}
                     {!isActive
                         ? null

@@ -10,7 +10,7 @@ const initialTruckState = {
     location_state: "",
     location_zip_code: "",
     longitude: null,
-    operator_id: 5,
+    operator_id: null,
     price_range: null,
     truck_arrival_time: "",
     truck_cuisine_type: "",

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
+import axios from "axios";
 
 import {
     Card,
@@ -14,32 +15,30 @@ import {
 } from "reactstrap";
 
 //redux to grab state
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const TrucksPage = () => {
+    const userInfo = useSelector((state) => state.dinerOperatorReducer.user);
     const { push } = useHistory();
 
     const [truckList, setTruckList] = useState([]);
 
-    const userInfo = useSelector(
-        (state) => state.dinerOperatorReducer.user 
-    );
-
-    console.log('userInfo', userInfo);
+    // console.log("userInfo", userInfo);
 
     useEffect(() => {
-        /* axiosWithAuth()
-            .get("/trucks")
+        axios
+            .get("https://foodtrackertcr.herokuapp.com/trucks")
             .then((res) => setTruckList(res.data))
-            .catch((err) => console.error(err)); */
-        setTruckList(userInfo.favoriteTrucks)
+            .catch((err) => console.error(err));
+
+        // setTruckList(userInfo.favoriteTrucks)
     }, [userInfo.favoriteTrucks]);
 
     return (
-        <div>
+        <div className="truckPage-container">
             {truckList.map((car) => {
                 return (
-                    <Card style={{ marginBottom: 20 }} key={car.id}>
+                    <Card className="truckPage-item" key={car.id}>
                         <CardImg
                             src={car.truck_photo}
                             alt={car.truck_name}
