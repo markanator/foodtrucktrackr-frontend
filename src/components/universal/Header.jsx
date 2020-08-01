@@ -88,7 +88,7 @@ const Header = (props) => {
                         Home
                     </Link>
                     <a
-                        tag="Link"
+                        // tag="Link"
                         href="https://foodtrucktrackr1.netlify.app/about.html"
                         className="navItem"
                     >

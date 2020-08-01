@@ -78,7 +78,7 @@ export default function TruckDetails(props) {
     const addToFavorites = () => {
         setIsFavorited(true);
         //console.log('params', params);
-        console.log("id from add", id);
+        // console.log("id from add", id);
         //console.log('id.id', id.id)
         //console.log('user', userProfileData);
         //props.addFavTruck(id);
@@ -87,7 +87,7 @@ export default function TruckDetails(props) {
 
     const removeFromFavorites = () => {
         setIsFavorited(false);
-        console.log("id from delete", id);
+        // console.log("id from delete", id);
         //props.deleteFavTruck(id);
         dispatch(actions.deleteFavTruck(id));
     };

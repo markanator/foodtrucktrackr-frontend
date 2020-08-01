@@ -92,7 +92,7 @@ export default function MenuItemModal(props) {
                 axiosWithAuth()
                     .post(`/trucks/food/${id}`, dbMenuItem)
                     .then(({ data }) => {
-                        console.log(data);
+                        // console.log(data);
                         // need to dispatch add_truck_menu_item(data)
                         // need to refresh truck page to reflect changes
                         closeModal();

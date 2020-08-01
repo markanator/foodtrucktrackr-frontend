@@ -1,27 +1,23 @@
 import React from "react";
-import {
-    Card,
-    CardBody,
-    CardImg,
-    CardTitle,
-    CardText,
-    Button,
-} from "reactstrap";
-import { useHistory } from 'react-router-dom';
+import { Card, CardBody, CardImg, CardTitle, CardText } from "reactstrap";
+import { useHistory } from "react-router-dom";
 //redux hooks dispatching
-import { useDispatch } from 'react-redux';
-import * as actions from '../../actions';
+import { useDispatch } from "react-redux";
+import * as actions from "../../actions";
 
 export default function MenuItem({ menuItem }) {
-    const {push} = useHistory();
+    const { push } = useHistory();
 
     const dispatch = useDispatch();
 
     return (
-        <Card onClick={() => {
-            dispatch(actions.truckInQuestion(menuItem));
-            push(`/edit-menu-item/${menuItem.id}`)
-        }} className="p-2 h-100 menu-item">
+        <Card
+            onClick={() => {
+                dispatch(actions.truckInQuestion(menuItem));
+                push(`/edit-menu-item/${menuItem.id}`);
+            }}
+            className="p-2 h-100 menu-item"
+        >
             <CardImg
                 style={{ objectFit: "cover" }}
                 src={menuItem.menu_item_photo}

@@ -18,7 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // helpful redux async debugger
 const logger = () => (next) => (action) => {
     // TODO REMOVE WHEN COMPLETE
-    console.log("Dispatching: ", action);
+    // console.log("Dispatching: ", action);
     // TODO ^^^ REMOVE WHEN COMPLETE ^^^
     next(action);
 };

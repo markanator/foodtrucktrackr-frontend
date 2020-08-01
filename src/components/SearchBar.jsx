@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import {
-	Button,
-	Form,
-	FormGroup,
-	Input
-} from 'reactstrap';
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Input } from "reactstrap";
 // connect component to Redux store
-import { connect } from 'react-redux';
-import { searchForTrucks } from '../actions';
-import { useHistory } from 'react-router-dom';
- 
+import { connect } from "react-redux";
+import { searchForTrucks } from "../actions";
+import { useHistory } from "react-router-dom";
+
 const SearchBar = (props) => {
-    const {push} = useHistory();
+    const { push } = useHistory();
     const [formState, setFormstate] = useState({
         query: "",
         cuisineType: "",
@@ -41,12 +36,12 @@ const SearchBar = (props) => {
     };
 
     const submit = (e) => {
-		e.preventDefault();
+        e.preventDefault();
         console.log("hello from searchBar");
-        console.log('searchBar props.searchState', props.searchState);
-        console.log('searchBar formState', formState);
+        console.log("searchBar props.searchState");
+        console.log("searchBar formState");
+        props.searchForTrucks(formState);
         push("/search-results");
-		props.searchForTrucks(formState);
     };
 
     // console.log(formState);
@@ -94,14 +89,14 @@ const SearchBar = (props) => {
     );
 };
 
-const mapStateToProps = state => {
-	return {
+const mapStateToProps = (state) => {
+    return {
         user: state.user,
-        searchState: state.searchState
-	};
+        searchState: state.searchState,
+    };
 };
 
-const mapDispatchToProps = {searchForTrucks};
+const mapDispatchToProps = { searchForTrucks };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
 //export default SearchBar;

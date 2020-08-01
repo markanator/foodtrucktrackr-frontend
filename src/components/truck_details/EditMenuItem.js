@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 //redux hooks to fetch state
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from '../../actions';
+import * as actions from "../../actions";
 
 const EditMenuItem = () => {
     const { id } = useParams();
@@ -40,7 +40,7 @@ const EditMenuItem = () => {
     });
 
     useEffect(() => {
-        console.log("truckInfo", truckInfo);
+        // console.log("truckInfo", truckInfo);
         setFormState({
             image: truckInfo.menu_item_photo,
             name: truckInfo.menu_item_name,
@@ -104,7 +104,7 @@ const EditMenuItem = () => {
                 axiosWithAuth()
                     .put(`/trucks/food/${id}`, dbMenuItem)
                     .then(({ data }) => {
-                        console.log(data);
+                        // console.log(data);
                         // need to dispatch add_truck_menu_item(data)
                         // need to refresh truck page to reflect changes
                     })
@@ -120,9 +120,9 @@ const EditMenuItem = () => {
         });
     };
 
-    const deleteItem = e => {
+    const deleteItem = (e) => {
         e.preventDefault();
-        console.log("delete that menu item!", id);
+        // console.log("delete that menu item!", id);
         dispatch(actions.delete_menu_item(id));
     };
 
@@ -187,7 +187,9 @@ const EditMenuItem = () => {
             )}
             <Button color="primary"> Add Item</Button>
             <Button color="secondary">Cancel</Button>
-            <Button color="danger" onClick={deleteItem}>DELETE ITEM!</Button>
+            <Button color="danger" onClick={deleteItem}>
+                DELETE ITEM!
+            </Button>
         </Form>
     );
 };

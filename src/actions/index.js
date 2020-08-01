@@ -31,7 +31,7 @@ export const deleteFavTruck = (truckId) => (dispatch) => {
     axiosWithAuth()
         .delete(`/trucks/favorites/${truckId}`)
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             dispatch({ type: DELETE_FAV_SUCCESS, payload: truckId });
         })
         .catch((err) => {
@@ -46,11 +46,11 @@ export const addFavTruck = (truckId) => (dispatch) => {
     axiosWithAuth()
         .post(`/trucks/favorites/${truckId}`, {})
         .then((res) => {
-            console.log(res);
+            // console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS, payload: res.data });
         })
         .catch((err) => {
-            console.log('err', err);
+            console.log("err", err);
             dispatch({ type: ADD_FAV_FAILURE, payload: err });
         });
 };
@@ -74,9 +74,9 @@ export const rateTruck = (rating, truckId) => (dispatch) => {
     console.log("rateTruck action creator");
     dispatch({ type: RATE_TRUCK_START, payload: rating });
     axiosWithAuth()
-        .post(`/trucks/ratings/${truckId}`, {rating: rating})
-        .then(res => {
-            console.log(res);
+        .post(`/trucks/ratings/${truckId}`, { rating: rating })
+        .then((res) => {
+            // console.log(res);
             dispatch({ type: RATE_TRUCK_SUCCESS, payload: res });
         })
         .catch((err) => {
@@ -94,17 +94,41 @@ export const searchForTrucks = (searchState) => (dispatch) => {
         .then((res) => {
             //filter results;
             //console.log('res from search', res);
-            const searchResults = res.data.filter(result => {
+            const searchResults = res.data.filter((result) => {
                 //cuisine and location are provided
-                if (searchState.cuisineType !== "" && searchState.query !== "") {
-                    return result.truck_cuisine_type === searchState.cuisineType.toLowerCase() && `${result.location_city}, ${result.location_state}` === searchState.query.toLowerCase();
-                } else if (searchState.cuisineType === "") { //cuisine not provided
-                    return `${result.location_city}, ${result.location_state}` === searchState.query.toLowerCase();
-                } else if (searchState.query === "") { //location not provided
-                    return result.truck_cuisine_type === searchState.cuisineType.toLowerCase();
+                if (
+                    searchState.cuisineType !== "" &&
+                    searchState.query !== ""
+                ) {
+                    return (
+                        result.truck_cuisine_type ===
+                            searchState.cuisineType.toLowerCase() &&
+                        `${result.location_city}, ${result.location_state}` ===
+                            searchState.query.toLowerCase()
+                    );
+                } else if (searchState.cuisineType === "") {
+                    //cuisine not provided
+                    return (
+                        `${result.location_city}, ${result.location_state}` ===
+                        searchState.query.toLowerCase()
+                    );
+                } else if (searchState.query === "") {
+                    //location not provided
+                    return (
+                        result.truck_cuisine_type ===
+                        searchState.cuisineType.toLowerCase()
+                    );
                 }
             });
-            dispatch({ type: SEARCH_TRUCKS_SUCCESS, payload: {results: searchResults, cuisine: searchState.cuisineType, location: searchState.query, radius: searchState.radius} });
+            dispatch({
+                type: SEARCH_TRUCKS_SUCCESS,
+                payload: {
+                    results: searchResults,
+                    cuisine: searchState.cuisineType,
+                    location: searchState.query,
+                    radius: searchState.radius,
+                },
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -170,7 +194,7 @@ export const update_truck = (truckInfo) => (dispatch) => {
         });
 };
 export const delete_truck = (truckId) => (dispatch) => {
-    console.log("# Operator deleting truck...", truckId);
+    console.log("# Operator deleting truck...");
     dispatch({ type: "TRUCK_START" });
     axiosWithAuth()
         .delete(`/trucks/${truckId}`)
@@ -179,7 +203,7 @@ export const delete_truck = (truckId) => (dispatch) => {
                 type: "TRUCK_SUCCESS",
             });
             console.log("SUBMITTED!");
-            console.log(resp.data);
+            // console.log(resp.data);
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -204,7 +228,7 @@ export const add_menu_item = (menuItem) => (dispatch) => {
                 payload: resp.data.results,
             });
             console.log("SUBMITTED!");
-            console.log(resp.data);
+            // console.log(resp.data);
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -223,7 +247,7 @@ export const update_menu_item = (menuItem) => (dispatch) => {
                 payload: resp.data.results,
             });
             console.log("SUBMITTED!");
-            console.log(resp.data);
+            // console.log(resp.data);
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -241,7 +265,7 @@ export const delete_menu_item = (menuItemID) => (dispatch) => {
                 payload: resp.data.results,
             });
             console.log("SUBMITTED!");
-            console.log(resp.data);
+            // console.log(resp.data);
         })
         .catch((err) => {
             dispatch({ type: "TRUCK_FAIL" });
@@ -250,5 +274,5 @@ export const delete_menu_item = (menuItemID) => (dispatch) => {
 };
 
 export const truckInQuestion = (truckInfo) => (dispatch) => {
-    dispatch({ type: "TRUCK_IN_QUESTION", payload: truckInfo })
-}
+    dispatch({ type: "TRUCK_IN_QUESTION", payload: truckInfo });
+};

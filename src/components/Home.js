@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 // redux hooks
-import { useDispatch } from "react-redux";
+import { useDispatch, userSelector, useSelector } from "react-redux";
 // redux actions
 import * as actions from "../actions";
 // styles
@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 const Home = ({ users, setUsers }) => {
     const dispatch = useDispatch();
     const { push } = useHistory();
+    const userState = useSelector((state) => state.dinerOperatorReducer);
     const defaultState = {
         cSelected: "",
         Email: "",
@@ -47,7 +48,7 @@ const Home = ({ users, setUsers }) => {
             ? alert("You cannot submit an empty form!")
             : newUser(user);
 
-        console.log(user);
+        // console.log(user);
     };
 
     //data storing
@@ -105,7 +106,7 @@ const Home = ({ users, setUsers }) => {
                     // using redux hooks => dispatch action >> login
                     dispatch(actions.login(res.data));
                     // log response => user
-                    console.log("couldn't read data", res.data.user);
+                    console.log("couldn't read data");
                 }
             })
             .catch((err) => {
@@ -114,15 +115,12 @@ const Home = ({ users, setUsers }) => {
             });
     };
 
-    return (
-        <div>
-            <SearchBar />
-
+    const renderSignUp = () => (
+        <>
             <h2 className="sign-up">
                 <hr />
                 Sign Up <hr />
             </h2>
-
             <Form onSubmit={handleSubmit}>
                 <ButtonGroup style={{ marginBottom: "2%" }}>
                     <Button
@@ -186,6 +184,16 @@ const Home = ({ users, setUsers }) => {
                     Submit
                 </Button>
             </Form>
+        </>
+    );
+
+    const tokenExists = () => localStorage.getItem("token");
+
+    return (
+        <div>
+            <SearchBar />
+
+            {renderSignUp()}
         </div>
     );
 };
