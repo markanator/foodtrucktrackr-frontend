@@ -61,14 +61,19 @@ export default function TruckDetails(props) {
     const [isFavorited, setIsFavorited] = useState(false);
 
     useEffect(() => {
-        //console.log("userProfileData", userProfileData);
-        const thisTruck = userProfileData.favoriteTrucks.filter(
-            (truck) => truck.truck_id == id
-        );
-        //console.log("thisTruck", thisTruck[0]);
-        if (thisTruck.length !== 0) {
-            setIsFavorited(true)
-        }; 
+        
+        if (userProfileData.user_role === "diner") {
+            //console.log("userProfileData", userProfileData);
+            const thisTruck = userProfileData.favoriteTrucks.filter(
+                (truck) => truck.truck_id == id
+            );
+            //console.log("thisTruck", thisTruck[0]);
+            if (thisTruck.length !== 0) {
+                setIsFavorited(true)
+            };
+        } else {
+            console.log("not a diner")
+        }
     }, []);
 
     const toggleModal = (modal) => {
