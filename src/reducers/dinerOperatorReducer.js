@@ -128,7 +128,7 @@ export const dinerOperatorReducer = (state = initialState, action) => {
                 ...state,
                 user: {
                     ...state.user,
-                    favoriteTrucks: [state.user.favoriteTrucks.filter(truck => truck.truck_id !== action.payload)]
+                    favoriteTrucks: state.user.favoriteTrucks.filter(truck => truck.truck_id !== action.payload)
                 }
                 /* diner: {
                     ...state.diner,

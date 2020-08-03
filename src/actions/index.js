@@ -31,7 +31,7 @@ export const deleteFavTruck = (truckId) => (dispatch) => {
     axiosWithAuth()
         .delete(`/trucks/favorites/${truckId}`)
         .then((res) => {
-            // console.log(res);
+            console.log(res);
             dispatch({ type: DELETE_FAV_SUCCESS, payload: truckId });
         })
         .catch((err) => {
@@ -46,7 +46,7 @@ export const addFavTruck = (truckId) => (dispatch) => {
     axiosWithAuth()
         .post(`/trucks/favorites/${truckId}`, {})
         .then((res) => {
-            // console.log(res);
+            console.log(res);
             dispatch({ type: ADD_FAV_SUCCESS, payload: res.data });
         })
         .catch((err) => {
