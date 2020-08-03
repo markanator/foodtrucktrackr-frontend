@@ -23,14 +23,15 @@ const TrucksPage = () => {
 
     const [truckList, setTruckList] = useState([]);
 
-    console.log("userInfo", userInfo);
+    
 
     useEffect(() => {
         /* axios
             .get("https://foodtrackertcr.herokuapp.com/trucks")
             .then((res) => setTruckList(res.data))
             .catch((err) => console.error(err)); */
-
+        
+        //console.log("userInfo", userInfo);
         setTruckList(userInfo.favoriteTrucks)
     }, [userInfo.favoriteTrucks]);
 
