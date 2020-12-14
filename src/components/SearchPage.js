@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import SearchBar from "./SearchBar";
-import TruckList from "./TruckList";
+// import TruckList from "./TruckList";
 // connect component to Redux store
 //import { connect } from 'react-redux';
 //redux hooks to get state
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 function SearchPage(props){
+    const [searchInfo, setSearchInfo] = useState([]);
     //console.log("props from SearchPage", props);
-    const searchInfo = useSelector(
-        (state) => state.dinerOperatorReducer.searchState
-    );
-    console.log('searchInfo from useSelector in SearchPage', searchInfo); 
+    // const searchInfo = useSelector(
+        // (state) => state.dinerOperatorReducer.searchState
+    // );
+    // console.log('searchInfo from useSelector in SearchPage', searchInfo);
 
     return (
         <div className="search-page operatorDashboard">
@@ -42,7 +43,7 @@ function SearchPage(props){
             ...state.searchState,
             results: state.searchState.results
         }
-    
+
 } */
 
 

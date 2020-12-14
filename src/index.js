@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
-// REDUX
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import Thunk from "redux-thunk";
-import { rootReducer } from "./reducers";
+// // REDUX
+// import { createStore, applyMiddleware } from "redux";
+// import { Provider } from "react-redux";
+// import Thunk from "redux-thunk";
+// import { rootReducer } from "./reducers";
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 // local components
 import App from "./App";
@@ -15,23 +16,14 @@ import App from "./App";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// helpful redux async debugger
-const logger = () => (next) => (action) => {
-    // TODO REMOVE WHEN COMPLETE
-    // console.log("Dispatching: ", action);
-    // TODO ^^^ REMOVE WHEN COMPLETE ^^^
-    next(action);
-};
-
-// redux store w/ async funcs
-export const store = createStore(rootReducer, applyMiddleware(logger, Thunk));
+const queryClient = new QueryClient()
 
 // render to page
 ReactDOM.render(
+    <QueryClientProvider client={queryClient}>
     <Router>
-        <Provider store={store}>
             <App />
-        </Provider>
-    </Router>,
+    </Router>
+    </QueryClientProvider>,
     document.getElementById("root")
 );

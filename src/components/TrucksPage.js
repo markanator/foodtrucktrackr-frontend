@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
 
-import { axiosWithAuth } from "../utils/AxiosWithAuth";
-import axios from "axios";
+// import { axiosWithAuth } from "../utils/AxiosWithAuth";
+// import axios from "axios";
 
 import {
     Card,
@@ -23,14 +23,14 @@ const TrucksPage = () => {
 
     const [truckList, setTruckList] = useState([]);
 
-    
+
 
     useEffect(() => {
         /* axios
             .get("https://foodtrackertcr.herokuapp.com/trucks")
             .then((res) => setTruckList(res.data))
             .catch((err) => console.error(err)); */
-        
+
         //console.log("userInfo", userInfo);
         setTruckList(userInfo.favoriteTrucks)
     }, [userInfo.favoriteTrucks]);

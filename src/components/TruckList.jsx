@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 // connect component to Redux store
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 // auth AXIOS
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
 // redux
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 // actions
-import * as actions from "../actions";
+// import * as actions from "../actions";
 // styles
 import { Button, Spinner } from "reactstrap";
 
 const TruckList = ({ OperatorDashboard, ...props }) => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { push } = useHistory();
     // get state from redux
-    const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
+    // const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
 
     const starStyle = { fontSize: "20px" };
     // owner trucks list initial load
@@ -29,24 +29,25 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
 
     useEffect(() => {
         // fetch current trucks
-        axiosWithAuth()
-            .get("/trucks")
-            .then((res) => {
-                // console.log(res.data);
-                // filter results based off Logged in user ID
-                const ownerTrucks = res.data.filter(
-                    (store) => store.operator_id === ownerState.id
-                );
-                setTruckList(ownerTrucks);
-                setTimeout(() => {
-                    setLoading(false);
-                }, 1000);
-            })
-            .catch((err) => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, [ownerState.ownedTrucks]);
+        // axiosWithAuth()
+        //     .get("/trucks")
+        //     .then((res) => {
+        //         // console.log(res.data);
+        //         // filter results based off Logged in user ID
+        //         const ownerTrucks = res.data.filter(
+        //             (store) => store.operator_id === ownerState.id
+        //         );
+        //         setTruckList(ownerTrucks);
+        //         setTimeout(() => {
+        //             setLoading(false);
+        //         }, 1000);
+        //     })
+        //     .catch((err) => {
+        //         console.error(err);
+        //         setLoading(false);
+        //     });
+        console.log("FETCH USER'S FAVORITE TRUCKS");
+    }, []);
 
     if (loading) {
         return <Spinner color="primary" />;
@@ -101,7 +102,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                                         // style={buttonStyle}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            dispatch(actions.edit_truck(truck));
+                                            // dispatch(actions.edit_truck(truck));
                                             push(`/edit-truck/${truck.id}`);
                                         }}
                                     >
@@ -137,13 +138,10 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        state: state,
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         state: state,
+//     };
+// };
 
-export default connect(mapStateToProps, {})(TruckList);
-
-//export default TruckList;
-// commented out ^^^ to connect component to the store
+export default TruckList;

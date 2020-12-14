@@ -1,43 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+// move user
+import { useHistory, useParams } from "react-router-dom";
 import {
-    Container,
+    Button, Container,
     Form,
     FormGroup,
-    Label,
-    Input,
-    Button,
-    Spinner,
+    Input, Label,
+    Spinner
 } from "reactstrap";
 // date-time picker
 // import DateTimePicker from "react-datetime-picker";
-
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
-// move user
-import { useHistory } from "react-router-dom";
-// redux hooks
-import { useSelector, useDispatch } from "react-redux";
-// for id
-import { useParams } from "react-router-dom";
-// actions
-// import * as actions from "../actions";
 
 export default function EditTruck(props) {
     const { push } = useHistory();
     // get id
     const { id } = useParams();
-    // for redux actions
-    const dispatch = useDispatch();
-    // get state from redux
-    const truckState = useSelector((state) => state.truckReducer);
-
+    const [truckState,setTruckState] = useState({});
     const [loading, setLoading] = useState(true);
     // time picker stuff
-    const [truck_arrival_time, setArrival] = useState(
-        truckState.truck_arrival_time
-    );
-    const [truck_departure_time, setDeparture] = useState(
-        truckState.truck_departure_time
-    );
+    const [truck_arrival_time, setArrival] = useState(new Date());
+    const [truck_departure_time, setDeparture] = useState(new Date());
 
     const [formData, setFormData] = useState({ ...truckState });
 
@@ -98,16 +81,12 @@ export default function EditTruck(props) {
         axiosWithAuth()
             .put(`/trucks/${id}`, dbTruck)
             .then((resp) => {
-                // dispatch({
-                //     type: "TRUCK_SUCCESS",
-                //     payload: resp.data.results,
-                // });
                 console.log("SUBMITTED!");
-                // console.log("post truck resp:: ", resp);
+                console.log("post truck resp:: ", resp);
                 push(`/trucks/${resp.data.truck_id}`);
             })
             .catch((err) => {
-                dispatch({ type: "TRUCK_FAIL" });
+                // dispatch({ type: "TRUCK_FAIL" });
                 console.error(err);
             });
     };

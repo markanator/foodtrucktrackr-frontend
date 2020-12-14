@@ -13,17 +13,12 @@ import {
 import * as Yup from "yup";
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 //redux hooks to fetch state
-import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions";
+// import { useSelector, useDispatch } from "react-redux";
+// import * as actions from "../../actions";
 
 const EditMenuItem = () => {
     const { id } = useParams();
-
-    const dispatch = useDispatch();
-
-    const truckInfo = useSelector(
-        (state) => state.dinerOperatorReducer.truckInQuestion
-    );
+    const [truckInfo,setTruckInfo] = useState({});
 
     const [formState, setFormState] = useState({
         image: "",
@@ -40,13 +35,13 @@ const EditMenuItem = () => {
     });
 
     useEffect(() => {
-        // console.log("truckInfo", truckInfo);
-        setFormState({
-            image: truckInfo.menu_item_photo,
-            name: truckInfo.menu_item_name,
-            description: truckInfo.menu_item_description,
-            price: truckInfo.menu_item_price,
-        });
+        console.log("truckInfo", truckInfo);
+        // setFormState({
+        //     image: truckInfo.menu_item_photo,
+        //     name: truckInfo.menu_item_name,
+        //     description: truckInfo.menu_item_description,
+        //     price: truckInfo.menu_item_price,
+        // });
     }, []);
 
     const formSchema = Yup.object().shape({
@@ -122,8 +117,7 @@ const EditMenuItem = () => {
 
     const deleteItem = (e) => {
         e.preventDefault();
-        // console.log("delete that menu item!", id);
-        dispatch(actions.delete_menu_item(id));
+        console.log("delete that menu item!", id);
     };
 
     return (
@@ -195,5 +189,3 @@ const EditMenuItem = () => {
 };
 
 export default EditMenuItem;
-
-//export default connect(mapStateToProps, mapDispatchToProps)(EditMenuItem);

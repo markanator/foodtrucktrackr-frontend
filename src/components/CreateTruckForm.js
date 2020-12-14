@@ -1,25 +1,18 @@
 import React, { useState } from "react";
-// date-time picker
 import DateTimePicker from "react-datetime-picker";
-// token axios calls
-import { axiosWithAuth } from "../utils/AxiosWithAuth";
-// router
 import { useHistory } from "react-router-dom";
-// redux hooks
-import { useDispatch, useSelector } from "react-redux";
-// actions
-import * as actions from "../actions";
-// styles
-import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 export default function CreateTruckForm(props) {
     // push users
     const { push } = useHistory();
     // for redux actions
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // get state from redux
-    const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
+    // const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
     // time picker stuff
+    const [ownerState,setOwnerState] = useState({});
     const [arrival, setArrival] = useState(
         new Date("December 31, 2100 21:00:00")
     );
@@ -97,15 +90,15 @@ export default function CreateTruckForm(props) {
                 // log
                 console.log("SUBMITTED!");
                 // add to tempSite state
-                dispatch(actions.addTruckToOwnedList(resp.data));
+                // dispatch(actions.addTruckToOwnedList(resp.data));
                 // log results
-                // console.log("post truck resp:: ", resp);
+                console.log("post truck resp:: ", resp);
                 // push to view the truck details
                 push(`/trucks/${resp.data.truck_id}`);
             })
             .catch((err) => {
                 // dispatch not working
-                dispatch({ type: "TRUCK_FAIL" });
+                // dispatch({ type: "TRUCK_FAIL" });
                 // log why it didnt work
                 console.error(err);
             });

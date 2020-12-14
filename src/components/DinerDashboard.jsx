@@ -1,7 +1,5 @@
 import React from "react";
-// import TruckList from './TruckList';
 import SearchBar from "./SearchBar";
-
 import TrucksPage from "./TrucksPage";
 
 const DinerDashboard = () => {

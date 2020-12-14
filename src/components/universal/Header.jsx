@@ -1,32 +1,17 @@
 import React, { useState } from "react";
-// import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../actions";
-
-import {
-    Navbar,
-    Modal,
+import { Link, useHistory } from "react-router-dom";import {
     Button,
-    ModalHeader,
-    ModalBody,
-    FormGroup,
-    Label,
-    Input,
-    Form,
+    Form, FormGroup,
+    Input, Label, Modal,
+    ModalBody, ModalHeader, Navbar
 } from "reactstrap";
 import { axiosWithAuth } from "../../utils/AxiosWithAuth";
 
+
 const Header = (props) => {
     const [modal, setModal] = useState(false);
-    // redux user for login
-    const isActive = useSelector(
-        (state) => state.dinerOperatorReducer.isActive
-    );
-    const rUser = useSelector((state) => state.dinerOperatorReducer.user);
+    const [isActive, setIsActive] = useState(false);
     const { push } = useHistory();
-    const dispatch = useDispatch();
 
     const toggle = () => setModal(!modal);
 
@@ -56,17 +41,15 @@ const Header = (props) => {
     const LogLinks = () => {
         return !isActive ? (
             // USER NEEDS TO LOG **IN**
-            <div tag={Link} className="navItem" onClick={toggle}>
+            <button tag={Link} className="navItem" onClick={toggle}>
                 Login
-            </div>
+            </button>
         ) : (
             // USER CAN LOG **OUT**
             <div
                 tag={Link}
                 className="navItem"
                 onClick={() => {
-                    // needs to be cleaner, but works
-                    dispatch(actions.logout());
                     push("/");
                 }}
             >
@@ -87,22 +70,7 @@ const Header = (props) => {
                     <Link to="/" className="navItem">
                         Home
                     </Link>
-                    <a
-                        // tag="Link"
-                        href="https://foodtrucktrackr1.netlify.app/about.html"
-                        className="navItem"
-                    >
-                        About
-                    </a>
-                    {/* AFTER LOG-IN, RENDER BASED ON ACCOUNT TYPE */}
-                    {!isActive
-                        ? null
-                        : rUser.user_role === "diner"
-                        ? renderUserLinks()
-                        : !isActive
-                        ? null
-                        : renderOperatorLinks()}
-                    {/* CHECK TO SEE IF USER IS LOGGED IN */}
+                    {!isActive ? null :  renderUserLinks() }
                     {LogLinks()}
                 </div>
             </div>
@@ -111,10 +79,7 @@ const Header = (props) => {
 };
 
 const Login = ({ modal, toggle }) => {
-    // used to move user to another route
     const { push } = useHistory();
-    // used for redux
-    const dispatch = useDispatch();
 
     const [formState, setFormState] = useState({
         user_email: "",
@@ -148,22 +113,14 @@ const Login = ({ modal, toggle }) => {
 
     // main axios request
     const userLogin = (user) => {
-        const BaseURL = "https://foodtrackertcr.herokuapp.com";
         axiosWithAuth()
-            .post(`${BaseURL}/user/auth/login`, user)
+            .post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, user)
             .then((res) => {
                 // set local cookie token to access site
                 localStorage.setItem("token", res.data.token);
-                // set redux state from payload
-                dispatch(actions.login(res.data));
-                // reset form
                 setFormState({ user_email: "", password: "" });
-                // turn off loading text
                 setIsLoading(false);
-                // get rid of modal
                 toggle();
-                // move the user to content
-                // console.log(res.data);
                 const role = res.data.user.user_role;
 
                 if (role === "diner") {

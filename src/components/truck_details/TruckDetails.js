@@ -1,31 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import axios from "axios";
-
-// router stuff
 import { useParams } from "react-router-dom";
-// redux stuff
-import { useSelector, useDispatch } from "react-redux";
-// auth reqs
-// import { axiosWithAuth } from "../../utils/AxiosWithAuth";
-//import { connect } from "react-redux";
-import * as actions from "../../actions";
-
+// locals
 import MenuItem from "./MenuItem";
 import AddMenuItem from "./AddMenuItem";
 import MenuItemModal from "./MenuItemModal";
 import RatingModal from "./RatingModal";
 import FavoriteButton from "./FavoriteButton";
 
-export default function TruckDetails(props) {
+export default function TruckDetails() {
     // get id from URL
     const { id } = useParams();
-    // get userID
-    const userProfileData = useSelector(
-        (state) => state.dinerOperatorReducer.user
-    );
-
-    const dispatch = useDispatch();
+    const [userProfileData,setUserProfileData] = useState({});
 
     // used to inform user site is loading
     const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +48,7 @@ export default function TruckDetails(props) {
     const [isFavorited, setIsFavorited] = useState(false);
 
     useEffect(() => {
-        
+
         if (userProfileData.user_role === "diner") {
             //console.log("userProfileData", userProfileData);
             const thisTruck = userProfileData.favoriteTrucks.filter(
@@ -85,41 +72,33 @@ export default function TruckDetails(props) {
 
     const addToFavorites = () => {
         setIsFavorited(true);
-        //console.log('params', params);
-        // console.log("id from add", id);
-        //console.log('id.id', id.id)
-        //console.log('user', userProfileData);
-        //props.addFavTruck(id);
-        dispatch(actions.addFavTruck(id));
     };
 
     const removeFromFavorites = () => {
         setIsFavorited(false);
-        // console.log("id from delete", id);
-        //props.deleteFavTruck(id);
-        dispatch(actions.deleteFavTruck(id));
     };
 
     useEffect(() => {
-        axios
-            .get(`https://foodtrackertcr.herokuapp.com/trucks`)
-            .then((resp) => {
-                // console.log(resp.data);
-                // console.log("id", id);
-                // set local state
-                setIsLoading(false);
-                const truckInQuestion = resp.data.filter((truck) => {
-                    return truck.truck_id == id;
-                });
-                // console.log("truckInQuestion", truckInQuestion);
-                setTruckInfo(truckInQuestion[0]);
-            })
-            .catch((err) => {
-                // set local state
-                setIsLoading(false);
-                // log why it couldn't
-                console.error(err);
-            });
+        // axios
+        //     .get(`https://foodtrackertcr.herokuapp.com/trucks`)
+        //     .then((resp) => {
+        //         // console.log(resp.data);
+        //         // console.log("id", id);
+        //         // set local state
+        //         setIsLoading(false);
+        //         const truckInQuestion = resp.data.filter((truck) => {
+        //             return truck.truck_id == id;
+        //         });
+        //         // console.log("truckInQuestion", truckInQuestion);
+        //         setTruckInfo(truckInQuestion[0]);
+        //     })
+        //     .catch((err) => {
+        //         // set local state
+        //         setIsLoading(false);
+        //         // log why it couldn't
+        //         console.error(err);
+        //     });
+        console.log("FETCH TRUCK DEETS");
     }, [id, userProfileData.id]);
 
     // const renderMenuItems = (menuItemArray) => {
@@ -230,13 +209,3 @@ export default function TruckDetails(props) {
         </div>
     );
 }
-
-/* const mapStateToProps = (state) => {
-    return {
-        state: state,
-    };
-}; */
-
-//const mapDispatchToProps = { addFavTruck, deleteFavTruck };
-
-//export default connect(mapStateToProps, mapDispatchToProps)(TruckDetails);

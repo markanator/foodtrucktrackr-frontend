@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-// redux hooks
-// import { useSelector } from "react-redux";
-
-// layout
 import Layout from "./Layout";
 import PrivateRoute from "./utils/PrivateRoute";
-// local components
 import Home from "./components/Home";
 import DinerDashboard from "./components/DinerDashboard";
 import OperatorDashboard from "./components/OperatorDashboard";
@@ -22,7 +17,7 @@ import EditMenuItem from "./components/truck_details/EditMenuItem";
 
 const App = () => {
     const [users, setUsers] = useState({});
-    // const userState = useSelector((state) => state.dinerOperatorReducer.user);
+
     return (
         <Layout>
             <div className="App">

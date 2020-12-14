@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 // connect component to Redux store
-import { connect } from "react-redux";
-import { searchForTrucks } from "../actions";
+// import { connect } from "react-redux";
+// import { searchForTrucks } from "../actions";
 import { useHistory } from "react-router-dom";
 
 const SearchBar = (props) => {
@@ -89,15 +89,4 @@ const SearchBar = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user,
-        searchState: state.searchState,
-    };
-};
-
-const mapDispatchToProps = { searchForTrucks };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
-//export default SearchBar;
-// commented out ^^^ to connect component to the store
+export default SearchBar;

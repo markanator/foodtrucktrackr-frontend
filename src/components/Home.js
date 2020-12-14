@@ -1,25 +1,15 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-// redux hooks
-import { useDispatch, userSelector, useSelector } from "react-redux";
-// redux actions
-import * as actions from "../actions";
-// styles
-import { Button, Form, FormGroup, Label, Input, ButtonGroup } from "reactstrap";
-
+import { Button, ButtonGroup, Form, FormGroup, Input, Label } from "reactstrap";
 // local imports
 import SearchBar from "./SearchBar";
-// connect component to Redux store
-import { connect } from "react-redux";
 
-//import login action creator
-//import {login} from '../actions';
 
 const Home = ({ users, setUsers }) => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { push } = useHistory();
-    const userState = useSelector((state) => state.dinerOperatorReducer);
+    // const userState = useSelector((state) => state.dinerOperatorReducer);
     const defaultState = {
         cSelected: "",
         Email: "",
@@ -83,9 +73,6 @@ const Home = ({ users, setUsers }) => {
                     setFormState(defaultState);
                     // log account type
                     console.log("user is a DINER!");
-                    // using redux hooks => dispatch action >> login
-                    dispatch(actions.login(res.data));
-                    // push user to profile page
                     push("/profile");
                 } else if (res.data.user.user_role === "operator") {
                     // set token
@@ -96,16 +83,10 @@ const Home = ({ users, setUsers }) => {
                     setFormState(defaultState);
                     // log account type
                     console.log("user is a OPERATOR!");
-                    // using redux hooks => dispatch action >> login
-                    dispatch(actions.login(res.data));
-                    // send to operator dash
                     push("/operator");
                 } else {
                     // set token
                     localStorage.setItem("token", res.data.token);
-                    // using redux hooks => dispatch action >> login
-                    dispatch(actions.login(res.data));
-                    // log response => user
                     console.log("couldn't read data");
                 }
             })
@@ -187,25 +168,14 @@ const Home = ({ users, setUsers }) => {
         </>
     );
 
-    const tokenExists = () => localStorage.getItem("token");
+    // const tokenExists = () => localStorage.getItem("token");
 
     return (
         <div>
             <SearchBar />
-
             {renderSignUp()}
         </div>
     );
 };
 
-// connect component to Redux store
-const mapStateToProps = (state) => {
-    return {
-        user: state.user,
-    };
-};
-
-export default connect(mapStateToProps, {})(Home);
-
-//export default Home;
-// commented out ^^^ to connect component to the store
+export default Home;
