@@ -1,14 +1,18 @@
 /* eslint-disable no-use-before-define */
 import { Container, Heading } from '@chakra-ui/react';
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'react-router-dom';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import PrivateRoute from './utils/PrivateRoute';
 
+const queryClient = new QueryClient();
+
 const App = () => (
-  <>
+  <QueryClientProvider client={queryClient}>
     <Switch>
       <Route exact path="/">
         <Home />
@@ -19,7 +23,8 @@ const App = () => (
       <Route path="/403" component={Page403} />
       <Route component={Page404} />
     </Switch>
-  </>
+    <ReactQueryDevtools />
+  </QueryClientProvider>
 );
 
 const Page404 = () => (

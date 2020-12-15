@@ -22,23 +22,23 @@ import {
   Radio,
 } from '@chakra-ui/react';
 import Axios from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RLink, useHistory } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import logo from '../../assets/logo.png';
-import { prodCheck } from '../../utils/prodCheck';
 import { isLoggedIn } from '../../utils/isLoggedIn';
 
 export default function Header() {
   let RightSide;
-  // useEffect(() => {
-  //   isLoggedIn();
-  // }, []);
+  const queryClient = useQueryClient();
+  console.log('curUser', queryClient.getQueryData('curUser'));
+  const curUser = queryClient.getQueryData('curUser');
 
-  if (isLoggedIn()) {
+  if (curUser) {
     RightSide = (
       <>
-        <Link as={RLink} to="/dashboard" mr="1rem">
+        <Link as={RLink} to={`/dashboard/${curUser.username}`} mr="1rem">
           Dashboard
         </Link>
         Logged in
@@ -89,26 +89,27 @@ export default function Header() {
 const LoginBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSubmit, errors, register, formState } = useForm();
-  const history = useHistory();
+  const router = useHistory();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(
+    (loginData) =>
+      Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
+        ...loginData,
+      }),
+    {
+      onSuccess: ({ data }) => {
+        console.log('on success data', data);
+        queryClient.setQueryData('token', data.token);
+        queryClient.setQueryData('curUser', data.user);
+
+        window.localStorage.setItem('token', data.token);
+        router.push(`/dashboard/${data.user.username}`);
+      },
+    }
+  );
 
   function onSubmit(values) {
-    // console.log('login: ', values);
-    Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
-      ...values,
-      user_email: values.email,
-    })
-      .then(({ data }) => {
-        if (prodCheck) {
-          console.log('SERVER RESPONSE:: ', data);
-        }
-        window.localStorage.setItem('token', data.token);
-        onClose();
-        history.push(`/dashboard/${data.user.username}`);
-      })
-      .catch((err) => {
-        onClose();
-        console.error(err);
-      });
+    mutate({ ...values, user_email: values.email });
   }
 
   function validateField(value) {
@@ -186,23 +187,28 @@ const LoginBtnModal = () => {
 const SignUpBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSubmit, errors, register, formState } = useForm();
-  const history = useHistory();
+  const router = useHistory();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(
+    (signupData) =>
+      Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user`, {
+        ...signupData,
+      }),
+    {
+      onSuccess: ({ data }) => {
+        console.log('on success data', data);
+        queryClient.setQueryData('token', data.token);
+        queryClient.setQueryData('curUser', data.user);
+
+        window.localStorage.setItem('token', data.token);
+        router.push(`/dashboard/${data.user.username}`);
+      },
+    }
+  );
 
   function onSubmit(values) {
     console.log('SIGN UP VALS: ', values);
-    Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user`, { ...values })
-      .then(({ data }) => {
-        if (!prodCheck) {
-          console.log('SERVER RESPONSE:: ', data);
-        }
-        window.localStorage.setItem('token', data.token);
-        onClose();
-        history.push(`/dashboard/${data.user.username}`);
-      })
-      .catch((err) => {
-        onClose();
-        console.error(err);
-      });
+    mutate({ ...values });
   }
 
   function validateField(value) {

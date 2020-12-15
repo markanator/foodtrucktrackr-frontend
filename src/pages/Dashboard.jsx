@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Heading, layout, List } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, List } from '@chakra-ui/react';
 import React from 'react';
 import { FaListUl } from 'react-icons/fa';
 import FavListItem from '../components/Dashboard/FavListItem';
