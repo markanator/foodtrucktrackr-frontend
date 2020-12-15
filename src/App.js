@@ -6,7 +6,7 @@ import Layout from './components/Layout';
 
 const App = () => (
   <Layout>
-    <div>
+    <>
       <Switch>
         <Route exact path="/">
           <Home />
@@ -14,7 +14,7 @@ const App = () => (
         <Route path="/403" component={Page403} />
         <Route component={Page404} />
       </Switch>
-    </div>
+    </>
   </Layout>
 );
 

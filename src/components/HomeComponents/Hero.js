@@ -22,14 +22,24 @@ export default function Hero() {
   const { errors, register } = useForm();
 
   return (
-    <Flex w="full" h="575px" bgImage={`url(${BgImg})`}>
-      <Box w="full" m="auto" py="3rem">
+    <Flex
+      className="home__hero"
+      w="full"
+      h="90vh"
+      bgImage={`url(${BgImg})`}
+      zIndex="-1"
+      backgroundSize="cover"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="50%"
+    >
+      <Box pos="relative" w="full" m="auto" py="3rem">
         <Container
           display="flex"
           centerContent
           m="auto"
           maxW="7xl"
           textColor="white"
+          paddingBottom="2rem"
         >
           <Flex direction="column" mx="auto">
             <Heading as="h2" display="inline" textAlign="center" mb="1rem">
@@ -103,6 +113,10 @@ export default function Hero() {
                     to="/"
                     as={RLink}
                     pos="relative"
+                    _hover={{
+                      background: '#ff2222',
+                      color: 'white',
+                    }}
                     w={150}
                     h={105}
                     display="block"
@@ -131,7 +145,7 @@ export default function Hero() {
                           marginBottom: '.5rem',
                         }}
                       />
-                      Restaurant 1
+                      Category 1
                     </Box>
                   </Link>
                 </ListItem>
@@ -141,6 +155,10 @@ export default function Hero() {
                     to="/"
                     as={RLink}
                     pos="relative"
+                    _hover={{
+                      background: '#ff2222',
+                      color: 'white',
+                    }}
                     w={150}
                     h={105}
                     display="block"
@@ -169,7 +187,7 @@ export default function Hero() {
                           marginBottom: '.5rem',
                         }}
                       />
-                      Restaurant 1
+                      Category 1
                     </Box>
                   </Link>
                 </ListItem>
@@ -179,6 +197,10 @@ export default function Hero() {
                     to="/"
                     as={RLink}
                     pos="relative"
+                    _hover={{
+                      background: '#ff2222',
+                      color: 'white',
+                    }}
                     w={150}
                     h={105}
                     display="block"
@@ -207,7 +229,7 @@ export default function Hero() {
                           marginBottom: '.5rem',
                         }}
                       />
-                      Restaurant 1
+                      Category 1
                     </Box>
                   </Link>
                 </ListItem>

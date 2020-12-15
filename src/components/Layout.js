@@ -5,10 +5,10 @@ import Footer from './Layoutcomponents/Footer';
 
 export default function Layout({ children }) {
   return (
-    <>
+    <div id="App">
       <Header />
       {children}
       <Footer />
-    </>
+    </div>
   );
 }

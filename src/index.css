@@ -1,0 +1,16 @@
+.clearFix:before {
+  content: " ";
+  display: table;
+}
+.clearFix:after {
+  content: " ";
+  clear: both;
+}
+.home__hero:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
