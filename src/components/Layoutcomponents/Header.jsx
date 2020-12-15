@@ -4,7 +4,16 @@ import {
   Center,
   Container,
   Flex,
+  FormControl,
+  FormLabel,
+  Input,
   Link,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuGroup,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,36 +21,56 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useDisclosure,
-  Text,
-  FormControl,
-  Input,
-  FormLabel,
+  Radio,
   RadioGroup,
   Stack,
-  Radio,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import Axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RLink, useHistory } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
 import logo from '../../assets/logo.png';
+import { useUserContext } from '../../context/UserContext';
 import { isLoggedIn } from '../../utils/isLoggedIn';
 
 export default function Header() {
   let RightSide;
-  const queryClient = useQueryClient();
-  console.log('curUser', queryClient.getQueryData('curUser'));
-  const curUser = queryClient.getQueryData('curUser');
+  const { userState } = useUserContext();
 
-  if (curUser) {
+  if (userState.isLoggedIn && isLoggedIn()) {
     RightSide = (
       <>
-        <Link as={RLink} to={`/dashboard/${curUser.username}`} mr="1rem">
-          Dashboard
-        </Link>
-        Logged in
+        <Button as={RLink} to="/search-trucks" mr="1rem" colorScheme="red">
+          Find Food
+        </Button>
+        <Menu>
+          <MenuButton as={Button} colorScheme="red">
+            Dashboard
+          </MenuButton>
+          <MenuList>
+            <MenuGroup
+              textAlign="left"
+              title={`Sign in as: ${userState.userInfo.username}`}
+            >
+              <MenuItem
+                as={RLink}
+                to={`/dashboard/${userState.userInfo.username}`}
+              >
+                Dashboard
+              </MenuItem>
+              <MenuItem
+                as={RLink}
+                to={`/dashboard/${userState.userInfo.username}/settings`}
+              >
+                Settings
+              </MenuItem>
+            </MenuGroup>
+            <MenuDivider />
+            <MenuItem>Logout</MenuItem>
+          </MenuList>
+        </Menu>
       </>
     );
   } else {
@@ -90,26 +119,28 @@ const LoginBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSubmit, errors, register, formState } = useForm();
   const router = useHistory();
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation(
-    (loginData) =>
-      Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
-        ...loginData,
-      }),
-    {
-      onSuccess: ({ data }) => {
-        console.log('on success data', data);
-        queryClient.setQueryData('token', data.token);
-        queryClient.setQueryData('curUser', data.user);
-
-        window.localStorage.setItem('token', data.token);
-        router.push(`/dashboard/${data.user.username}`);
-      },
-    }
-  );
+  const { setUserState } = useUserContext();
 
   function onSubmit(values) {
-    mutate({ ...values, user_email: values.email });
+    // mutate({ ...values, user_email: values.email });
+    Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
+      ...values,
+      user_email: values.email,
+    })
+      .then(({ data }) => {
+        console.log(data);
+        window.localStorage.setItem('token', data.token);
+        setUserState({
+          isLoggedIn: true,
+          userInfo: {
+            ...data.user,
+          },
+          token: data.token,
+        });
+        // push user
+        router.push(`/dashboard/${data.user.username}`);
+      })
+      .catch((err) => console.error(err));
   }
 
   function validateField(value) {
@@ -188,27 +219,27 @@ const SignUpBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSubmit, errors, register, formState } = useForm();
   const router = useHistory();
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation(
-    (signupData) =>
-      Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user`, {
-        ...signupData,
-      }),
-    {
-      onSuccess: ({ data }) => {
-        console.log('on success data', data);
-        queryClient.setQueryData('token', data.token);
-        queryClient.setQueryData('curUser', data.user);
-
-        window.localStorage.setItem('token', data.token);
-        router.push(`/dashboard/${data.user.username}`);
-      },
-    }
-  );
+  const { setUserState } = useUserContext();
 
   function onSubmit(values) {
-    console.log('SIGN UP VALS: ', values);
-    mutate({ ...values });
+    Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user`, {
+      ...values,
+    })
+      .then(({ data }) => {
+        console.log('signup data:', data);
+        // set localstorage token
+        window.localStorage.setItem('token', data.token);
+        setUserState({
+          isLoggedIn: true,
+          userInfo: {
+            ...data.user,
+          },
+          token: data.token,
+        });
+        // push user
+        router.push(`/dashboard/${data.user.username}`);
+      })
+      .catch((err) => console.log(err));
   }
 
   function validateField(value) {
