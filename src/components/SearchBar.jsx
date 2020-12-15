@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Input } from "reactstrap";
-// connect component to Redux store
-// import { connect } from "react-redux";
-// import { searchForTrucks } from "../actions";
 import { useHistory } from "react-router-dom";
 
 const SearchBar = (props) => {
@@ -37,29 +33,24 @@ const SearchBar = (props) => {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log("hello from searchBar");
-        console.log("searchBar props.searchState");
-        console.log("searchBar formState");
         props.searchForTrucks(formState);
         push("/search-results");
     };
 
-    // console.log(formState);
-
     return (
         <div className="home-header">
             <h1>Find the Right Truck for You</h1>
-            <Form onSubmit={submit} className="searchBarContainer" inline>
-                <FormGroup>
-                    <Input
+            <form onSubmit={submit} className="searchBarContainer" inline>
+                <div>
+                    <input
                         onChange={onInputChange}
                         type="search"
                         name="query"
                         id="query"
                         placeholder="City, State, USA"
                     />
-                </FormGroup>
-                <Input
+                </div>
+                <input
                     onChange={onInputChange}
                     type="select"
                     name="cuisineType"
@@ -74,17 +65,17 @@ const SearchBar = (props) => {
                             </option>
                         );
                     })}
-                </Input>
-                <Input onChange={onInputChange} type="select" name="radius">
+                </input>
+                <input onChange={onInputChange} type="select" name="radius">
                     <option value={5}>within 5 miles</option>
                     <option value={10}>within 10 miles</option>
                     <option value={15}>within 15 miles</option>
                     <option value={20}>within 20 miles</option>
-                </Input>
-                <Button style={{ backgroundColor: "rgb(0, 150, 250)" }}>
+                </input>
+                <button style={{ backgroundColor: "rgb(0, 150, 250)" }}>
                     Search
-                </Button>
-            </Form>
+                </button>
+            </form>
         </div>
     );
 };

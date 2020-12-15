@@ -1,9 +1,6 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import TruckList from './TruckList';
-import { Button } from 'reactstrap';
-// connect component to Redux store
-// import { connect } from 'react-redux';
 
 const OperatorDashboard = () => {
 	return (
@@ -11,13 +8,13 @@ const OperatorDashboard = () => {
 			<div className='operatorDashboardHeader'>
 				<h2>Operator's Trucks</h2>
 				<Link to={"/add-truck"}>
-					<Button
+					<button
 						className='btn'
 						style={{ backgroundColor: 'rgb(0, 85, 200)'}}
 						id='addTruck'
 					>
 						+ Add Truck
-					</Button>
+					</button>
 				</Link>
 			</div>
 			<TruckList OperatorDashboard={true} />

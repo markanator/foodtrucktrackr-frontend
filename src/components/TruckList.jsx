@@ -1,56 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-// connect component to Redux store
-// import { connect } from "react-redux";
-// auth AXIOS
 import { axiosWithAuth } from "../utils/AxiosWithAuth";
-// redux
-// import { useSelector, useDispatch } from "react-redux";
-// actions
-// import * as actions from "../actions";
-// styles
-import { Button, Spinner } from "reactstrap";
 
 const TruckList = ({ OperatorDashboard, ...props }) => {
-    // const dispatch = useDispatch();
     const { push } = useHistory();
-    // get state from redux
-    // const ownerState = useSelector((state) => state.dinerOperatorReducer.user);
-
     const starStyle = { fontSize: "20px" };
-    // owner trucks list initial load
     const [truckList, setTruckList] = useState([]);
-    // loading visual
     const [loading, setLoading] = useState(true);
-    // uncomment this ^^^ when server is working
-    //const [loading, setLoading] = useState(false);
-
-    // const buttonStyle = { backgroundColor: "rgb(0, 85, 200)" };
-
     useEffect(() => {
         // fetch current trucks
-        // axiosWithAuth()
-        //     .get("/trucks")
-        //     .then((res) => {
-        //         // console.log(res.data);
-        //         // filter results based off Logged in user ID
-        //         const ownerTrucks = res.data.filter(
-        //             (store) => store.operator_id === ownerState.id
-        //         );
-        //         setTruckList(ownerTrucks);
-        //         setTimeout(() => {
-        //             setLoading(false);
-        //         }, 1000);
-        //     })
-        //     .catch((err) => {
-        //         console.error(err);
-        //         setLoading(false);
-        //     });
         console.log("FETCH USER'S FAVORITE TRUCKS");
     }, []);
 
     if (loading) {
-        return <Spinner color="primary" />;
+        return <p>Loading...</p>
     }
 
     return (
@@ -96,7 +59,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
 
                             {OperatorDashboard && (
                                 <>
-                                    <Button
+                                    <button
                                         color="primary"
                                         // className="btn"
                                         // style={buttonStyle}
@@ -107,8 +70,8 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                                         }}
                                     >
                                         Edit
-                                    </Button>
-                                    <Button
+                                    </button>
+                                    <button
                                         color="danger"
                                         // className="btn"
                                         onClick={(e) => {
@@ -127,7 +90,7 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
                                         // style={buttonStyle}
                                     >
                                         Delete
-                                    </Button>
+                                    </button>
                                 </>
                             )}
                         </div>
@@ -137,11 +100,5 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
         </div>
     );
 };
-
-// const mapStateToProps = (state) => {
-//     return {
-//         state: state,
-//     };
-// };
 
 export default TruckList;

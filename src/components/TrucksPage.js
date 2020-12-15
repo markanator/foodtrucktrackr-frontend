@@ -1,58 +1,21 @@
-import React, { useEffect, useState } from "react";
-
-import { useHistory } from "react-router-dom";
-
-// import { axiosWithAuth } from "../utils/AxiosWithAuth";
-// import axios from "axios";
-
-import {
-    Card,
-    CardBody,
-    CardImg,
-    CardSubtitle,
-    CardFooter,
-    Button,
-} from "reactstrap";
-
-//redux to grab state
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const TrucksPage = () => {
-    const userInfo = useSelector((state) => state.dinerOperatorReducer.user);
-    const { push } = useHistory();
+  const { push } = useHistory();
+  const [truckList, setTruckList] = useState([]);
 
-    const [truckList, setTruckList] = useState([]);
-
-
-
-    useEffect(() => {
-        /* axios
-            .get("https://foodtrackertcr.herokuapp.com/trucks")
-            .then((res) => setTruckList(res.data))
-            .catch((err) => console.error(err)); */
-
-        //console.log("userInfo", userInfo);
-        setTruckList(userInfo.favoriteTrucks)
-    }, [userInfo.favoriteTrucks]);
-
-    return (
-        <div className="truckPage-container">
-            {truckList.map((car) => {
-                return (
-                    <Card className="truckPage-item" key={car.id}>
-                        <CardImg
-                            src={car.truck_photo}
-                            alt={car.truck_name}
-                            width="250"
-                        />
-                        <CardBody>
-                            <b>{car.truck_name}</b>
-                        </CardBody>
-                        <CardSubtitle>
-                            Cuisine: {car.truck_cuisine_type}
-                        </CardSubtitle>
-                        <CardBody>{car.truck_description}</CardBody>
-                        {/* <Button
+  return (
+    <div className="truckPage-container">
+      {truckList.map((car) => (
+        <div className="truckPage-item" key={car.id}>
+          <img src={car.truck_photo} alt={car.truck_name} width="250" />
+          <p>
+            <b>{car.truck_name}</b>
+          </p>
+          <p>Cuisine: {car.truck_cuisine_type}</p>
+          <p>{car.truck_description}</p>
+          {/* <button
                             color="danger"
                             style={{ width: 100 }}
                             onClick={() => {
@@ -60,22 +23,21 @@ const TrucksPage = () => {
                             }}
                         >
                             Remove F
-                        </Button> */}
-                        <CardFooter>
-                            <Button
-                                color="success"
-                                onClick={() => {
-                                    push(`/trucks/${car.id}`);
-                                }}
-                            >
-                                Checkout!
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                );
-            })}
+                        </button> */}
+          <p>
+            <button
+              color="success"
+              onClick={() => {
+                push(`/trucks/${car.id}`);
+              }}
+            >
+              Checkout!
+            </button>
+          </p>
         </div>
-    );
+      ))}
+    </div>
+  );
 };
 
 export default TrucksPage;

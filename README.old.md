@@ -1,1 +1,0 @@
-# foodtrucktrackr-frontend
