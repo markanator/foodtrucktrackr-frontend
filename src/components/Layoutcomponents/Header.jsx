@@ -22,13 +22,37 @@ import {
   Radio,
 } from '@chakra-ui/react';
 import Axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RLink, useHistory } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { prodCheck } from '../../utils/prodCheck';
+import { isLoggedIn } from '../../utils/isLoggedIn';
 
 export default function Header() {
+  let RightSide;
+  // useEffect(() => {
+  //   isLoggedIn();
+  // }, []);
+
+  if (isLoggedIn()) {
+    RightSide = (
+      <>
+        <Link as={RLink} to="/dashboard" mr="1rem">
+          Dashboard
+        </Link>
+        Logged in
+      </>
+    );
+  } else {
+    RightSide = (
+      <>
+        <LoginBtnModal />
+        <SignUpBtnModal />
+      </>
+    );
+  }
+
   return (
     <Flex as="header" w="full" py=".5rem" boxShadow="md" zIndex="10">
       <Container m="auto" w="full" maxW="7xl">
@@ -54,8 +78,7 @@ export default function Header() {
             </Link>
           </Box>
           <Box w="40%" textAlign="right">
-            <LoginBtnModal />
-            <SignUpBtnModal />
+            {RightSide}
           </Box>
         </Center>
       </Container>

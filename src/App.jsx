@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+import { Container, Heading } from '@chakra-ui/react';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -7,33 +8,39 @@ import Home from './pages/Home';
 import PrivateRoute from './utils/PrivateRoute';
 
 const App = () => (
-  <Layout>
-    <>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <PrivateRoute path="/dashboard/:username">
-          <Dashboard />
-        </PrivateRoute>
-        <Route path="/403" component={Page403} />
-        <Route component={Page404} />
-      </Switch>
-    </>
-  </Layout>
+  <>
+    <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <PrivateRoute path="/dashboard/:username">
+        <Dashboard />
+      </PrivateRoute>
+      <Route path="/403" component={Page403} />
+      <Route component={Page404} />
+    </Switch>
+  </>
 );
 
 const Page404 = () => (
   <Layout>
-    <h1>Error 404!</h1>
-    <h3>The page you requested could not be found!</h3>
+    <Container maxW="5xl" py="4rem">
+      <Heading as="h1">Error 404!</Heading>
+      <Heading as="h3" fontSize="xl">
+        The page you requested could not be found!
+      </Heading>
+    </Container>
   </Layout>
 );
 
 const Page403 = () => (
   <Layout>
-    <h1>Error 403!</h1>
-    <h3>Thou shalt not pass!</h3>
+    <Container maxW="5xl" py="4rem">
+      <Heading as="h1">Error 403!</Heading>
+      <Heading as="h3" fontSize="xl">
+        Thou shalt not pass!
+      </Heading>
+    </Container>
   </Layout>
 );
 
