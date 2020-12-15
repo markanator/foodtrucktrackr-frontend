@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
 // move user
 import { useHistory, useParams } from 'react-router-dom';
@@ -90,110 +91,128 @@ export default function EditTruck(props) {
       <form className="createTruckForm" onSubmit={submit}>
         <h1>Create a Truck</h1>
         <div>
-          <label htmlFor="truckName">Truck Name</label>
-          <input
-            onChange={onInputChange}
-            type="text"
-            name="truck_name"
-            placeholder="Enter your truck's name"
-            value={formData.truck_name}
-            required
-          />
+          <label htmlFor="truckName">
+            Truck Name
+            <input
+              onChange={onInputChange}
+              type="text"
+              name="truck_name"
+              placeholder="Enter your truck's name"
+              value={formData.truck_name}
+              required
+            />
+          </label>
         </div>
         <div>
-          <label htmlFor="image">Image</label>
-          <input
-            onChange={onInputChange}
-            type="text"
-            name="truck_photo"
-            placeholder="Url of an image of your truck"
-            value={formData.truck_photo}
-            required
-          />
+          <label htmlFor="image">
+            Image
+            <input
+              onChange={onInputChange}
+              type="text"
+              name="truck_photo"
+              placeholder="Url of an image of your truck"
+              value={formData.truck_photo}
+              required
+            />
+          </label>
         </div>
         <div>
-          <label htmlFor="cuisineType">Cuisine Type</label>
-          <input
-            onChange={onInputChange}
-            type="select"
-            name="truck_cuisine_type"
-            required
-            defaultValue="-- Select your cuisine type --"
-            value={formData.truck_cuisine_type}
-          >
-            {cuisineTypes.map((cuisine_type) => (
-              <option value={cuisine_type} key={cuisine_type}>
-                {cuisine_type}
+          <label htmlFor="cuisineType">
+            Cuisine Type
+            <select
+              onChange={onInputChange}
+              type="select"
+              name="truck_cuisine_type"
+              required
+              defaultValue="-- Select your cuisine type --"
+              value={formData.truck_cuisine_type}
+            >
+              {cuisineTypes.map((cuisine_type) => (
+                <option value={cuisine_type} key={cuisine_type}>
+                  {cuisine_type}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label htmlFor="priceRange">
+            Price Range
+            <select
+              onChange={onInputChange}
+              type="select"
+              name="price_range"
+              required
+              value={formData.price_range}
+            >
+              <option value="" disabled>
+                -- Select your price range --
               </option>
-            ))}
-          </input>
+              <option value="$">$</option>
+              <option value="$$">$$</option>
+              <option value="$$$">$$$</option>
+            </select>
+          </label>
         </div>
         <div>
-          <label htmlFor="priceRange">Price Range</label>
-          <input
-            onChange={onInputChange}
-            type="select"
-            name="price_range"
-            required
-            value={formData.price_range}
-          >
-            <option value="" disabled>
-              -- Select your price range --
-            </option>
-            <option value="$">$</option>
-            <option value="$$">$$</option>
-            <option value="$$$">$$$</option>
-          </input>
+          <label htmlFor="address">
+            Address
+            <input
+              onChange={onInputChange}
+              type="text"
+              name="location_address"
+              placeholder="Street address"
+              value={formData.location_address}
+            />
+          </label>
         </div>
         <div>
-          <label htmlFor="address">Address</label>
-          <input
-            onChange={onInputChange}
-            type="text"
-            name="location_address"
-            placeholder="Street address"
-            value={formData.location_address}
-          />
+          <label htmlFor="city">
+            City
+            <input
+              onChange={onInputChange}
+              type="text"
+              name="location_city"
+              placeholder="City"
+              value={formData.location_city}
+            />
+          </label>
         </div>
         <div>
-          <label htmlFor="city">City</label>
-          <input
-            onChange={onInputChange}
-            type="text"
-            name="location_city"
-            placeholder="City"
-            value={formData.location_city}
-          />
+          <label htmlFor="state">
+            State
+            <input
+              onChange={onInputChange}
+              type="text"
+              name="location_state"
+              placeholder="State"
+              value={formData.location_state}
+            />
+          </label>
         </div>
         <div>
-          <label htmlFor="state">State</label>
-          <input
-            onChange={onInputChange}
-            type="text"
-            name="location_state"
-            placeholder="State"
-            value={formData.location_state}
-          />
+          <label htmlFor="zip">
+            Zip
+            <input
+              onChange={onInputChange}
+              type="text"
+              name="location_zip_code"
+              placeholder="Local zip code"
+              value={formData.location_zip_code}
+            />
+          </label>
         </div>
         <div>
-          <label htmlFor="zip">Zip</label>
-          <input
-            onChange={onInputChange}
-            type="text"
-            name="location_zip_code"
-            placeholder="Local zip code"
-            value={formData.location_zip_code}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <input
-            onChange={onInputChange}
-            type="textarea"
-            name="truck_description"
-            placeholder="Tell us what you're all about!"
-            value={formData.truck_description}
-          />
+          <label htmlFor="description">
+            Description
+            <input
+              onChange={onInputChange}
+              type="textarea"
+              name="truck_description"
+              placeholder="Tell us what you're all about!"
+              value={formData.truck_description}
+            />
+          </label>
         </div>
         {/* <div>
                     <label>

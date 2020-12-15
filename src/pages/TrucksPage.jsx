@@ -26,6 +26,7 @@ const TrucksPage = () => {
                         </button> */}
           <p>
             <button
+              type="button"
               color="success"
               onClick={() => {
                 push(`/trucks/${car.id}`);

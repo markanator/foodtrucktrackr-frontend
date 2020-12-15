@@ -17,10 +17,16 @@ import {
   FormControl,
   Input,
   FormLabel,
+  RadioGroup,
+  Stack,
+  Radio,
 } from '@chakra-ui/react';
+import Axios from 'axios';
 import React from 'react';
-import { Link as RLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Link as RLink, useHistory } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import { prodCheck } from '../../utils/prodCheck';
 
 export default function Header() {
   return (
@@ -33,18 +39,18 @@ export default function Header() {
             </Link>
           </Box>
           <Box w="40%">
-            <Link as={RLink} to="/" mr="4rem">
+            {/* <Link as={RLink} to="/" mr="4rem">
               HOME
-            </Link>
+            </Link> */}
             <Link
               href="https://github.com/markanator/foodtrucktrackr-frontend"
               isExternal
               mr="1rem"
             >
-              Github
+              Project Github
             </Link>
             <Link href="https://markambrocio.com" isExternal>
-              <a>Mark's Portfolio</a>
+              Mark's Portfolio
             </Link>
           </Box>
           <Box w="40%" textAlign="right">
@@ -59,6 +65,35 @@ export default function Header() {
 
 const LoginBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { handleSubmit, errors, register, formState } = useForm();
+  const history = useHistory();
+
+  function onSubmit(values) {
+    // console.log('login: ', values);
+    Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
+      ...values,
+      user_email: values.email,
+    })
+      .then(({ data }) => {
+        if (prodCheck) {
+          console.log('SERVER RESPONSE:: ', data);
+        }
+        window.localStorage.setItem('token', data.token);
+        onClose();
+        history.push(`/dashboard/${data.user.username}`);
+      })
+      .catch((err) => {
+        onClose();
+        console.error(err);
+      });
+  }
+
+  function validateField(value) {
+    if (!value) {
+      return false;
+    }
+    return true;
+  }
 
   return (
     <>
@@ -76,21 +111,49 @@ const LoginBtnModal = () => {
         <ModalContent>
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Box as="form">
-              <FormControl>
-                <FormLabel />
-                <Input type="text" />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody>
+              <FormControl isRequired mb=".5rem">
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="mark@example.com"
+                  ref={register({ required: true, validate: validateField })}
+                />
+                <Text color="tomato">{errors.email && 'Required!'}</Text>
               </FormControl>
-              <Text>Hello world!</Text>
-            </Box>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="gray" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button colorScheme="red">Login</Button>
-          </ModalFooter>
+              {/* PASSWORD */}
+              <FormControl isRequired>
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="*********"
+                  ref={register({
+                    required: true,
+                    minLength: 6,
+                    validate: validateField,
+                  })}
+                />
+                <Text color="tomato">
+                  {errors.password && 'Required and/or too short!'}
+                </Text>
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="gray" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button
+                type="submit"
+                colorScheme="red"
+                disabled={formState.isSubmitting}
+              >
+                Login
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>
@@ -99,7 +162,32 @@ const LoginBtnModal = () => {
 
 const SignUpBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { handleSubmit, errors, register, formState } = useForm();
+  const history = useHistory();
 
+  function onSubmit(values) {
+    console.log('SIGN UP VALS: ', values);
+    Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user`, { ...values })
+      .then(({ data }) => {
+        if (!prodCheck) {
+          console.log('SERVER RESPONSE:: ', data);
+        }
+        window.localStorage.setItem('token', data.token);
+        onClose();
+        history.push(`/dashboard/${data.user.username}`);
+      })
+      .catch((err) => {
+        onClose();
+        console.error(err);
+      });
+  }
+
+  function validateField(value) {
+    if (!value) {
+      return false;
+    }
+    return true;
+  }
   return (
     <>
       <Button
@@ -115,15 +203,84 @@ const SignUpBtnModal = () => {
         <ModalContent>
           <ModalHeader>Sign Up</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <Text>Hello there world!</Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="gray" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button colorScheme="red">Sign Up</Button>
-          </ModalFooter>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody>
+              {/* ACCOUNT TYPE */}
+              <FormControl isRequired mb=".5rem">
+                <FormLabel htmlFor="user_role">Account Type</FormLabel>
+                <RadioGroup name="user_role">
+                  <Stack direction="row">
+                    <Radio
+                      id="diner"
+                      value="diner"
+                      ref={register({ required: true })}
+                    >
+                      Diner
+                    </Radio>
+                    <Radio
+                      id="operator"
+                      value="operator"
+                      ref={register({ required: true })}
+                    >
+                      Operator
+                    </Radio>
+                  </Stack>
+                </RadioGroup>
+                <Text color="tomato">{errors.user_role && 'Required!'}</Text>
+              </FormControl>
+              {/* USERNAME */}
+              <FormControl isRequired mb=".5rem">
+                <FormLabel htmlFor="username">Username</FormLabel>
+                <Input
+                  type="text"
+                  name="username"
+                  placeholder="ilovefood97"
+                  ref={register({ required: true, validate: validateField })}
+                />
+                <Text color="tomato">{errors.username && 'Required!'}</Text>
+              </FormControl>
+              {/* EMAIL */}
+              <FormControl isRequired mb=".5rem">
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <Input
+                  type="email"
+                  name="user_email"
+                  placeholder="mark@example.com"
+                  ref={register({ required: true, validate: validateField })}
+                />
+                <Text color="tomato">{errors.user_email && 'Required!'}</Text>
+              </FormControl>
+              {/* PASSWORD */}
+              <FormControl isRequired>
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="*********"
+                  ref={register({
+                    required: true,
+                    minLength: 6,
+                    validate: validateField,
+                  })}
+                />
+                <Text color="tomato">
+                  {errors.password && 'Required and/or too short!'}
+                </Text>
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="gray" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button
+                type="submit"
+                colorScheme="red"
+                disabled={formState.isSubmitting}
+              >
+                Login
+              </Button>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>

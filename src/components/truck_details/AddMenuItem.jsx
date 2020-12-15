@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-export default function AddMenuItem(props) {
+export default function AddMenuItem({ showMenuModal }) {
   return (
     <button
       type="button"
-      onClick={props.showMenuModal}
+      onClick={showMenuModal}
       className="justify-content-center p-2 h-100 text-center menu-item"
     >
       <i className="fas fa-plus" />

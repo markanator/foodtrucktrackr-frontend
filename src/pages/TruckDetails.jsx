@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, button, Spinner } from 'reactstrap';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 // locals
-import MenuItem from './MenuItem';
-import AddMenuItem from './AddMenuItem';
-import MenuItemModal from './MenuItemModal';
-import RatingModal from './RatingModal';
-import FavoriteButton from './FavoriteButton';
+import MenuItem from '../components/truck_details/MenuItem';
+import AddMenuItem from '../components/truck_details/AddMenuItem';
+import MenuItemModal from '../components/truck_details/MenuItemModal';
+import RatingModal from '../components/truck_details/RatingModal';
+import FavoriteButton from '../components/truck_details/FavoriteButton';
 
 export default function TruckDetails() {
   // get id from URL
@@ -51,7 +50,7 @@ export default function TruckDetails() {
     if (userProfileData.user_role === 'diner') {
       // console.log("userProfileData", userProfileData);
       const thisTruck = userProfileData.favoriteTrucks.filter(
-        (truck) => truck.truck_id == id
+        (truck) => truck.truck_id === id
       );
       // console.log("thisTruck", thisTruck[0]);
       if (thisTruck.length !== 0) {
@@ -140,6 +139,7 @@ export default function TruckDetails() {
       </div>
       <div className="pt-3 stars float-right">
         <button
+          type="button"
           color="warning"
           className="mr-3"
           onClick={() => toggleModal('rating')}

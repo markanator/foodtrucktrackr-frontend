@@ -1,13 +1,13 @@
 import React from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 import TrucksPage from './TrucksPage';
 
-const DinerDashboard = () => (
+const Dashboard = () => (
   <div>
-    <SearchBar />
+    {/* <SearchBar /> */}
     <h2 style={{ textAlign: 'left', marginTop: '5%' }}>Favorite Trucks</h2>
-    <TrucksPage />
+    {/* <TrucksPage /> */}
   </div>
 );
 
-export default DinerDashboard;
+export default Dashboard;
