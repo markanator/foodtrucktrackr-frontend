@@ -8,14 +8,14 @@ import {
   FormLabel,
   Heading,
   Input,
+  Link,
   List,
   ListItem,
-  Link,
 } from '@chakra-ui/react';
 import React from 'react';
-import { Link as RLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
+import { Link as RLink } from 'react-router-dom';
 import BgImg from '../../assets/searchBg.jpg';
 
 export default function Hero() {
@@ -42,8 +42,14 @@ export default function Hero() {
           paddingBottom="2rem"
         >
           <Flex direction="column" mx="auto">
-            <Heading as="h2" display="inline" textAlign="center" mb="1rem">
-              Find Nearby FoodTrucks
+            <Heading
+              as="h1"
+              display="inline"
+              fontSize="6xl"
+              textAlign="center"
+              mb="1rem"
+            >
+              Find Nearby <span style={{ color: 'red' }}>FoodTrucks</span>
             </Heading>
             <Heading
               as="h4"
@@ -80,6 +86,7 @@ export default function Hero() {
                   </FormLabel>
                   <Input
                     bg="white"
+                    textColor="black"
                     w="full"
                     name="Search"
                     border="none"

@@ -5,7 +5,7 @@ import Hero from './HomeComponents/Hero';
 export default function Home() {
   return (
     <main>
-      <div className="clearFix" />
+      {/* <div className="clearFix" /> */}
       <Hero />
     </main>
   );

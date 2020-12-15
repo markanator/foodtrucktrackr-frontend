@@ -14,6 +14,9 @@ import {
   ModalOverlay,
   useDisclosure,
   Text,
+  FormControl,
+  Input,
+  FormLabel,
 } from '@chakra-ui/react';
 import React from 'react';
 import { Link as RLink } from 'react-router-dom';
@@ -29,24 +32,23 @@ export default function Header() {
               <img src={logo} alt="site" height={38} width={142} />
             </Link>
           </Box>
-          <Box w="60%">
-            <Link as={RLink} to="/" mr="1rem">
-              <a>HOME</a>
+          <Box w="40%">
+            <Link as={RLink} to="/" mr="4rem">
+              HOME
             </Link>
             <Link
               href="https://github.com/markanator/foodtrucktrackr-frontend"
               isExternal
               mr="1rem"
             >
-              <a>Github</a>
+              Github
             </Link>
             <Link href="https://markambrocio.com" isExternal>
               <a>Mark's Portfolio</a>
             </Link>
           </Box>
-          <Box w="20%" textAlign="right">
+          <Box w="40%" textAlign="right">
             <LoginBtnModal />
-
             <SignUpBtnModal />
           </Box>
         </Center>
@@ -75,7 +77,13 @@ const LoginBtnModal = () => {
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Hello world!</Text>
+            <Box as="form">
+              <FormControl>
+                <FormLabel />
+                <Input type="text" />
+              </FormControl>
+              <Text>Hello world!</Text>
+            </Box>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="gray" mr={3} onClick={onClose}>
