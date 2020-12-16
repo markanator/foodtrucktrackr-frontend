@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../../components/SearchBar';
 
 function SearchPage(props) {
   const [searchInfo, setSearchInfo] = useState([]);

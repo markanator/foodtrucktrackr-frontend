@@ -7,13 +7,18 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+import { FaChevronDown, FaMapMarkedAlt } from 'react-icons/fa';
+// locals
 import Layout from '../components/Layout';
 import Map from '../components/search/Map';
-
-// mapboxGl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
+import { TruckListingCard } from './TruckListingCard';
 
 export default function ListingsPage() {
   return (
@@ -29,7 +34,7 @@ export default function ListingsPage() {
           <Map />
           {/* SEARCH */}
           <Container
-            maxW="5xl"
+            maxW="6xl"
             pos="absolute"
             display="block"
             bottom="60px"
@@ -93,9 +98,9 @@ export default function ListingsPage() {
           </Container>
         </Flex>{' '}
         {/* SEARCH */}
-        <Container maxW="5xl">
+        <Container maxW="6xl">
+          {/* FILTERING */}
           <Flex direction="column">
-            {/* FILTERING */}
             <Box
               padding="1rem"
               background="#f9f9f9"
@@ -105,10 +110,76 @@ export default function ListingsPage() {
               w="full"
               border="1px solid rgba(0,0,0,.05)"
             >
-              FILTERING
+              {/* NEAR ME */}
+              <Button leftIcon={<FaMapMarkedAlt />} colorScheme="red" mr="1rem">
+                Near Me
+              </Button>
+              {/* CATEGORIES */}
+              <Menu>
+                <MenuButton
+                  colorScheme="red"
+                  mr="1rem"
+                  as={Button}
+                  rightIcon={<FaChevronDown />}
+                >
+                  Categories
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
+                </MenuList>
+              </Menu>
+              {/* SORT LISTINGS */}
+              <Menu>
+                <MenuButton
+                  colorScheme="red"
+                  mr="1rem"
+                  as={Button}
+                  rightIcon={<FaChevronDown />}
+                >
+                  Sort
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
+                </MenuList>
+              </Menu>
+              {/* LOCATION RADIUS */}
+              <Menu>
+                <MenuButton
+                  colorScheme="red"
+                  mr="1rem"
+                  as={Button}
+                  rightIcon={<FaChevronDown />}
+                >
+                  Radius
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
+                </MenuList>
+              </Menu>
             </Box>
-            <Text>This is the listings page</Text>
           </Flex>
+          {/* LISTINGS */}
+          <Box mx="-1rem" className="row">
+            <TruckListingCard />
+            <TruckListingCard />
+            <TruckListingCard />
+            <TruckListingCard />
+            <TruckListingCard />
+            <TruckListingCard />
+          </Box>
+          <Text>This is the listings page</Text>
         </Container>
       </Flex>
     </Layout>

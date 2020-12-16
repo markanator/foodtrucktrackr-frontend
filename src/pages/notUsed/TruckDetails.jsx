@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 // locals
-import MenuItem from '../components/truck_details/MenuItem';
-import AddMenuItem from '../components/truck_details/AddMenuItem';
-import MenuItemModal from '../components/truck_details/MenuItemModal';
-import RatingModal from '../components/truck_details/RatingModal';
-import FavoriteButton from '../components/truck_details/FavoriteButton';
+import MenuItem from '../../components/truck_details/MenuItem';
+import AddMenuItem from '../../components/truck_details/AddMenuItem';
+import MenuItemModal from '../../components/truck_details/MenuItemModal';
+import RatingModal from '../../components/truck_details/RatingModal';
+import FavoriteButton from '../../components/truck_details/FavoriteButton';
 
 export default function TruckDetails() {
   // get id from URL

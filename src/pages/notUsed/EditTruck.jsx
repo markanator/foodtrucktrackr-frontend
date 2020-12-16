@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 // move user
 import { useHistory, useParams } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/AxiosWithAuth';
+import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 
 export default function EditTruck(props) {
   const { push } = useHistory();

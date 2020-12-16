@@ -14,3 +14,13 @@
   display: block;
   background: rgba(0, 0, 0, 0.5);
 }
+
+.row:before {
+  content: " ";
+  display: table;
+}
+.row:after {
+  content: " ";
+  display: table;
+  clear: both;
+}

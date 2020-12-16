@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/AxiosWithAuth';
+import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 
 const TruckList = ({ OperatorDashboard, ...props }) => {
   const { push } = useHistory();

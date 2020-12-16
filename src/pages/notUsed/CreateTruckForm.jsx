@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { axiosWithAuth } from '../utils/AxiosWithAuth';
+import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 
 export default function CreateTruckForm(props) {
   const { push } = useHistory();
