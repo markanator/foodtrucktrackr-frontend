@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ChakraProvider, CSSReset, theme } from '@chakra-ui/react';
-import 'mapbox-gl/dist/mapbox-gl.css';
-
 // local
 import App from './App';
 import './styles/index.css';

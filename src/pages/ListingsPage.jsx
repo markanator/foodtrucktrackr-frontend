@@ -1,12 +1,9 @@
+/* eslint-disable no-lone-blocks */
 import {
   Box,
   Button,
   Container,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
   Menu,
   MenuButton,
   MenuItem,
@@ -17,10 +14,14 @@ import React from 'react';
 import { FaChevronDown, FaMapMarkedAlt } from 'react-icons/fa';
 // locals
 import Layout from '../components/Layout';
-import Map from '../components/search/Map';
-import { TruckListingCard } from './TruckListingCard';
+import GMap from '../components/search/GMap';
+import { useTrucksQuery } from '../query/useTrucksQuery';
+import { TruckListingCard } from '../components/search/TruckListingCard';
 
 export default function ListingsPage() {
+  const { data: truckList, isLoading, isError } = useTrucksQuery();
+
+  console.log('das trucks', truckList);
   return (
     <Layout>
       <Flex direction="column">
@@ -31,73 +32,9 @@ export default function ListingsPage() {
           h="505px"
           direction="column"
         >
-          <Map />
-          {/* SEARCH */}
-          <Container
-            maxW="6xl"
-            pos="absolute"
-            display="block"
-            bottom="60px"
-            top="atuo"
-            transform="none"
-            pb="0"
-            zIndex="999"
-            mt="0"
-            mx="auto"
-            alignItems="center"
-          >
-            <Flex
-              direction="row"
-              mt="2rem"
-              w="full"
-              bg="white"
-              border="2px"
-              borderColor="gray.400"
-              alignItems="stretch"
-              rounded="4px"
-              p="6px"
-              shadow="lg"
-            >
-              <Flex
-                as="form"
-                direction="row"
-                justifyItems="center"
-                alignItems="center"
-                w="full"
-              >
-                <FormControl w="80%">
-                  <FormLabel htmlFor="Search" display="none">
-                    First name
-                  </FormLabel>
-                  <Input
-                    bg="white"
-                    textColor="black"
-                    w="full"
-                    name="Search"
-                    border="none"
-                    focusBorderColor="transparent"
-                    fontSize="1.125rem"
-                    placeholder="What are you in the mood for?"
-                    // ref={register()}
-                  />
-                  <FormErrorMessage>
-                    {/* {errors.Search && errors.Search.message} */}
-                  </FormErrorMessage>
-                </FormControl>
-                <Button
-                  w="20%"
-                  colorScheme="red"
-                  fontSize="1.25rem"
-                  fontWeight="400"
-                  size="lg"
-                >
-                  Search
-                </Button>
-              </Flex>
-            </Flex>
-          </Container>
+          {/* MAP & SEARCH */}
+          <GMap />
         </Flex>{' '}
-        {/* SEARCH */}
         <Container maxW="6xl">
           {/* FILTERING */}
           <Flex direction="column">
@@ -172,16 +109,82 @@ export default function ListingsPage() {
           </Flex>
           {/* LISTINGS */}
           <Box mx="-1rem" className="row">
-            <TruckListingCard />
-            <TruckListingCard />
-            <TruckListingCard />
-            <TruckListingCard />
-            <TruckListingCard />
-            <TruckListingCard />
+            {isLoading ? <Text>Loading...</Text> : null}
+            {isError ? (
+              <Text>Oops, an error occured try again later...</Text>
+            ) : null}
+            {truckList &&
+              truckList.map((truck) => <TruckListingCard info={truck} />)}
           </Box>
           <Text>This is the listings page</Text>
         </Container>
       </Flex>
     </Layout>
   );
+}
+
+{
+  /* <Container
+            maxW="6xl"
+            pos="absolute"
+            display="block"
+            bottom="60px"
+            top="atuo"
+            transform="none"
+            pb="0"
+            zIndex="999"
+            mt="0"
+            mx="auto"
+            alignItems="center"
+          >
+            <Flex
+              direction="row"
+              mt="2rem"
+              w="full"
+              bg="white"
+              border="2px"
+              borderColor="gray.400"
+              alignItems="stretch"
+              rounded="4px"
+              p="6px"
+              shadow="lg"
+            >
+              <Flex
+                as="form"
+                direction="row"
+                justifyItems="center"
+                alignItems="center"
+                w="full"
+              >
+                <FormControl w="80%">
+                  <FormLabel htmlFor="Search" display="none">
+                    First name
+                  </FormLabel>
+                  <Input
+                    bg="white"
+                    textColor="black"
+                    w="full"
+                    name="Search"
+                    border="none"
+                    focusBorderColor="transparent"
+                    fontSize="1.125rem"
+                    placeholder="What are you in the mood for?"
+                    // ref={register()}
+                  />
+                  <FormErrorMessage>
+                  </FormErrorMessage>
+                </FormControl>
+                <Button
+                  w="20%"
+                  colorScheme="red"
+                  fontSize="1.25rem"
+                  fontWeight="400"
+                  size="lg"
+                >
+                  Search
+                </Button>
+              </Flex>
+            </Flex>
+          </Container>
+          */
 }

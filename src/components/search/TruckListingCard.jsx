@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Badge, Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaEye, FaMapPin, FaPhoneAlt, FaRegHeart, FaTag } from 'react-icons/fa';
 import { Link as RLink } from 'react-router-dom';
-import ImgSauce from '../assets/foodTruck.jpg';
 
-export function TruckListingCard() {
+export function TruckListingCard({ info }) {
   return (
     <Box
       className="truck__listcard"
@@ -15,7 +15,7 @@ export function TruckListingCard() {
     >
       <Link
         as={RLink}
-        to="/search-trucks"
+        to={`/truck/${info.id}`}
         _hover={{
           transform: 'translate3d(0, -10px, 0)',
         }}
@@ -42,9 +42,10 @@ export function TruckListingCard() {
           zIndex="100"
           cursor="pointer"
         >
+          {/* IMAGE */}
           <Image
-            src={ImgSauce}
-            alt="test2"
+            src={info.truck_photo}
+            alt={info.truck_name}
             objectFit="cover"
             height="100%"
             w="100%"
@@ -53,7 +54,7 @@ export function TruckListingCard() {
             verticalAlign="middle"
             maxW="100%"
           />
-
+          {/* CATEGORY */}
           <Badge
             className="tag"
             textTransform="uppercase"
@@ -72,29 +73,31 @@ export function TruckListingCard() {
             top="20px"
             right="20px"
           >
-            Food
+            {info.truck_cuisine_type}
           </Badge>
-
-          <Badge
-            className="feat__tag"
-            colorScheme="teal"
-            variant="solid"
-            pos="absolute"
-            top="60px"
-            right="20px"
-            zIndex="999"
-            fontSize="md"
-            fontWeight="600"
-            color="white"
-            lineHeight="1.25rem"
-            textTransform="uppercase"
-            letterSpacing=".5px"
-            padding="3px 6px"
-            rounded="4px"
-            mb=".5rem"
-          >
-            Featured
-          </Badge>
+          {/* FEATURED */}
+          {info.price_range === '$$' ? (
+            <Badge
+              className="feat__tag"
+              colorScheme="teal"
+              variant="solid"
+              pos="absolute"
+              top="60px"
+              right="20px"
+              zIndex="999"
+              fontSize="md"
+              fontWeight="600"
+              color="white"
+              lineHeight="1.25rem"
+              textTransform="uppercase"
+              letterSpacing=".5px"
+              padding="3px 6px"
+              rounded="4px"
+              mb=".5rem"
+            >
+              Featured
+            </Badge>
+          ) : null}
 
           <Box
             pos="absolute"
@@ -106,6 +109,7 @@ export function TruckListingCard() {
             boxSizing="border-box"
           >
             <Box mb=".5rem" display="block">
+              {/* PRICE RANGE */}
               <Box
                 display="inline-flex"
                 alignItems="center"
@@ -128,10 +132,10 @@ export function TruckListingCard() {
                     verticalAlign: 'initial',
                   }}
                 />
-                $$$
+                {info.price_range}
               </Box>
             </Box>
-
+            {/* TRUCK TITLE */}
             <Heading
               as="h3"
               color="white"
@@ -142,9 +146,9 @@ export function TruckListingCard() {
               m="0"
               lineHeight="30px"
             >
-              Food Truck title here
+              {info.truck_name}
             </Heading>
-
+            {/* LOCATION */}
             <Box
               fontSize="1rem"
               m="2px 0"
@@ -164,9 +168,9 @@ export function TruckListingCard() {
                   verticalAlign: 'sub',
                 }}
               />
-              Location, Country
+              {info.truck_description.slice(0, 15)}
             </Box>
-
+            {/* PHONE */}
             <Box
               fontSize="1rem"
               m="2px 0"
@@ -186,7 +190,7 @@ export function TruckListingCard() {
                   verticalAlign: 'sub',
                 }}
               />
-              (555) 555-1234
+              (123) 456-7890
             </Box>
           </Box>
         </Box>
@@ -214,13 +218,13 @@ export function TruckListingCard() {
             display="inline-block"
             fontSize=".875rem"
             ml="6px"
-            background="#54ba1d"
+            background={info.averageRating ? '#54ba1d' : '#e9e9e9'}
             fontWeight="600"
             lineHeight="1.25rem"
             rounded="4px"
             verticalAlign="middle"
           >
-            (4.5)
+            ({info.averageRating || 0})
           </Badge>
 
           <Box
@@ -240,7 +244,7 @@ export function TruckListingCard() {
                 textAlign: 'center',
               }}
             />
-            932+
+            {info.id}+
           </Box>
 
           <Flex

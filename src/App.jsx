@@ -1,39 +1,43 @@
 /* eslint-disable no-use-before-define */
 import { Container, Heading } from '@chakra-ui/react';
 import React from 'react';
-// import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'react-router-dom';
-// import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import PrivateRoute from './utils/PrivateRoute';
 import UserProvider from './context/UserContext';
 import ListingsPage from './pages/ListingsPage';
+import TruckDetails from './pages/TruckDetails';
 
-// const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 const App = () => (
-  // <QueryClientProvider client={queryClient}>
-  <>
-    <UserProvider>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <PrivateRoute exact path="/dashboard/:username">
-          <Dashboard />
-        </PrivateRoute>
-        <Route path="/search-trucks">
-          <ListingsPage />
-        </Route>
-        <Route path="/403" component={Page403} />
-        <Route component={Page404} />
-      </Switch>
-      {/* <ReactQueryDevtools /> */}
-    </UserProvider>
-  </>
-  // </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <>
+      <UserProvider>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <PrivateRoute exact path="/dashboard/:username">
+            <Dashboard />
+          </PrivateRoute>
+          <Route path="/search-trucks">
+            <ListingsPage />
+          </Route>
+          <Route path="/truck/:truckID">
+            <TruckDetails />
+          </Route>
+          <Route path="/403" component={Page403} />
+          <Route component={Page404} />
+        </Switch>
+      </UserProvider>
+    </>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 );
 
 const Page404 = () => (
