@@ -13,6 +13,7 @@ export default function MainDetailsCard({ truck }) {
       rounded="lg"
       padding="1.125rem"
       mb="1.25rem"
+      boxShadow="md"
     >
       {/* TITLE and CATEGORY */}
       <Heading

@@ -30,8 +30,8 @@ import {
 import Axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { FaPizzaSlice } from 'react-icons/fa';
 import { Link as RLink, useHistory } from 'react-router-dom';
-import logo from '../../assets/logo.png';
 import { useUserContext } from '../../context/UserContext';
 import { isLoggedIn } from '../../utils/isLoggedIn';
 
@@ -76,6 +76,16 @@ export default function Header() {
   } else {
     RightSide = (
       <>
+        <Button
+          rightIcon={<FaPizzaSlice />}
+          as={RLink}
+          to="/search-trucks"
+          mr=".5rem"
+          colorScheme="red"
+          size="lg"
+        >
+          Find Food
+        </Button>
         <LoginBtnModal />
         <SignUpBtnModal />
       </>
@@ -87,8 +97,11 @@ export default function Header() {
       <Container m="auto" w="full" maxW="7xl">
         <Center direction="row" w="full">
           <Box w="20%">
-            <Link as={RLink} to="/" textDecoration="none">
-              <img src={logo} alt="site" height={38} width={142} />
+            <Link as={RLink} to="/" textDecoration="none" color="#ff0129">
+              {/* <img src={logo} alt="site" height={38} width={142} /> */}
+              <Text fontSize="1.5rem" fontWeight="700" color="#ff0129">
+                Food Truck Tracker
+              </Text>
             </Link>
           </Box>
           <Box w="40%">

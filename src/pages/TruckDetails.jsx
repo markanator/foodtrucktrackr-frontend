@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import Axios from 'axios';
 import React, { useState } from 'react';
-import { FaPhoneAlt, FaRegClock } from 'react-icons/fa';
+import { FaPhoneAlt, FaRegClock, FaStore } from 'react-icons/fa';
 
 // locals
 import { useQuery } from 'react-query';
@@ -22,7 +22,7 @@ import { Link as RLink, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import MainDetailsCard from '../components/TruckDetails/MainDetailsCard';
 import MenuItem from '../components/TruckDetails/MenuItem';
-import SingleTruckMap from '../components/TruckDetails/SingleTruckMap';
+import SingleTruckMap from '../components/TruckDetails/StaticTruckMap';
 import TruckHeroImage from '../components/TruckDetails/TruckHeroImage';
 import TruckMenuList from '../components/TruckDetails/TruckMenuList';
 import TruckSocials from '../components/TruckDetails/TruckSocials';
@@ -80,8 +80,44 @@ export default function TruckDetails() {
             <TruckMenuList truck={truck} />
           </Flex>
           <Flex as="aside" w={1 / 3} bg="blue" direction="column">
-            <Box>
-              <SingleTruckMap />
+            {/* STATIC MAP */}
+            <Box
+              pos="relative"
+              overflow="hidden"
+              backgroundColor="gray.100"
+              rounded="lg"
+              paddingTop="1.5rem"
+              border="1px solid #00000015"
+              zIndex="1"
+              boxShadow="md"
+            >
+              <Heading
+                as="h3"
+                display="inline-flex"
+                alignItems="center"
+                w="full"
+                px="1.5rem"
+                fontSize="1.25rem"
+                fontWeight="600"
+                textAlign="left"
+                pb="1.125rem"
+                borderBottom="1px solid #00000025"
+                m="5px 0 0 0"
+              >
+                <FaStore
+                  style={{
+                    marginRight: '1rem',
+                    color: 'white',
+                    width: '40px',
+                    height: '40px',
+                    background: '#ff0122',
+                    padding: '10px',
+                    borderRadius: '50%',
+                  }}
+                />
+                Location
+              </Heading>
+              <SingleTruckMap lat={truck.truck_lat} lng={truck.truck_lng} />
             </Box>
             {/* BUSSINESS HOURS */}
             <Box
@@ -91,7 +127,9 @@ export default function TruckDetails() {
               rounded="lg"
               padding="1.5rem"
               border="1px solid #00000015"
+              mt="2.125rem"
               zIndex="1"
+              boxShadow="md"
             >
               <Heading
                 as="h3"
@@ -135,7 +173,7 @@ export default function TruckDetails() {
                     color: '#ff0122',
                   }}
                 >
-                  Monday
+                  Arrive
                   <Box>09:00 AM - 09:00 PM</Box>
                 </ListItem>
                 <ListItem
@@ -154,7 +192,7 @@ export default function TruckDetails() {
                     color: '#ff0122',
                   }}
                 >
-                  Tuesday
+                  Depart
                   <Box>09:00 AM - 09:00 PM</Box>
                 </ListItem>
               </List>
@@ -169,6 +207,7 @@ export default function TruckDetails() {
               padding="1.5rem"
               border="1px solid #00000015"
               zIndex="1"
+              boxShadow="md"
             >
               <Heading
                 as="h3"
