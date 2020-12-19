@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   Box,
   Button,
@@ -26,14 +27,18 @@ import {
   Stack,
   Text,
   useDisclosure,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import Axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaPizzaSlice } from 'react-icons/fa';
 import { Link as RLink, useHistory } from 'react-router-dom';
+import { Formik, Field, Form } from 'formik';
 import { useUserContext } from '../../context/UserContext';
 import { isLoggedIn } from '../../utils/isLoggedIn';
+import { LoginSchema } from '../Forms/Schemas/LoginSchema';
+import { SignUpSchema } from '../Forms/Schemas/SignUpSchema';
 
 export default function Header() {
   let RightSide;
@@ -130,12 +135,10 @@ export default function Header() {
 
 const LoginBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { handleSubmit, errors, register, formState } = useForm();
   const router = useHistory();
   const { setUserState } = useUserContext();
 
   function onSubmit(values) {
-    // mutate({ ...values, email: values.email });
     Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
       ...values,
       email: values.email,
@@ -156,13 +159,6 @@ const LoginBtnModal = () => {
       .catch((err) => console.error(err));
   }
 
-  function validateField(value) {
-    if (!value) {
-      return false;
-    }
-    return true;
-  }
-
   return (
     <>
       <Button
@@ -179,49 +175,71 @@ const LoginBtnModal = () => {
         <ModalContent>
           <ModalHeader>Login</ModalHeader>
           <ModalCloseButton />
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalBody>
-              <FormControl isRequired mb=".5rem">
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="mark@example.com"
-                  ref={register({ required: true, validate: validateField })}
-                />
-                <Text color="tomato">{errors.email && 'Required!'}</Text>
-              </FormControl>
-              {/* PASSWORD */}
-              <FormControl isRequired>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="*********"
-                  ref={register({
-                    required: true,
-                    minLength: 6,
-                    validate: validateField,
-                  })}
-                />
-                <Text color="tomato">
-                  {errors.password && 'Required and/or too short!'}
-                </Text>
-              </FormControl>
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="gray" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button
-                type="submit"
-                colorScheme="red"
-                disabled={formState.isSubmitting}
-              >
-                Login
-              </Button>
-            </ModalFooter>
-          </form>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validationSchema={LoginSchema}
+            onSubmit={onSubmit}
+          >
+            {(props) => (
+              <Form>
+                <ModalBody>
+                  <Field name="email">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={form.errors.email && form.touched.email}
+                      >
+                        <FormLabel htmlFor="email">email</FormLabel>
+                        <Input
+                          {...field}
+                          type="email"
+                          id="email"
+                          placeholder="email@example.com"
+                        />
+                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                  {/* PASSWORD */}
+                  <Field name="password">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          form.errors.password && form.touched.password
+                        }
+                      >
+                        <FormLabel htmlFor="password">password</FormLabel>
+                        <Input
+                          {...field}
+                          type="password"
+                          id="password"
+                          name="password"
+                          placeholder="password"
+                        />
+                        <FormErrorMessage>
+                          {form.errors.password}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="gray" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button
+                    type="submit"
+                    colorScheme="red"
+                    // disabled={formState.isSubmitting}
+                  >
+                    Login
+                  </Button>
+                </ModalFooter>
+              </Form>
+            )}
+          </Formik>
         </ModalContent>
       </Modal>
     </>
@@ -230,7 +248,7 @@ const LoginBtnModal = () => {
 
 const SignUpBtnModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { handleSubmit, errors, register, formState } = useForm();
+  // const { handleSubmit, errors, register, formState } = useForm();
   const router = useHistory();
   const { setUserState } = useUserContext();
 
@@ -255,12 +273,6 @@ const SignUpBtnModal = () => {
       .catch((err) => console.log(err));
   }
 
-  function validateField(value) {
-    if (!value) {
-      return false;
-    }
-    return true;
-  }
   return (
     <>
       <Button
@@ -276,84 +288,126 @@ const SignUpBtnModal = () => {
         <ModalContent>
           <ModalHeader>Sign Up</ModalHeader>
           <ModalCloseButton />
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalBody>
-              {/* ACCOUNT TYPE */}
-              <FormControl isRequired mb=".5rem">
-                <FormLabel htmlFor="user_role">Account Type</FormLabel>
-                <RadioGroup name="user_role">
-                  <Stack direction="row">
-                    <Radio
-                      id="diner"
-                      value="diner"
-                      ref={register({ required: true })}
-                    >
-                      Diner
-                    </Radio>
-                    <Radio
-                      id="operator"
-                      value="operator"
-                      ref={register({ required: true })}
-                    >
-                      Operator
-                    </Radio>
-                  </Stack>
-                </RadioGroup>
-                <Text color="tomato">{errors.user_role && 'Required!'}</Text>
-              </FormControl>
-              {/* USERNAME */}
-              <FormControl isRequired mb=".5rem">
-                <FormLabel htmlFor="username">Username</FormLabel>
-                <Input
-                  type="text"
-                  name="username"
-                  placeholder="ilovefood97"
-                  ref={register({ required: true, validate: validateField })}
-                />
-                <Text color="tomato">{errors.username && 'Required!'}</Text>
-              </FormControl>
-              {/* EMAIL */}
-              <FormControl isRequired mb=".5rem">
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="mark@example.com"
-                  ref={register({ required: true, validate: validateField })}
-                />
-                <Text color="tomato">{errors.email && 'Required!'}</Text>
-              </FormControl>
-              {/* PASSWORD */}
-              <FormControl isRequired>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="*********"
-                  ref={register({
-                    required: true,
-                    minLength: 6,
-                    validate: validateField,
-                  })}
-                />
-                <Text color="tomato">
-                  {errors.password && 'Required and/or too short!'}
-                </Text>
-              </FormControl>
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme="gray" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button
-                type="submit"
-                colorScheme="red"
-                disabled={formState.isSubmitting}
-              >
-                Login
-              </Button>
-            </ModalFooter>
-          </form>
+          <Formik
+            initialValues={{
+              user_role: '',
+              username: '',
+              email: '',
+              password: '',
+              first_name: '',
+              last_name: '',
+            }}
+            validationSchema={SignUpSchema}
+            onSubmit={onSubmit}
+          >
+            {(props) => (
+              <Form>
+                <ModalBody>
+                  {/* ACCOUNT TYPE */}
+                  <Field name="user_role">
+                    {({ field, form }) => (
+                      <FormControl
+                        isRequired
+                        mb=".5rem"
+                        isInvalid={
+                          form.errors.user_role && form.touched.user_role
+                        }
+                      >
+                        <FormLabel htmlFor="user_role">Account Type</FormLabel>
+                        <RadioGroup {...field} name="user_role">
+                          <Stack direction="row">
+                            <Radio id="diner" value="diner">
+                              Diner
+                            </Radio>
+                            <Radio id="operator" value="operator">
+                              Operator
+                            </Radio>
+                          </Stack>
+                        </RadioGroup>
+                        <FormErrorMessage>
+                          {form.errors.user_role}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                  {/* USERNAME */}
+                  <Field name="username">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          form.errors.username && form.touched.username
+                        }
+                      >
+                        <FormLabel htmlFor="username">username</FormLabel>
+                        <Input
+                          {...field}
+                          type="text"
+                          name="username"
+                          id="username"
+                          placeholder="username"
+                        />
+                        <FormErrorMessage>
+                          {form.errors.username}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                  {/* EMAIL */}
+                  <Field name="email">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={form.errors.email && form.touched.email}
+                      >
+                        <FormLabel htmlFor="email">email</FormLabel>
+                        <Input
+                          {...field}
+                          type="email"
+                          id="email"
+                          name="email"
+                          placeholder="email@example.com"
+                        />
+                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                  {/* PASSWORD */}
+                  <Field name="password">
+                    {({ field, form }) => (
+                      <FormControl
+                        isInvalid={
+                          form.errors.password && form.touched.password
+                        }
+                      >
+                        <FormLabel htmlFor="password">password</FormLabel>
+                        <Input
+                          {...field}
+                          type="password"
+                          id="password"
+                          name="password"
+                          placeholder="password"
+                        />
+                        <FormErrorMessage>
+                          {form.errors.password}
+                        </FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="gray" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button
+                    type="submit"
+                    colorScheme="red"
+                    // disabled={formState.isSubmitting}
+                  >
+                    Login
+                  </Button>
+                </ModalFooter>
+              </Form>
+            )}
+          </Formik>
         </ModalContent>
       </Modal>
     </>

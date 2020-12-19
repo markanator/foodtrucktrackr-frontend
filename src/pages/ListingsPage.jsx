@@ -6,20 +6,26 @@ import {
   Flex,
   Menu,
   MenuButton,
+  MenuGroup,
   MenuItem,
   MenuList,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
   Text,
 } from '@chakra-ui/react';
-import React from 'react';
-import { FaChevronDown, FaMapMarkedAlt } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
 // locals
 import Layout from '../components/Layout';
 import GMap from '../components/Search/GMap';
-import { useTrucksQuery } from '../query/useTrucksQuery';
 import { TruckListingCard } from '../components/Search/TruckListingCard';
+import { useTrucksQuery } from '../query/useTrucksQuery';
 
 export default function ListingsPage() {
   const { data: truckList, isLoading, isError } = useTrucksQuery();
+  const [searchDistance, setSearchDistance] = useState(1);
 
   console.log('das trucks', truckList);
   return (
@@ -47,28 +53,6 @@ export default function ListingsPage() {
               w="full"
               border="1px solid rgba(0,0,0,.05)"
             >
-              {/* NEAR ME */}
-              <Button leftIcon={<FaMapMarkedAlt />} colorScheme="red" mr="1rem">
-                Near Me
-              </Button>
-              {/* CATEGORIES */}
-              <Menu>
-                <MenuButton
-                  colorScheme="red"
-                  mr="1rem"
-                  as={Button}
-                  rightIcon={<FaChevronDown />}
-                >
-                  Categories
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
-                </MenuList>
-              </Menu>
               {/* SORT LISTINGS */}
               <Menu>
                 <MenuButton
@@ -87,6 +71,27 @@ export default function ListingsPage() {
                   <MenuItem>Attend a Workshop</MenuItem>
                 </MenuList>
               </Menu>
+              {/* CATEGORIES */}
+              <Menu>
+                <MenuButton
+                  colorScheme="red"
+                  mr="1rem"
+                  as={Button}
+                  rightIcon={<FaChevronDown />}
+                >
+                  Categories
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>American</MenuItem>
+                  <MenuItem>Asian</MenuItem>
+                  <MenuItem>Barbeque</MenuItem>
+                  <MenuItem>Dessert</MenuItem>
+                  <MenuItem>Mexican</MenuItem>
+                  <MenuItem>Pizza</MenuItem>
+                  <MenuItem>Sea Food</MenuItem>
+                  <MenuItem>Other</MenuItem>
+                </MenuList>
+              </Menu>
               {/* LOCATION RADIUS */}
               <Menu>
                 <MenuButton
@@ -98,11 +103,17 @@ export default function ListingsPage() {
                   Radius
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
+                  <MenuGroup title="Distance:" fontSize="lg">
+                    <MenuItem>
+                      <Slider aria-label="slider-ex-1" defaultValue={30}>
+                        <SliderTrack bg="red.100">
+                          <SliderFilledTrack bg="red.500" />
+                        </SliderTrack>
+                        <SliderThumb />
+                      </Slider>
+                    </MenuItem>
+                    <MenuItem fontWeight="600">Search</MenuItem>
+                  </MenuGroup>
                 </MenuList>
               </Menu>
             </Box>

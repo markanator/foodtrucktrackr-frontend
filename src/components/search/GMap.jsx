@@ -251,7 +251,7 @@ function SearchBar({ panTo }) {
         <ComboboxPopover style={{ borderRadius: '5px' }}>
           <List as={ComboboxList} borderRadius="5px" boxShadow="lg">
             {status === 'OK' &&
-              data.map(({ id, description }) => (
+              data.map(({ description }) => (
                 <ListItem
                   as={ComboboxOption}
                   key={description}
