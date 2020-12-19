@@ -57,7 +57,7 @@ export default function EditTruck(props) {
 
     // refactor to ensure database gets what it needs
     const dbTruck = {
-      truck_name: formData.truckName,
+      name: formData.truckName,
       truck_departure_time: arrDate,
       truck_arrival_time: depDate,
       user_id: formData.ownerID,
@@ -65,8 +65,8 @@ export default function EditTruck(props) {
       location_city: formData.city,
       location_address: formData.address,
       location_state: formData.state,
-      truck_cuisine_type: formData.cuisineType,
-      truck_description: formData.truckDescription,
+      cuisine_type: formData.cuisineType,
+      description: formData.truckDescription,
       truck_photo: formData.truck_photo,
     };
 
@@ -96,9 +96,9 @@ export default function EditTruck(props) {
             <input
               onChange={onInputChange}
               type="text"
-              name="truck_name"
+              name="name"
               placeholder="Enter your truck's name"
-              value={formData.truck_name}
+              value={formData.name}
               required
             />
           </label>
@@ -122,10 +122,10 @@ export default function EditTruck(props) {
             <select
               onChange={onInputChange}
               type="select"
-              name="truck_cuisine_type"
+              name="cuisine_type"
               required
               defaultValue="-- Select your cuisine type --"
-              value={formData.truck_cuisine_type}
+              value={formData.cuisine_type}
             >
               {cuisineTypes.map((cuisine_type) => (
                 <option value={cuisine_type} key={cuisine_type}>
@@ -208,9 +208,9 @@ export default function EditTruck(props) {
             <input
               onChange={onInputChange}
               type="textarea"
-              name="truck_description"
+              name="description"
               placeholder="Tell us what you're all about!"
-              value={formData.truck_description}
+              value={formData.description}
             />
           </label>
         </div>

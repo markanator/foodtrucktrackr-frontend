@@ -12,7 +12,7 @@ const initialUserState = {
   userInfo: {
     id: 2,
     username: 'marktest1',
-    user_email: 'mark@test.com',
+    email: 'mark@test.com',
     user_first_name: null,
     user_last_name: null,
     user_role: 'diner',

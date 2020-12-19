@@ -9,12 +9,12 @@ const TrucksPage = () => {
     <div className="truckPage-container">
       {truckList.map((car) => (
         <div className="truckPage-item" key={car.id}>
-          <img src={car.truck_photo} alt={car.truck_name} width="250" />
+          <img src={car.truck_photo} alt={car.name} width="250" />
           <p>
-            <b>{car.truck_name}</b>
+            <b>{car.name}</b>
           </p>
-          <p>Cuisine: {car.truck_cuisine_type}</p>
-          <p>{car.truck_description}</p>
+          <p>Cuisine: {car.cuisine_type}</p>
+          <p>{car.description}</p>
           {/* <button
                             color="danger"
                             style={{ width: 100 }}

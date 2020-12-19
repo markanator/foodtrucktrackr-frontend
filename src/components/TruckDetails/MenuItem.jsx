@@ -15,7 +15,7 @@ export default function MenuItem({ menuItem }) {
       <Box w={1 / 5}>
         <Image
           src={menuItem.truck_photo}
-          alt={menuItem.truck_name}
+          alt={menuItem.name}
           h="50px"
           w="50px"
           objectFit="cover"

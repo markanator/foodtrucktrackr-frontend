@@ -35,6 +35,7 @@ import { Link as RLink } from 'react-router-dom';
 // locals
 import { useTrucksQuery } from '../../query/useTrucksQuery';
 import mapStyles from './mapStyles';
+import DefaultTruckImage from '../../assets/default_truck.webp';
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -124,10 +125,10 @@ export default function GMap() {
         {truckData &&
           truckData.map((truck) => (
             <Marker
-              key={truck.truck_name}
+              key={truck.name}
               position={{
-                lat: parseFloat(truck.truck_lat),
-                lng: parseFloat(truck.truck_lng),
+                lat: truck.latitude,
+                lng: truck.longitude,
               }}
               // icon={<FaMapMarkerAlt />}
               onClick={() => {
@@ -139,8 +140,8 @@ export default function GMap() {
         {selected ? (
           <InfoWindow
             position={{
-              lat: parseFloat(selected.truck_lat),
-              lng: parseFloat(selected.truck_lng),
+              lat: selected.latitude,
+              lng: selected.longitude,
             }}
             onCloseClick={() => {
               setSelected(null);
@@ -161,8 +162,8 @@ export default function GMap() {
                 display="block"
               >
                 <Image
-                  src={selected.truck_photo}
-                  alt={selected.truck_name}
+                  src={selected.hero_image}
+                  alt={selected.name}
                   w="100%"
                   maxW="270px !important"
                   height="180px"
@@ -177,10 +178,10 @@ export default function GMap() {
                 fontWeight="600"
                 py=".5rem"
               >
-                {selected.truck_name}
+                {selected.name}
               </Heading>
               <Text fontSize=".875rem">
-                {`${selected.truck_description.slice(0, 40)}...`}
+                {`${selected.description.slice(0, 40)}...`}
               </Text>
             </Box>
           </InfoWindow>

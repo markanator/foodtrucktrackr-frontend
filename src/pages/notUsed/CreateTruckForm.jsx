@@ -62,7 +62,7 @@ export default function CreateTruckForm(props) {
 
     // refactor to ensure database gets what it needs
     const dbTruck = {
-      truck_name: formData.truckName,
+      name: formData.truckName,
       truck_departure_time: arrDate,
       truck_arrival_time: depDate,
       user_id: formData.ownerID,
@@ -70,8 +70,8 @@ export default function CreateTruckForm(props) {
       location_city: formData.city,
       location_address: formData.address,
       location_state: formData.state,
-      truck_cuisine_type: formData.cuisineType,
-      truck_description: formData.truckDescription,
+      cuisine_type: formData.cuisineType,
+      description: formData.truckDescription,
       truck_photo: formData.truckImage,
     };
 

@@ -23,7 +23,7 @@ export default function MainDetailsCard({ truck }) {
         alignItems="center"
         className="needs__dash"
       >
-        {truck.truck_name}
+        {truck.name}
         <Badge
           className="tag"
           textTransform="uppercase"
@@ -39,7 +39,7 @@ export default function MainDetailsCard({ truck }) {
           rounded="4px"
           color="white"
         >
-          {truck.truck_cuisine_type}
+          {truck.cuisine_type}
         </Badge>
       </Heading>
       {/* LOCATION */}
@@ -63,7 +63,7 @@ export default function MainDetailsCard({ truck }) {
             verticalAlign: 'sub',
           }}
         />
-        {truck.truck_description.slice(0, 20)}
+        {truck.description.slice(0, 20)}
       </Box>
       {/* PHONE */}
       <Box

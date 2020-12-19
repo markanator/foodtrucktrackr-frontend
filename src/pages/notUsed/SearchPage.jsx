@@ -17,15 +17,15 @@ function SearchPage(props) {
         searchInfo.results.map((truck, index) => (
           <div key={index}>
             <Link to={`/trucks/${truck.truck_id}`}>
-              <h3>{truck.truck_name}</h3>
+              <h3>{truck.name}</h3>
             </Link>
-            <p>{truck.truck_cuisine_type}</p>
+            <p>{truck.cuisine_type}</p>
             <p>{truck.price_range}</p>
             <p>{truck.location_address}</p>
             <p>
               {truck.location_city}, {truck.location_state}
             </p>
-            <p>{truck.truck_description}</p>
+            <p>{truck.description}</p>
           </div>
         ))
       )}

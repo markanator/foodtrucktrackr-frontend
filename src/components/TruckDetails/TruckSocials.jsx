@@ -10,7 +10,7 @@ export default function TruckSocials({ truck }) {
         Truck Description
       </Heading>
       <Text fontSize="1rem" lineHeight="1.875rem" textColor="gray.600">
-        {truck.truck_description}
+        {truck.description}
       </Text>
       <Stack
         direction="row"

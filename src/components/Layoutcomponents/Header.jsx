@@ -135,10 +135,10 @@ const LoginBtnModal = () => {
   const { setUserState } = useUserContext();
 
   function onSubmit(values) {
-    // mutate({ ...values, user_email: values.email });
+    // mutate({ ...values, email: values.email });
     Axios.post(`${process.env.REACT_APP_HOSTED_BACKEND}/user/auth/login`, {
       ...values,
-      user_email: values.email,
+      email: values.email,
     })
       .then(({ data }) => {
         console.log(data);
@@ -317,11 +317,11 @@ const SignUpBtnModal = () => {
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Input
                   type="email"
-                  name="user_email"
+                  name="email"
                   placeholder="mark@example.com"
                   ref={register({ required: true, validate: validateField })}
                 />
-                <Text color="tomato">{errors.user_email && 'Required!'}</Text>
+                <Text color="tomato">{errors.email && 'Required!'}</Text>
               </FormControl>
               {/* PASSWORD */}
               <FormControl isRequired>

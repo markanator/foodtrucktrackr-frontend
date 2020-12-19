@@ -3,6 +3,7 @@ import { Badge, Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaEye, FaMapPin, FaPhoneAlt, FaRegHeart, FaTag } from 'react-icons/fa';
 import { Link as RLink } from 'react-router-dom';
+import DefaultTruckImage from '../../assets/default_truck.webp';
 
 export function TruckListingCard({ info }) {
   return (
@@ -44,8 +45,8 @@ export function TruckListingCard({ info }) {
         >
           {/* IMAGE */}
           <Image
-            src={info.truck_photo}
-            alt={info.truck_name}
+            src={info.hero_image || DefaultTruckImage}
+            alt={info.name}
             objectFit="cover"
             height="100%"
             w="100%"
@@ -73,7 +74,7 @@ export function TruckListingCard({ info }) {
             top="20px"
             right="20px"
           >
-            {info.truck_cuisine_type}
+            {info.cuisine_type}
           </Badge>
           {/* FEATURED */}
           {info.price_range === '$$' ? (
@@ -146,7 +147,7 @@ export function TruckListingCard({ info }) {
               m="0"
               lineHeight="30px"
             >
-              {info.truck_name}
+              {info.name}
             </Heading>
             {/* LOCATION */}
             <Box
@@ -168,7 +169,7 @@ export function TruckListingCard({ info }) {
                   verticalAlign: 'sub',
                 }}
               />
-              {info.truck_description.slice(0, 15)}
+              {info.description.slice(0, 15)}
             </Box>
             {/* PHONE */}
             <Box

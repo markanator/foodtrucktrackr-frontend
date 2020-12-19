@@ -14,9 +14,9 @@ import React from 'react';
 import { FaChevronDown, FaMapMarkedAlt } from 'react-icons/fa';
 // locals
 import Layout from '../components/Layout';
-import GMap from '../components/search/GMap';
+import GMap from '../components/Search/GMap';
 import { useTrucksQuery } from '../query/useTrucksQuery';
-import { TruckListingCard } from '../components/search/TruckListingCard';
+import { TruckListingCard } from '../components/Search/TruckListingCard';
 
 export default function ListingsPage() {
   const { data: truckList, isLoading, isError } = useTrucksQuery();
@@ -114,7 +114,9 @@ export default function ListingsPage() {
               <Text>Oops, an error occured try again later...</Text>
             ) : null}
             {truckList &&
-              truckList.map((truck) => <TruckListingCard info={truck} />)}
+              truckList.map((truck, idx) => (
+                <TruckListingCard key={`${idx}-${truck.slug}`} info={truck} />
+              ))}
           </Box>
           <Text>This is the listings page</Text>
         </Container>

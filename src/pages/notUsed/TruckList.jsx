@@ -30,11 +30,11 @@ const TruckList = ({ OperatorDashboard, ...props }) => {
             <div className="truckCardText">
               <Link to={`/trucks/${truck.id}`}>
                 <h3 style={{ textAlign: 'center' }}>
-                  Truck Name: {truck.truck_name}
+                  Truck Name: {truck.name}
                 </h3>
               </Link>
               <h4>Distance: {truck.location}</h4>
-              <h5>Food Description: {truck.truck_description}</h5>
+              <h5>Food Description: {truck.description}</h5>
               <h5>
                 Rating: <i className="fas fa-star 8x" style={starStyle} />
                 <i className="fas fa-star" style={starStyle} />

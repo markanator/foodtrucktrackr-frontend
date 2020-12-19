@@ -27,6 +27,7 @@ import TruckHeroImage from '../components/TruckDetails/TruckHeroImage';
 import TruckMenuList from '../components/TruckDetails/TruckMenuList';
 import TruckSocials from '../components/TruckDetails/TruckSocials';
 import TruckTags from '../components/TruckDetails/TruckTags';
+import DefaultTruckImage from '../assets/default_truck.webp';
 
 //! MAIN EXPORT PAGE
 export default function TruckDetails() {
@@ -61,7 +62,10 @@ export default function TruckDetails() {
   return (
     <Layout>
       <Flex direction="column" as="main">
-        <TruckHeroImage src={truck.truck_photo} alt={truck.truck_name} />
+        <TruckHeroImage
+          src={truck.hero_image || DefaultTruckImage}
+          alt={truck.name}
+        />
         <Container
           as="section"
           maxW="6xl"
@@ -238,7 +242,7 @@ export default function TruckDetails() {
                 <Link as={RLink} to="/#">
                   <Image
                     src={truck.truck_photo}
-                    alt={truck.truck_name}
+                    alt={truck.name}
                     w="80px"
                     h="80px"
                     rounded="full"
