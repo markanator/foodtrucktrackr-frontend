@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function TruckHeroImage({ src, name }) {
   return (
-    <Box as="section" w="full" h="400px" boxShadow="md">
+    <Box as="section" w="full" h="400px" boxShadow="md" maxW="7xl" mx="auto">
       <Image
         src={src}
         alt={name}

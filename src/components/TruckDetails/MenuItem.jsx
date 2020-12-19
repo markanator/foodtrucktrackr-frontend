@@ -14,8 +14,8 @@ export default function MenuItem({ menuItem }) {
     >
       <Box w={1 / 5}>
         <Image
-          src={menuItem.truck_photo}
-          alt={menuItem.name}
+          src={menuItem.item_photo}
+          alt={menuItem.item_name}
           h="50px"
           w="50px"
           objectFit="cover"
@@ -25,9 +25,9 @@ export default function MenuItem({ menuItem }) {
       </Box>
       <Box w={3 / 5} display="flex" flexDirection="column">
         <Heading as="h5" fontSize="1.25rem">
-          Item
+          {menuItem.item_name}
         </Heading>
-        <Text>item descriptioon</Text>
+        <Text>{menuItem.item_description}</Text>
       </Box>
       <Box
         w={1 / 5}
@@ -36,7 +36,7 @@ export default function MenuItem({ menuItem }) {
         alignItems="center"
       >
         <Badge fontSize="lg" variant="solid" colorScheme="gray">
-          $123
+          ${menuItem.item_price}
         </Badge>
       </Box>
     </ListItem>

@@ -63,7 +63,7 @@ export default function MainDetailsCard({ truck }) {
             verticalAlign: 'sub',
           }}
         />
-        {truck.description.slice(0, 20)}
+        {truck.address || 'No Address Listed.'}
       </Box>
       {/* PHONE */}
       <Box
@@ -99,7 +99,7 @@ export default function MainDetailsCard({ truck }) {
           display="inline-block"
           fontSize=".875rem"
           ml="6px"
-          background={truck.averageRating ? '#54ba1d' : '#e9e9e9'}
+          background={truck.averageRating >= 3 ? '#54ba1d' : '#e9e9e9'}
           fontWeight="600"
           lineHeight="1.25rem"
           rounded="4px"

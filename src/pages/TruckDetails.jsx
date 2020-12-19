@@ -81,7 +81,7 @@ export default function TruckDetails() {
             {/* TAGS */}
             <TruckTags />
             {/* MENU ITEMS  */}
-            <TruckMenuList truck={truck} />
+            <TruckMenuList list={truck.foodItems} />
           </Flex>
           <Flex as="aside" w={1 / 3} bg="blue" direction="column">
             {/* STATIC MAP */}
