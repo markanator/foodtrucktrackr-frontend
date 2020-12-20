@@ -14,6 +14,7 @@ import {
   SliderThumb,
   SliderTrack,
   Text,
+  Input,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
@@ -81,14 +82,26 @@ export default function ListingsPage() {
                 >
                   Categories
                 </MenuButton>
-                <MenuList>
+                <MenuList
+                  maxH="200px"
+                  overflow="hidden"
+                  overflowY="scroll"
+                  p=".125rem"
+                >
                   <MenuItem>American</MenuItem>
-                  <MenuItem>Asian</MenuItem>
                   <MenuItem>Barbeque</MenuItem>
+                  <MenuItem>Chinese</MenuItem>
                   <MenuItem>Dessert</MenuItem>
+                  <MenuItem>Filipino</MenuItem>
+                  <MenuItem>Greek</MenuItem>
+                  <MenuItem>Italian</MenuItem>
+                  <MenuItem>Kosher</MenuItem>
                   <MenuItem>Mexican</MenuItem>
                   <MenuItem>Pizza</MenuItem>
                   <MenuItem>Sea Food</MenuItem>
+                  <MenuItem>Thai</MenuItem>
+                  <MenuItem>Vegan</MenuItem>
+                  <MenuItem>Vegetarian</MenuItem>
                   <MenuItem>Other</MenuItem>
                 </MenuList>
               </Menu>
@@ -134,70 +147,4 @@ export default function ListingsPage() {
       </Flex>
     </Layout>
   );
-}
-
-{
-  /* <Container
-            maxW="6xl"
-            pos="absolute"
-            display="block"
-            bottom="60px"
-            top="atuo"
-            transform="none"
-            pb="0"
-            zIndex="999"
-            mt="0"
-            mx="auto"
-            alignItems="center"
-          >
-            <Flex
-              direction="row"
-              mt="2rem"
-              w="full"
-              bg="white"
-              border="2px"
-              borderColor="gray.400"
-              alignItems="stretch"
-              rounded="4px"
-              p="6px"
-              shadow="lg"
-            >
-              <Flex
-                as="form"
-                direction="row"
-                justifyItems="center"
-                alignItems="center"
-                w="full"
-              >
-                <FormControl w="80%">
-                  <FormLabel htmlFor="Search" display="none">
-                    First name
-                  </FormLabel>
-                  <Input
-                    bg="white"
-                    textColor="black"
-                    w="full"
-                    name="Search"
-                    border="none"
-                    focusBorderColor="transparent"
-                    fontSize="1.125rem"
-                    placeholder="What are you in the mood for?"
-                    // ref={register()}
-                  />
-                  <FormErrorMessage>
-                  </FormErrorMessage>
-                </FormControl>
-                <Button
-                  w="20%"
-                  colorScheme="red"
-                  fontSize="1.25rem"
-                  fontWeight="400"
-                  size="lg"
-                >
-                  Search
-                </Button>
-              </Flex>
-            </Flex>
-          </Container>
-          */
 }

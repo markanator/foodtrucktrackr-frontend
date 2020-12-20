@@ -32,13 +32,13 @@ import {
 import Axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FaPizzaSlice } from 'react-icons/fa';
+import { FaPizzaSlice, FaTruck } from 'react-icons/fa';
 import { Link as RLink, useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
 import { useUserContext } from '../../context/UserContext';
 import { isLoggedIn } from '../../utils/isLoggedIn';
-import { LoginSchema } from '../Forms/Schemas/LoginSchema';
-import { SignUpSchema } from '../Forms/Schemas/SignUpSchema';
+import { LoginSchema } from '../../Forms/Schemas/LoginSchema';
+import { SignUpSchema } from '../../Forms/Schemas/SignUpSchema';
 
 export default function Header() {
   let RightSide;
@@ -47,9 +47,27 @@ export default function Header() {
   if (userState.isLoggedIn && isLoggedIn()) {
     RightSide = (
       <>
-        <Button as={RLink} to="/search-trucks" mr="1rem" colorScheme="red">
-          Find Food
-        </Button>
+        {userState.user_role === 'diner' ? (
+          <Button
+            as={RLink}
+            to="/search-trucks"
+            mr="1rem"
+            colorScheme="red"
+            rightIcon={<FaPizzaSlice />}
+          >
+            Find Food
+          </Button>
+        ) : (
+          <Button
+            as={RLink}
+            to="/add-truck"
+            mr="1rem"
+            colorScheme="red"
+            rightIcon={<FaTruck />}
+          >
+            Add Listing
+          </Button>
+        )}
         <Menu>
           <MenuButton as={Button} colorScheme="red">
             Dashboard
@@ -186,6 +204,7 @@ const LoginBtnModal = () => {
             {(props) => (
               <Form>
                 <ModalBody>
+                  {/* EMAIL */}
                   <Field name="email">
                     {({ field, form }) => (
                       <FormControl
