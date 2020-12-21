@@ -25,7 +25,7 @@ export default function Hero() {
     <Flex
       className="home__hero"
       w="full"
-      h="90vh"
+      h="660px"
       bgImage={`url(${BgImg})`}
       zIndex="-1"
       backgroundSize="cover"
@@ -42,6 +42,7 @@ export default function Hero() {
           paddingBottom="2rem"
         >
           <Flex direction="column" mx="auto">
+            {/* MAIN HEADER */}
             <Heading
               as="h1"
               display="inline"
@@ -51,6 +52,7 @@ export default function Hero() {
             >
               Find Nearby <span style={{ color: 'red' }}>FoodTrucks</span>
             </Heading>
+            {/* SUB HEADER */}
             <Heading
               as="h4"
               fontSize="xl"
@@ -82,7 +84,7 @@ export default function Hero() {
               >
                 <FormControl isInvalid={errors.Search} w="80%">
                   <FormLabel htmlFor="Search" display="none">
-                    First name
+                    Search bar:
                   </FormLabel>
                   <Input
                     bg="white"
@@ -110,138 +112,6 @@ export default function Hero() {
                 </Button>
               </Flex>
             </Flex>
-            <Box margin="1rem auto 0 auto" textAlign="center">
-              <Heading fontSize="lg" fontWeight="500" as="h3" mb="1.125rem">
-                Or Browse Popular Categories
-              </Heading>
-              <List as="ul" m="0 auto" textAlign="center" display="flex">
-                <ListItem m="5px" textAlign="center">
-                  <Link
-                    to="/"
-                    as={RLink}
-                    pos="relative"
-                    _hover={{
-                      background: '#ff2222',
-                      color: 'white',
-                    }}
-                    w={150}
-                    h={105}
-                    display="block"
-                    overflow="hidden"
-                    rounded=".5rem"
-                    p=".5rem"
-                    background="rgba(255,255,255,0.07)"
-                  >
-                    <Box
-                      pos="relative"
-                      w="full"
-                      h="full"
-                      rounded=".5rem"
-                      pt="1rem"
-                      fontWeight="600"
-                      textColor="white"
-                      background="rgba(255,255,255,0.08)"
-                      textAlign="center"
-                      justifyItems="center"
-                      alignItems="center"
-                    >
-                      <FaUtensils
-                        style={{
-                          fontSize: '1.875rem',
-                          margin: '0 auto',
-                          marginBottom: '.5rem',
-                        }}
-                      />
-                      Category 1
-                    </Box>
-                  </Link>
-                </ListItem>
-                {/* Three */}
-                <ListItem m="5px" textAlign="center">
-                  <Link
-                    to="/"
-                    as={RLink}
-                    pos="relative"
-                    _hover={{
-                      background: '#ff2222',
-                      color: 'white',
-                    }}
-                    w={150}
-                    h={105}
-                    display="block"
-                    overflow="hidden"
-                    rounded=".5rem"
-                    p=".5rem"
-                    background="rgba(255,255,255,0.07)"
-                  >
-                    <Box
-                      pos="relative"
-                      w="full"
-                      h="full"
-                      rounded=".5rem"
-                      pt="1rem"
-                      fontWeight="600"
-                      textColor="white"
-                      background="rgba(255,255,255,0.08)"
-                      textAlign="center"
-                      justifyItems="center"
-                      alignItems="center"
-                    >
-                      <FaUtensils
-                        style={{
-                          fontSize: '1.875rem',
-                          margin: '0 auto',
-                          marginBottom: '.5rem',
-                        }}
-                      />
-                      Category 1
-                    </Box>
-                  </Link>
-                </ListItem>
-                {/* three */}
-                <ListItem m="5px" textAlign="center">
-                  <Link
-                    to="/"
-                    as={RLink}
-                    pos="relative"
-                    _hover={{
-                      background: '#ff2222',
-                      color: 'white',
-                    }}
-                    w={150}
-                    h={105}
-                    display="block"
-                    overflow="hidden"
-                    rounded=".5rem"
-                    p=".5rem"
-                    background="rgba(255,255,255,0.07)"
-                  >
-                    <Box
-                      pos="relative"
-                      w="full"
-                      h="full"
-                      rounded=".5rem"
-                      pt="1rem"
-                      fontWeight="600"
-                      textColor="white"
-                      background="rgba(255,255,255,0.08)"
-                      textAlign="center"
-                      justifyItems="center"
-                      alignItems="center"
-                    >
-                      <FaUtensils
-                        style={{
-                          fontSize: '1.875rem',
-                          margin: '0 auto',
-                          marginBottom: '.5rem',
-                        }}
-                      />
-                      Category 1
-                    </Box>
-                  </Link>
-                </ListItem>
-              </List>
-            </Box>
           </Flex>
         </Container>
       </Box>

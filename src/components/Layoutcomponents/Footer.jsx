@@ -1,10 +1,32 @@
-import { Container, Flex, Text } from '@chakra-ui/react';
+import { Container, Flex, Link, Text } from '@chakra-ui/react';
 import React from 'react';
 
 const Footer = () => (
-  <Flex as="footer" w="full">
-    <Container>
-      <Text textAlign="center">Copyright &copy; 2020 Food Truck Trackr</Text>
+  <Flex
+    as="footer"
+    w="full"
+    bg="#191f2b"
+    color="rgba(245,255,255,.7)"
+    borderTop="1px solid rgba(246,255,255,.07)"
+  >
+    <Container py="2rem" maxW="3xl">
+      <Text textAlign="center">
+        Copyright &copy; 2020 Food Truck Trackr. Made with{' '}
+        <span
+          role="textbox"
+          alt="love"
+          style={{
+            color: 'white',
+          }}
+        >
+          💪
+        </span>
+        by:{' '}
+        <Link href="https://markambrocio.com" external>
+          Mark Ambrocio
+        </Link>{' '}
+        - All Rights Reserved.
+      </Text>
     </Container>
   </Flex>
 );
