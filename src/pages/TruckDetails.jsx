@@ -17,7 +17,7 @@ import React, { useState } from 'react';
 import { FaPhoneAlt, FaRegClock, FaStore } from 'react-icons/fa';
 
 // locals
-import { useQuery } from 'react-query';
+import { useQuery, QueryClient } from 'react-query';
 import { Link as RLink, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import MainDetailsCard from '../components/TruckDetails/MainDetailsCard';
@@ -33,6 +33,13 @@ import DefaultTruckImage from '../assets/default_truck.webp';
 export default function TruckDetails() {
   const { truckID } = useParams();
   const [truck, setTruck] = useState({});
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 30000,
+      },
+    },
+  });
 
   // react query fetch
   const { isLoading, isError } = useQuery(
@@ -42,9 +49,12 @@ export default function TruckDetails() {
         `${process.env.REACT_APP_HOSTED_BACKEND}/trucks/${truckID}`
       ).then((res) => res.data),
     {
+      initialData: () =>
+        queryClient
+          .getQueryData('trucks')
+          ?.find((cachedTruck) => cachedTruck.id === truckID),
       cacheTime: 60000,
       onSuccess: (data) => {
-        // console.log('deets', data);
         setTruck({ ...data });
       },
       onError: (err) => {
@@ -121,7 +131,7 @@ export default function TruckDetails() {
                 />
                 Location
               </Heading>
-              <SingleTruckMap lat={truck.truck_lat} lng={truck.truck_lng} />
+              <SingleTruckMap lat={truck.latitude} lng={truck.longitude} />
             </Box>
             {/* BUSSINESS HOURS */}
             <Box

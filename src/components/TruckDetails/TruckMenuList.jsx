@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Flex, Heading, List } from '@chakra-ui/react';
+import { Box, Flex, Heading, List, ListItem } from '@chakra-ui/react';
 import React from 'react';
 import MenuItem from './MenuItem';
 
@@ -39,11 +39,22 @@ export default function TruckMenuList({ list }) {
           </Heading>
           <List mb="0" background="#f9f9f9">
             {/* sort through menuitems later */}
-            {list.length > 0
-              ? list.map((item) => (
-                  <MenuItem key={item.item_name} menuItem={item} />
-                ))
-              : 'No Items'}
+            {list.length > 0 ? (
+              list.map((item) => (
+                <MenuItem key={item.item_name} menuItem={item} />
+              ))
+            ) : (
+              <ListItem
+                className="menuitem__item"
+                padding="1rem 1.25rem"
+                border="1px solid #00000015"
+                pos="relative"
+                display="flex"
+                flexDirection="row"
+              >
+                No Menu Items...
+              </ListItem>
+            )}
             {/* <MenuItem menuItem={truck} /> */}
             {/* // <MenuItem menuItem={truck} /> */}
           </List>

@@ -6,17 +6,11 @@ import {
   Flex,
   Menu,
   MenuButton,
-  MenuGroup,
   MenuItem,
   MenuList,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
   Text,
-  Input,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 // locals
 import Layout from '../components/Layout';
@@ -26,9 +20,8 @@ import { useTrucksQuery } from '../query/useTrucksQuery';
 
 export default function ListingsPage() {
   const { data: truckList, isLoading, isError } = useTrucksQuery();
-  const [searchDistance, setSearchDistance] = useState(1);
 
-  console.log('das trucks', truckList);
+  console.log('render');
   return (
     <Layout>
       <Flex direction="column">
@@ -105,34 +98,12 @@ export default function ListingsPage() {
                   <MenuItem>Other</MenuItem>
                 </MenuList>
               </Menu>
-              {/* LOCATION RADIUS */}
-              <Menu>
-                <MenuButton
-                  colorScheme="red"
-                  mr="1rem"
-                  as={Button}
-                  rightIcon={<FaChevronDown />}
-                >
-                  Radius
-                </MenuButton>
-                <MenuList>
-                  <MenuGroup title="Distance:" fontSize="lg">
-                    <MenuItem>
-                      <Slider aria-label="slider-ex-1" defaultValue={30}>
-                        <SliderTrack bg="red.100">
-                          <SliderFilledTrack bg="red.500" />
-                        </SliderTrack>
-                        <SliderThumb />
-                      </Slider>
-                    </MenuItem>
-                    <MenuItem fontWeight="600">Search</MenuItem>
-                  </MenuGroup>
-                </MenuList>
-              </Menu>
+
+              {/* END SEARCH SORTS */}
             </Box>
           </Flex>
           {/* LISTINGS */}
-          <Box mx="-1rem" className="row">
+          <Box mx="-1rem" className="row" mb="4rem">
             {isLoading ? <Text>Loading...</Text> : null}
             {isError ? (
               <Text>Oops, an error occured try again later...</Text>
@@ -142,7 +113,6 @@ export default function ListingsPage() {
                 <TruckListingCard key={`${idx}-${truck.slug}`} info={truck} />
               ))}
           </Box>
-          <Text>This is the listings page</Text>
         </Container>
       </Flex>
     </Layout>
