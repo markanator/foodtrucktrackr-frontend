@@ -63,7 +63,7 @@ export function Locate({ panTo }) {
       onClick={() => {
         navigator.geolocation.getCurrentPosition(
           ({ coords }) => {
-            console.log(coords);
+            // console.log(coords);
             panTo({
               lat: coords.latitude,
               lng: coords.longitude,
@@ -132,7 +132,7 @@ export default function GMap() {
               }}
               // icon={<FaMapMarkerAlt />}
               onClick={() => {
-                console.log(truck);
+                // console.log(truck);
                 setSelected(truck);
               }}
             />
@@ -162,7 +162,7 @@ export default function GMap() {
                 display="block"
               >
                 <Image
-                  src={selected.hero_image}
+                  src={selected.hero_image || DefaultTruckImage}
                   alt={selected.name}
                   w="100%"
                   maxW="270px !important"

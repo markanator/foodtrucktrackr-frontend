@@ -162,7 +162,7 @@ const LoginBtnModal = () => {
       email: values.email,
     })
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         window.localStorage.setItem('token', data.token);
         setUserState({
           isLoggedIn: true,
@@ -276,7 +276,7 @@ const SignUpBtnModal = () => {
       ...values,
     })
       .then(({ data }) => {
-        console.log('signup data:', data);
+        // console.log('signup data:', data);
         // set localstorage token
         window.localStorage.setItem('token', data.token);
         setUserState({

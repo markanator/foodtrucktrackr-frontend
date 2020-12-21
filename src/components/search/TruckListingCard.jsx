@@ -31,6 +31,7 @@ export function TruckListingCard({ info }) {
         transition="ease-in-out .3s"
       >
         <Box
+          className="listing__img"
           display="block"
           pos="relative"
           overflow="hidden"

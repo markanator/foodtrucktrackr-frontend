@@ -74,7 +74,7 @@ export default function EditTruck(props) {
       .put(`/trucks/${id}`, dbTruck)
       .then((resp) => {
         console.log('SUBMITTED!');
-        console.log('post truck resp:: ', resp);
+        // console.log('post truck resp:: ', resp);
         push(`/trucks/${resp.data.truck_id}`);
       })
       .catch((err) => {

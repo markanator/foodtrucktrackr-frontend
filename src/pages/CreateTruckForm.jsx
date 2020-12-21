@@ -103,7 +103,7 @@ export default function CreateTruckForm() {
       }
     );
     const file = await res.json();
-    console.log('uploaded file:::', file);
+    // console.log('uploaded file:::', file);
     setHeroImg(file.secure_url);
   };
 

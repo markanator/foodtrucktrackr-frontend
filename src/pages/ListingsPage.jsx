@@ -22,7 +22,7 @@ import NewsletterSection from '../components/NewsletterSection';
 export default function ListingsPage() {
   const { data: truckList, isLoading, isError } = useTrucksQuery();
 
-  console.log('render');
+  // console.log('render');
   return (
     <Layout>
       <Flex direction="column">
