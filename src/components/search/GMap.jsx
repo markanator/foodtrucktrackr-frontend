@@ -33,7 +33,7 @@ import usePlacesAutocomplete, {
 } from 'use-places-autocomplete';
 import { Link as RLink } from 'react-router-dom';
 // locals
-import { useTrucksQuery } from '../../query/useTrucksQuery';
+import { useTrucksQuery } from '../../RQ/query/useTrucksQuery';
 import mapStyles from './mapStyles';
 import DefaultTruckImage from '../../assets/default_truck.webp';
 

@@ -16,7 +16,8 @@ import { FaChevronDown } from 'react-icons/fa';
 import Layout from '../components/Layout';
 import GMap from '../components/Search/GMap';
 import { TruckListingCard } from '../components/Search/TruckListingCard';
-import { useTrucksQuery } from '../query/useTrucksQuery';
+import { useTrucksQuery } from '../RQ/query/useTrucksQuery';
+import NewsletterSection from '../components/NewsletterSection';
 
 export default function ListingsPage() {
   const { data: truckList, isLoading, isError } = useTrucksQuery();
@@ -115,6 +116,8 @@ export default function ListingsPage() {
           </Box>
         </Container>
       </Flex>
+      {/* SEND EMAIL */}
+      <NewsletterSection />
     </Layout>
   );
 }

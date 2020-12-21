@@ -39,7 +39,7 @@ export default function TruckMenuList({ list }) {
           </Heading>
           <List mb="0" background="#f9f9f9">
             {/* sort through menuitems later */}
-            {list.length > 0 ? (
+            {list && list.length > 0 ? (
               list.map((item) => (
                 <MenuItem key={item.item_name} menuItem={item} />
               ))

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable camelcase */
 /* eslint-disable no-multi-str */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -26,23 +27,25 @@ import {
   ComboboxPopover,
 } from '@reach/combobox';
 import '@reach/combobox/styles.css';
-// locals
 import { useLoadScript } from '@react-google-maps/api';
 import { Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import { Link as RLink } from 'react-router-dom';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete';
+// locals
 import Layout from '../components/Layout';
 import { CreateTruckSchema } from '../Forms/Schemas/CreateTruckSchema';
-import { axiosWithAuth } from '../utils/AxiosWithAuth';
+import { useCreateTruckMutation } from '../RQ/mutations/useCreateTruckMutation';
 
 const libraries = ['places'];
 
+// ! MAIN EXPORT
 export default function CreateTruckForm() {
-  const router = useHistory();
+  const queryClient = useQueryClient();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
     libraries,
@@ -56,8 +59,9 @@ export default function CreateTruckForm() {
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-  const [latLng, setLatLng] = useState({});
+  const [latLng, setLatLng] = useState({ lat: 43.0, lng: -87.0 });
   const [heroImg, setHeroImg] = useState('');
+  const [truckDeets, setTruckDeets] = useState({ id: null });
 
   const cuisineTypes = [
     'American',
@@ -103,6 +107,8 @@ export default function CreateTruckForm() {
     setHeroImg(file.secure_url);
   };
 
+  const { mutate, isSuccess, isLoading, isIdle } = useCreateTruckMutation();
+
   const handleSubmit = (values) => {
     const truck = {
       ...values,
@@ -111,15 +117,15 @@ export default function CreateTruckForm() {
       lng: latLng.lng,
       hero_image: heroImg,
     };
-    // console.log('submitted values', truck);
-    axiosWithAuth()
-      .post('/trucks', truck)
-      .then((res) => {
-        if (res.status > 200 && res.status < 300) {
-          router.push(`/truck/${res.data.id}`);
-        }
-      })
-      .catch((err) => console.log(err));
+    mutate(truck, {
+      onSuccess: (deets) => {
+        // console.log('inner RQ succes!', deets);
+        setTruckDeets({
+          ...deets.data,
+        });
+        queryClient.setQueryData(['truck', deets?.data.id], deets?.data);
+      },
+    });
   };
 
   return (
@@ -533,6 +539,7 @@ export default function CreateTruckForm() {
                 {/* FINAL BUTTON */}
                 <Container
                   display="flex"
+                  flexDirection="column"
                   mx="auto"
                   alignItems="center"
                   w="full"
@@ -543,9 +550,30 @@ export default function CreateTruckForm() {
                     color="white"
                     size="lg"
                     m="auto"
+                    mb="1rem"
+                    disabled={isSuccess}
                   >
-                    Submit
+                    {isLoading
+                      ? 'Submitting...'
+                      : isSuccess
+                      ? 'Truck Created!'
+                      : isIdle
+                      ? 'Submit'
+                      : null}
                   </Button>
+                  {isSuccess ? (
+                    <Button
+                      as={RLink}
+                      to={`/truck/${truckDeets.id}`}
+                      type="button"
+                      colorScheme="green"
+                      color="white"
+                      size="lg"
+                      m="auto"
+                    >
+                      View Truck
+                    </Button>
+                  ) : null}
                 </Container>
               </Form>
             )}

@@ -1,7 +1,5 @@
 import {
-  Badge,
   Box,
-  Button,
   Container,
   Flex,
   Heading,
@@ -9,51 +7,36 @@ import {
   Link,
   List,
   ListItem,
-  Stack,
-  Text,
 } from '@chakra-ui/react';
 import Axios from 'axios';
 import React, { useState } from 'react';
 import { FaPhoneAlt, FaRegClock, FaStore } from 'react-icons/fa';
-
 // locals
-import { useQuery, QueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Link as RLink, useParams } from 'react-router-dom';
+import DefaultTruckImage from '../assets/default_truck.webp';
 import Layout from '../components/Layout';
 import MainDetailsCard from '../components/TruckDetails/MainDetailsCard';
-import MenuItem from '../components/TruckDetails/MenuItem';
 import SingleTruckMap from '../components/TruckDetails/StaticTruckMap';
 import TruckHeroImage from '../components/TruckDetails/TruckHeroImage';
 import TruckMenuList from '../components/TruckDetails/TruckMenuList';
 import TruckSocials from '../components/TruckDetails/TruckSocials';
 import TruckTags from '../components/TruckDetails/TruckTags';
-import DefaultTruckImage from '../assets/default_truck.webp';
 
 //! MAIN EXPORT PAGE
 export default function TruckDetails() {
   const { truckID } = useParams();
   const [truck, setTruck] = useState({});
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 30000,
-      },
-    },
-  });
+  const queryClient = useQueryClient();
 
   // react query fetch
   const { isLoading, isError } = useQuery(
-    ['truckDeets', truckID],
+    ['truck', parseInt(truckID)],
     async () =>
       Axios.get(
         `${process.env.REACT_APP_HOSTED_BACKEND}/trucks/${truckID}`
       ).then((res) => res.data),
     {
-      initialData: () =>
-        queryClient
-          .getQueryData('trucks')
-          ?.find((cachedTruck) => cachedTruck.id === truckID),
-      cacheTime: 60000,
       onSuccess: (data) => {
         setTruck({ ...data });
       },
